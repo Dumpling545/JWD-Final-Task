@@ -32,17 +32,17 @@ public class SignIn implements Command {
 
             if (user == null) {
                 response.sendRedirect(
-                        "Controller?command=gotosigninpage&message=wrong2");
+                        "Controller?command=gotoindexpage&message=wrong2");
                 return;
             }
 
             HttpSession session = request.getSession(true);
             session.setAttribute("email", email);
-            response.sendRedirect("Controller?command=gotoindexpage");
+            response.sendRedirect("Controller?command=gotomainpage");
 
         } catch (ServiceException e) {
             response.sendRedirect(
-                    "Controller?command=gotosigninpage&message=wrong in catch");
+                    "Controller?command=gotoindexpage&message=wrong in catch");
         }
     }
 

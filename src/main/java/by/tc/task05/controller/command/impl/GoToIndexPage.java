@@ -30,7 +30,7 @@ public class GoToIndexPage implements Command {
 			requestDispatcher.forward(request, response);
 
 		} catch (ServiceException e) {
-			request.setAttribute("error", "Something wrong with our server :(");
+			e.printStackTrace();
 		}
 
 
