@@ -30,6 +30,7 @@ public class SaveNewUser implements Command {
         } catch (ServiceException e) {
             RequestDispatcher requestDispatcher =
                     request.getRequestDispatcher("/WEB-INF/jsp/signin.jsp");
+            request.setAttribute("message", "registerError");
             requestDispatcher.forward(request, response);
         }
     }

@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" 
-  version="5.0">
-  <display-name>Final Project</display-name>
-  <welcome-file-list>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" version="5.0">
+	<display-name>Final Project</display-name>
+	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-  <servlet>
+	<servlet>
 		<servlet-name>HBSController</servlet-name>
 		<servlet-class>by.tc.task05.controller.Controller</servlet-class>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>HBSController</servlet-name>
 		<url-pattern>/Controller</url-pattern>
 	</servlet-mapping>
-
 	<session-config>
 		<session-timeout>60</session-timeout>
 	</session-config>
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+		<param-value>by.tc.task05.bundle.WebsiteTextBundle</param-value>
+	</context-param>
 </web-app>

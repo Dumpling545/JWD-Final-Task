@@ -8,15 +8,19 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class Controller extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private final CommandProvider provider = new CommandProvider();
     private static String COMMAND_PARAMETER = "command";
+    private static String LAST_URL_SESSION_ATTRIBUTE_KEY = "lastUrl";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        HttpSession session = req.getSession(true);
+        session.setAttribute(LAST_URL_SESSION_ATTRIBUTE_KEY, req.getRequestURL());
         process(req, resp);
     }
 

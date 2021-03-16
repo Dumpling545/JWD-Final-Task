@@ -15,10 +15,10 @@ public class SignOut implements Command {
             HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (session != null) {
-            session.removeAttribute("email");
+            session.removeAttribute("userId");
         }
         response.sendRedirect(
-                "Controller?command=gotoindexpage&message=logout ok");
+                "Controller?command=gotostarterpage&message=logoutOk");
 
     }
 

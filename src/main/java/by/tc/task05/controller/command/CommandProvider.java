@@ -12,8 +12,10 @@ public class CommandProvider {
 		commands.put(CommandName.GOTOSIGNIN, new GoToSignInPage());
 		commands.put(CommandName.GOTOREGISTRATION, new GoToRegistrationPage());
 		commands.put(CommandName.SAVENEWUSER, new SaveNewUser());
-		commands.put(CommandName.GOTOINDEXPAGE, new GoToIndexPage());
+		commands.put(CommandName.GOTOSEARCHPAGE, new GoToSearchPage());
+		commands.put(CommandName.GOTOSTARTERPAGE, new GoToStarterPage());
 		commands.put(CommandName.SIGNOUT, new SignOut());
+		commands.put(CommandName.CHANGELANGUAGE, new ChangeLanguage());
 	}
 
 

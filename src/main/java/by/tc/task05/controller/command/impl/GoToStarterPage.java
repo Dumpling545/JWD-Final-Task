@@ -1,20 +1,19 @@
 package by.tc.task05.controller.command.impl;
 
 import java.io.IOException;
-
 import by.tc.task05.controller.command.Command;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class GoToSignInPage implements Command {
+public class GoToStarterPage implements Command {
 
     @Override
     public void execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher =
-                request.getRequestDispatcher("/WEB-INF/jsp/signin.jsp");
+                request.getRequestDispatcher("/WEB-INF/jsp/starterpage.jsp");
         requestDispatcher.forward(request, response);
     }
 

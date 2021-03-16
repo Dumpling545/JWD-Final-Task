@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User authorization(String email, String rawPassword)
             throws ServiceException {
-        CredentialsValidator validator = ValidatorProvider.getInstance().getValidator();
+        CredentialsValidator validator = ValidatorProvider.getInstance().getCredentialsValidator();
         if (!validator.validateEmail(email)
                 || !validator.validatePassword(rawPassword)) {
             throw new ServiceException("Invalid login or password");
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registration(User user) throws ServiceException {
-        CredentialsValidator validator = ValidatorProvider.getInstance().getValidator();
+        CredentialsValidator validator = ValidatorProvider.getInstance().getCredentialsValidator();
         if (!validator.validateEmail(user.getEmail())
                 || !validator.validatePassword(user.getPasswordHash())) {
             throw new ServiceException("Invalid login or password");
