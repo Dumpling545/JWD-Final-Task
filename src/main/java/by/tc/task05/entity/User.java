@@ -1,6 +1,10 @@
 package by.tc.task05.entity;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private static final long serialVersionUID = -3634818008132749930L;
+    
     private int id;
     private String email;
     private String firstName;

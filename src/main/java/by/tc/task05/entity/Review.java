@@ -1,8 +1,11 @@
 package by.tc.task05.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Review {
+public class Review implements Serializable {
+    
+    private static final long serialVersionUID = 5704141413366695697L;
     private int reservationId;
     private String title;
     private String text;

@@ -1,6 +1,11 @@
 package by.tc.task05.entity;
 
-public class Hotel {
+import java.io.Serializable;
+
+public class Hotel implements Serializable{
+    
+    private static final long serialVersionUID = -4513059396813774587L;
+
     private int id;
     private String name;
     private String cachedAddress;

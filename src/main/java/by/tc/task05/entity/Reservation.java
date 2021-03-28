@@ -1,8 +1,10 @@
 package by.tc.task05.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Reservation {
+public class Reservation implements Serializable {
+    private static final long serialVersionUID = 8682604997339145083L;
     private int id;
     private int userId;
     private int hotelId;
@@ -11,7 +13,6 @@ public class Reservation {
     private int numberOfNights;
     private String paymentToken;
     private ReservationStatus status;
-
     public int getId() {
         return id;
     }

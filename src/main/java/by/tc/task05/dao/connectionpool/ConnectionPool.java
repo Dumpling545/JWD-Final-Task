@@ -9,6 +9,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ConnectionPool {
     private BlockingQueue<Connection> connectionQueue;
@@ -30,10 +32,11 @@ public class ConnectionPool {
 
     private ConnectionPool() {
         ResourceBundle dbResourceBundle = ResourceBundle.getBundle(
-                "by.tc.task05.dao.connectionpool.impl.db", Locale.ENGLISH);
+                "by.tc.task05.bundle.db");
         this.driverName = dbResourceBundle.getString(DB_DRIVER);
         this.url = dbResourceBundle.getString(DB_URL);
-        this.user = dbResourceBundle.getString(DB_USER);;
+        this.user = dbResourceBundle.getString(DB_USER);
+        ;
         this.password = dbResourceBundle.getString(DB_PASSWORD);
         try {
             this.poolSize =
@@ -100,6 +103,26 @@ public class ConnectionPool {
             connectionQueue.add(connection);
         } else {
             throw new ConnectionPoolException("Connection isn't taken");
+        }
+    }
+
+    public void closeConnections() throws ConnectionPoolException {
+        Connection connection = null;
+        while (!givenAwayConQueue.isEmpty()) {
+            try {
+                connection = givenAwayConQueue.take();
+                connection.close();
+            } catch (InterruptedException | SQLException e) {
+                throw new ConnectionPoolException(e);
+            }
+        }
+        while (!connectionQueue.isEmpty()) {
+            try {
+                connection = connectionQueue.take();
+                connection.close();
+            } catch (InterruptedException | SQLException e) {
+                throw new ConnectionPoolException(e);
+            }
         }
     }
 }

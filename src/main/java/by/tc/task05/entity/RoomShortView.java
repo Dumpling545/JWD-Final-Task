@@ -1,6 +1,10 @@
 package by.tc.task05.entity;
 
-public class RoomShortView {
+import java.io.Serializable;
+
+public class RoomShortView implements Serializable {
+    private static final long serialVersionUID = 1206903704279892684L;
+    
     private int id;
     private String name;
     private String address;

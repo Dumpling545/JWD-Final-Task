@@ -1,6 +1,10 @@
 package by.tc.task05.entity;
 
-public class Room {
+import java.io.Serializable;
+
+public class Room implements Serializable {
+    private static final long serialVersionUID = -567615856330086286L;
+    
     private int id;
     private int hotelId;
     private String name;

@@ -1,18 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"
-    import="java.util.List, by.htp.les02.bean.News" %>
+    import="java.util.List, by.tc.task05.entity.Room" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:setLocale value="${cookie['lang'].value}" scope="session" />
+<fmt:setBundle basename = "by.tc.task05.bundle.WebsiteTextBundle"/>
 <!DOCTYPE html>
 <html>
 <head>
     <title>HBS</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/main.css">
+    <style>
+            <jsp:include page="../css/main.css"/>
+        </style>
 </head>
 <body>
     <c:import url="header.jsp" />
     <div class="content">
-        <c:import url="searchRoomPanel.jsp"/><c:import url="messagePanel.jsp" /><div class="rooms">
+        <c:import url="searchRoomPanel.jsp"/><div class="rooms">
             <table class="rooms-table">
                 <tr>
                     <th><fmt:message key="roomIcon"/></th>

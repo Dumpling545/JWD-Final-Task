@@ -9,12 +9,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class GoToRegistrationPage implements Command {
-
+    private static final String REGISTRATION_JSP_LOCATION = "/WEB-INF/jsp/registration.jsp";
     @Override
     public void execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher =
-                request.getRequestDispatcher("/WEB-INF/jsp/registration.jsp");
+                request.getRequestDispatcher(REGISTRATION_JSP_LOCATION);
         requestDispatcher.forward(request, response);
 
     }

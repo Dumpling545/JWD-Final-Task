@@ -1,6 +1,10 @@
 package by.tc.task05.entity;
 
-public class RoomFeature {
+import java.io.Serializable;
+
+public class RoomFeature implements Serializable {
+    private static final long serialVersionUID = 3141244771836615973L;
+    
     private int roomId;
     private boolean hasAirconditioning;
     private boolean hasHeating;

@@ -1,6 +1,11 @@
 package by.tc.task05.entity;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
+    
+    private static final long serialVersionUID = -1835836785721884262L;
+
     private double latitude;
     private double longtitude;
     public double getLatitude() {
