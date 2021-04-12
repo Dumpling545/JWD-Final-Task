@@ -1,13 +1,10 @@
 package by.tc.task05.controller.command.impl;
 
 import java.io.IOException;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import by.tc.task05.controller.command.Command;
 import by.tc.task05.controller.command.CommandName;
-import by.tc.task05.controller.helper.UrlBuilder;
+import by.tc.task05.controller.helper.UrlHelper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,19 +18,23 @@ public class ChangeLanguage implements Command {
 
     @Override
     public void execute(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+                        HttpServletResponse response)
+            throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Cookie lang = new Cookie(LOCALE_COOKIE_KEY, request.getParameter(LANGUAGE_PARAMETER_KEY));
+        Cookie lang = new Cookie(LOCALE_COOKIE_KEY,
+                request.getParameter(LANGUAGE_PARAMETER_KEY));
         response.addCookie(lang);
         if (session != null) {
-            Object attr =session.getAttribute(LAST_URL_ATTRIBUTE_KEY);
-            if(attr != null){
+            Object attr = session.getAttribute(LAST_URL_ATTRIBUTE_KEY);
+            if (attr != null) {
                 response.sendRedirect((String) attr);
             } else {
-                response.sendRedirect(UrlBuilder.buildUrl(CommandName.GOTOSTARTERPAGE));
+                response.sendRedirect(
+                        UrlHelper.buildUrl(CommandName.GOTOSTARTERPAGE));
             }
         } else {
-            response.sendRedirect(UrlBuilder.buildUrl(CommandName.GOTOSTARTERPAGE));
+            response.sendRedirect(
+                    UrlHelper.buildUrl(CommandName.GOTOSTARTERPAGE));
         }
 
     }

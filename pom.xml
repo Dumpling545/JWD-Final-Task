@@ -49,6 +49,11 @@
       <artifactId>guava</artifactId>
       <version>30.1.1-jre</version>
     </dependency>
+    <dependency>
+      <groupId>fr.marcwrobel</groupId>
+      <artifactId>jbanking</artifactId>
+      <version>3.0.0</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -87,5 +92,15 @@
         </plugin>
       </plugins>
     </pluginManagement>
+      <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <configuration>
+                  <source>15</source>
+                  <target>15</target>
+              </configuration>
+          </plugin>
+      </plugins>
   </build>
 </project>

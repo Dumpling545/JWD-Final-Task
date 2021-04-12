@@ -2,11 +2,12 @@ package by.tc.task05.service.validator.impl;
 
 import java.time.LocalDate;
 
+import by.tc.task05.entity.Room;
 import by.tc.task05.entity.filter.RoomSearchServiceFilter;
 import by.tc.task05.service.exception.*;
-import by.tc.task05.service.validator.RoomSearchValidator;
+import by.tc.task05.service.validator.RoomValidator;
 
-public class RoomSearchValidatorImpl implements RoomSearchValidator {
+public class RoomValidatorImpl implements RoomValidator {
 
     private final static int DEFAULT_PAGE = 1;
     private final static int DEFAULT_PAGE_SIZE = 10;
@@ -15,15 +16,21 @@ public class RoomSearchValidatorImpl implements RoomSearchValidator {
 
     private final static String ONE_DATE_SEARCH_MSG = "Search with one date";
     private final static String DATE_IN_PAST_MSG = "Booking date in past";
-    private final static String WRONG_DATE_ORDER_MSG = "Wrong date range bounds order";
+    private final static String WRONG_DATE_ORDER_MSG =
+            "Wrong date range bounds order";
 
-    private final static String NEGATIVE_PRICE_MSG = "Price range has negative values";
-    private final static String WRONG_PRICE_ORDER_MSG = "Wrong price range bounds order";
+    private final static String NEGATIVE_PRICE_MSG =
+            "Price range has negative values";
+    private final static String WRONG_PRICE_ORDER_MSG =
+            "Wrong price range bounds order";
 
-    private final static String NON_POSITIVE_NUMBER_OF_BEDS_MSG = "Number of beds is non positive";
+    private final static String NON_POSITIVE_NUMBER_OF_BEDS_MSG =
+            "Number of beds is non positive";
 
-    private final static String RATING_OUT_OF_BOUNDS_MAG = "Rating is out of bounds";
-    private final static String WRONG_RATING_ORDER_MSG = "Wrong rating range bounds order";
+    private final static String RATING_OUT_OF_BOUNDS_MAG =
+            "Rating is out of bounds";
+    private final static String WRONG_RATING_ORDER_MSG =
+            "Wrong rating range bounds order";
 
     private final static int MIN_RATING = 1;
     private final static int MAX_RATING = 10;
@@ -31,9 +38,10 @@ public class RoomSearchValidatorImpl implements RoomSearchValidator {
     @Override
     public void validateFilter(RoomSearchServiceFilter filter)
             throws ServiceException {
-        if (filter.getCheckInDate() == null && filter.getCheckOutDate() != null
-                || filter.getCheckInDate() != null
-                && filter.getCheckOutDate() == null) {
+        if (filter.getCheckInDate() == null &&
+                filter.getCheckOutDate() != null ||
+                filter.getCheckInDate() != null &&
+                        filter.getCheckOutDate() == null) {
             throw new InvalidDateRangeException(ONE_DATE_SEARCH_MSG);
         }
         if (filter.getCheckInDate() != null &&
@@ -68,11 +76,11 @@ public class RoomSearchValidatorImpl implements RoomSearchValidator {
         if (!filter.isRatingLowBoundInitialized()) {
             filter.setRatingLowBound(MIN_RATING);
         }
-        if(!filter.isRatingHighBoundInitialized()){
+        if (!filter.isRatingHighBoundInitialized()) {
             filter.setRatingHighBound(MAX_RATING);
         }
-        if (filter.getRatingLowBound() < MIN_RATING
-                || filter.getRatingHighBound() > MAX_RATING) {
+        if (filter.getRatingLowBound() < MIN_RATING ||
+                filter.getRatingHighBound() > MAX_RATING) {
             throw new InvalidRatingRangeException(RATING_OUT_OF_BOUNDS_MAG);
         }
         if (filter.getRatingLowBound() > filter.getRatingHighBound()) {
@@ -81,15 +89,32 @@ public class RoomSearchValidatorImpl implements RoomSearchValidator {
         if (filter.getLocation() == null || filter.getLocation().isBlank()) {
             throw new EmptyLocationException();
         }
-        if(!filter.isPageInitialized()){
+        if (!filter.isPageInitialized()) {
             filter.setPage(DEFAULT_PAGE);
-        }else if (filter.getPage() < 1) {
+        } else if (filter.getPage() < 1) {
             throw new InvalidPageException();
         }
-        if(!filter.isPageSizeInitialized()){
+        if (!filter.isPageSizeInitialized()) {
             filter.setPageSize(DEFAULT_PAGE_SIZE);
-        }else if (filter.getPageSize() < 1) {
+        } else if (filter.getPageSize() < 1) {
             throw new InvalidPageSizeException();
+        }
+    }
+
+    @Override
+    public void validateRoom(Room room) throws ServiceException {
+        if (room.getName() == null || room.getName().isBlank()) {
+            throw new EmptyInanimateNameException();
+        }
+        if (room.getShortDescription() == null ||
+                room.getShortDescription().isBlank()) {
+            throw new EmptyInanimateNameException();
+        }
+        if (room.getCost() < 0) {
+            throw new InvalidPriceRangeException(NEGATIVE_PRICE_MSG);
+        }
+        if (room.getNumberOfBeds() < 1) {
+            throw new NumberOfBedsException(NON_POSITIVE_NUMBER_OF_BEDS_MSG);
         }
     }
 

@@ -1,20 +1,21 @@
 package by.tc.task05.controller;
 
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import by.tc.task05.controller.command.Command;
 import by.tc.task05.controller.command.CommandName;
 import by.tc.task05.controller.command.CommandProvider;
-import by.tc.task05.controller.helper.UrlBuilder;
+import by.tc.task05.controller.helper.UrlHelper;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+@MultipartConfig(location = "/home/user/fileServer/images")
 public class Controller extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private final CommandProvider provider = new CommandProvider();
@@ -27,7 +28,8 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = req.getSession(true);
         session.setAttribute(LAST_URL_SESSION_ATTRIBUTE_KEY,
-                req.getRequestURL().append('?').append(req.getQueryString()).toString());
+                req.getRequestURL().append('?').append(req.getQueryString())
+                        .toString());
         process(req, resp);
     }
 
@@ -38,7 +40,8 @@ public class Controller extends HttpServlet {
     }
 
     private void process(HttpServletRequest request,
-                         HttpServletResponse response) throws ServletException, IOException {
+                         HttpServletResponse response)
+            throws ServletException, IOException {
         String name;
         Command command;
         name = request.getParameter(COMMAND_PARAMETER);
@@ -46,17 +49,17 @@ public class Controller extends HttpServlet {
         logger.log(Level.WARNING, name);
         if (name != null) {
             command = provider.takeCommand(name);
-            if (command != null)
+            if (command != null) {
                 command.execute(request, response);
-            else {
+            } else {
                 logger.log(Level.WARNING, "command == null");
-                response.sendRedirect(
-                        UrlBuilder.buildUrl(CommandName.GOTOSTARTERPAGE, NO_COMMAND_MSG));
+                response.sendRedirect(UrlHelper
+                        .buildUrl(CommandName.GOTOSTARTERPAGE, NO_COMMAND_MSG));
             }
         } else {
             logger.log(Level.WARNING, "name == null");
-            response.sendRedirect(
-                    UrlBuilder.buildUrl(CommandName.GOTOSTARTERPAGE, NO_COMMAND_MSG));
+            response.sendRedirect(UrlHelper
+                    .buildUrl(CommandName.GOTOSTARTERPAGE, NO_COMMAND_MSG));
         }
     }
 }

@@ -2,12 +2,12 @@ package by.tc.task05.controller.command.impl;
 
 import java.io.IOException;
 import java.util.Optional;
+
 import by.tc.task05.controller.command.Command;
 import by.tc.task05.controller.command.CommandName;
 import by.tc.task05.controller.helper.ExceptionMessageMapper;
-import by.tc.task05.controller.helper.UrlBuilder;
+import by.tc.task05.controller.helper.UrlHelper;
 import by.tc.task05.entity.User;
-import by.tc.task05.service.exception.CredentialValidationException;
 import by.tc.task05.service.exception.ServiceException;
 import by.tc.task05.service.ServiceProvider;
 import by.tc.task05.service.UserService;
@@ -24,7 +24,8 @@ public class SignIn implements Command {
 
     @Override
     public void execute(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+                        HttpServletResponse response)
+            throws ServletException, IOException {
         String email;
         String password;
 
@@ -38,7 +39,7 @@ public class SignIn implements Command {
         try {
             user = userService.authorization(email, password);
             if (user.isEmpty()) {
-                response.sendRedirect(UrlBuilder
+                response.sendRedirect(UrlHelper
                         .buildUrl(CommandName.GOTOSIGNIN, NO_SUCH_USER_MSG));
                 return;
             }
@@ -46,11 +47,11 @@ public class SignIn implements Command {
             HttpSession session = request.getSession(true);
             session.setAttribute(USER_ID_ATTRIBUTE_KEY, user.get().getId());
             response.sendRedirect(
-                    UrlBuilder.buildUrl(CommandName.GOTOSTARTERPAGE));
+                    UrlHelper.buildUrl(CommandName.GOTOSTARTERPAGE));
 
         } catch (ServiceException e) {
-            UrlBuilder.sendRedirectToLastUrlWithMessage(request,
-                    response, ExceptionMessageMapper.getKey(this, e));
+            response.sendRedirect(UrlHelper.buildUrl(CommandName.GOTOSIGNIN,
+                    ExceptionMessageMapper.getKey(this, e)));
         }
     }
 

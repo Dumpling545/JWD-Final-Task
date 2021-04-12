@@ -1,5 +1,6 @@
 package by.tc.task05.dao;
 
+import by.tc.task05.dao.impl.SQLHotelDAO;
 import by.tc.task05.dao.impl.SQLRoomDAO;
 import by.tc.task05.dao.impl.SQLUserDAO;
 
@@ -9,6 +10,7 @@ public final class DAOProvider {
 	
 	private final UserDAO userDAO = new SQLUserDAO();
 	private final RoomDAO roomDAO = new SQLRoomDAO();
+	private final HotelDAO hotelDAO = new SQLHotelDAO();
 	
 	private DAOProvider() {}
 	
@@ -22,5 +24,8 @@ public final class DAOProvider {
 
 	public RoomDAO getRoomDAO() {
 		return roomDAO;
-	}	
+	}
+	public HotelDAO getHotelDAO() {
+		return hotelDAO;
+	}
 }

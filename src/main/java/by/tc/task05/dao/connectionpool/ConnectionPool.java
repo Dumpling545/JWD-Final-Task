@@ -31,8 +31,8 @@ public class ConnectionPool {
     private static final ConnectionPool connectionPool = new ConnectionPool();
 
     private ConnectionPool() {
-        ResourceBundle dbResourceBundle = ResourceBundle.getBundle(
-                "by.tc.task05.bundle.db");
+        ResourceBundle dbResourceBundle =
+                ResourceBundle.getBundle("by.tc.task05.bundle.db");
         this.driverName = dbResourceBundle.getString(DB_DRIVER);
         this.url = dbResourceBundle.getString(DB_URL);
         this.user = dbResourceBundle.getString(DB_USER);

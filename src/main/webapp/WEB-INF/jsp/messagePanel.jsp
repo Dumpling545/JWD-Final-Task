@@ -4,9 +4,8 @@
 <fmt:setLocale value="${cookie['lang'].value}" scope="session" />
 <fmt:setBundle basename = "by.tc.task05.bundle.WebsiteTextBundle"/>
 <c:if test="${param['message'] != null}">
-    <div class="message-panel">
-        <h3 class="message-header">
-            <fmt:message key="${param['message']}" />
-        </h3>
+    <div class="alert alert-warning fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <fmt:message key="${param['message']}" />
     </div>
 </c:if>

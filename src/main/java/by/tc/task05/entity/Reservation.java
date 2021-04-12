@@ -13,6 +13,10 @@ public class Reservation implements Serializable {
     private int numberOfNights;
     private String paymentToken;
     private ReservationStatus status;
+
+    public Reservation() {
+    }
+
     public int getId() {
         return id;
     }
@@ -75,5 +79,52 @@ public class Reservation implements Serializable {
 
     public void setStatus(ReservationStatus status) {
         this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Reservation that = (Reservation) o;
+
+        if (id != that.id) return false;
+        if (userId != that.userId) return false;
+        if (hotelId != that.hotelId) return false;
+        if (mealPlanId != that.mealPlanId) return false;
+        if (numberOfNights != that.numberOfNights) return false;
+        if (checkInDate != null ? !checkInDate.equals(that.checkInDate) :
+                that.checkInDate != null) {
+            return false;
+        }
+        if (paymentToken != null ? !paymentToken.equals(that.paymentToken) :
+                that.paymentToken != null) {
+            return false;
+        }
+        return status == that.status;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + userId;
+        result = 31 * result + hotelId;
+        result = 31 * result + mealPlanId;
+        result = 31 * result +
+                (checkInDate != null ? checkInDate.hashCode() : 0);
+        result = 31 * result + numberOfNights;
+        result = 31 * result +
+                (paymentToken != null ? paymentToken.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" + "id=" + id + ", userId=" + userId +
+                ", hotelId=" + hotelId + ", mealPlanId=" + mealPlanId +
+                ", checkInDate=" + checkInDate + ", numberOfNights=" +
+                numberOfNights + ", paymentToken='" + paymentToken + '\'' +
+                ", status=" + status + '}';
     }
 }

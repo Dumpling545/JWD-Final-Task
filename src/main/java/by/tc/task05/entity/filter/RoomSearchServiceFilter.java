@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public class RoomSearchServiceFilter {
+    private static final long serialVersionUID = -2516914431220579962L;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private String location;
@@ -25,6 +26,8 @@ public class RoomSearchServiceFilter {
     private int page;
     private boolean pageSizeInitialized = false;
     private int pageSize;
+
+    public RoomSearchServiceFilter() {}
 
     public LocalDate getCheckInDate() {
         return checkInDate;
@@ -165,5 +168,96 @@ public class RoomSearchServiceFilter {
 
     public boolean isPageSizeInitialized() {
         return pageSizeInitialized;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RoomSearchServiceFilter that = (RoomSearchServiceFilter) o;
+
+        if (latitudeInitialized != that.latitudeInitialized) return false;
+        if (Double.compare(that.latitude, latitude) != 0) return false;
+        if (longtitudeInitialized != that.longtitudeInitialized) return false;
+        if (Double.compare(that.longtitude, longtitude) != 0) return false;
+        if (costLowBoundInitialized != that.costLowBoundInitialized) return false;
+        if (Double.compare(that.costLowBound, costLowBound) != 0) return false;
+        if (costHighBoundInitialized != that.costHighBoundInitialized) return false;
+        if (Double.compare(that.costHighBound, costHighBound) != 0) return false;
+        if (ratingLowBoundInitialized != that.ratingLowBoundInitialized) return false;
+        if (Double.compare(that.ratingLowBound, ratingLowBound) != 0) return false;
+        if (ratingHighBoundInitialized != that.ratingHighBoundInitialized) return false;
+        if (Double.compare(that.ratingHighBound, ratingHighBound) != 0) return false;
+        if (numberOfBedsInitialized != that.numberOfBedsInitialized) return false;
+        if (numberOfBeds != that.numberOfBeds) return false;
+        if (pageInitialized != that.pageInitialized) return false;
+        if (page != that.page) return false;
+        if (pageSizeInitialized != that.pageSizeInitialized) return false;
+        if (pageSize != that.pageSize) return false;
+        if (checkInDate != null ? !checkInDate.equals(that.checkInDate) : that.checkInDate != null) return false;
+        if (checkOutDate != null ? !checkOutDate.equals(that.checkOutDate) : that.checkOutDate != null) return false;
+        return location != null ? location.equals(that.location) : that.location == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = checkInDate != null ? checkInDate.hashCode() : 0;
+        result = 31 * result + (checkOutDate != null ? checkOutDate.hashCode() : 0);
+        result = 31 * result + (location != null ? location.hashCode() : 0);
+        result = 31 * result + (latitudeInitialized ? 1 : 0);
+        temp = Double.doubleToLongBits(latitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (longtitudeInitialized ? 1 : 0);
+        temp = Double.doubleToLongBits(longtitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (costLowBoundInitialized ? 1 : 0);
+        temp = Double.doubleToLongBits(costLowBound);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (costHighBoundInitialized ? 1 : 0);
+        temp = Double.doubleToLongBits(costHighBound);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (ratingLowBoundInitialized ? 1 : 0);
+        temp = Double.doubleToLongBits(ratingLowBound);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (ratingHighBoundInitialized ? 1 : 0);
+        temp = Double.doubleToLongBits(ratingHighBound);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (numberOfBedsInitialized ? 1 : 0);
+        result = 31 * result + numberOfBeds;
+        result = 31 * result + (pageInitialized ? 1 : 0);
+        result = 31 * result + page;
+        result = 31 * result + (pageSizeInitialized ? 1 : 0);
+        result = 31 * result + pageSize;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "RoomSearchServiceFilter{" +
+                "checkInDate=" + checkInDate +
+                ", checkOutDate=" + checkOutDate +
+                ", location='" + location + '\'' +
+                ", latitudeInitialized=" + latitudeInitialized +
+                ", latitude=" + latitude +
+                ", longtitudeInitialized=" + longtitudeInitialized +
+                ", longtitude=" + longtitude +
+                ", costLowBoundInitialized=" + costLowBoundInitialized +
+                ", costLowBound=" + costLowBound +
+                ", costHighBoundInitialized=" + costHighBoundInitialized +
+                ", costHighBound=" + costHighBound +
+                ", ratingLowBoundInitialized=" + ratingLowBoundInitialized +
+                ", ratingLowBound=" + ratingLowBound +
+                ", ratingHighBoundInitialized=" + ratingHighBoundInitialized +
+                ", ratingHighBound=" + ratingHighBound +
+                ", numberOfBedsInitialized=" + numberOfBedsInitialized +
+                ", numberOfBeds=" + numberOfBeds +
+                ", pageInitialized=" + pageInitialized +
+                ", page=" + page +
+                ", pageSizeInitialized=" + pageSizeInitialized +
+                ", pageSize=" + pageSize +
+                '}';
     }
 }
