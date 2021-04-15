@@ -38,8 +38,12 @@
                                                     <div class="media">
                                                         <div class="media-left">
                                                             <div class="hovereffect">
+                                                                <fmt:bundle basename="by.tc.task05.bundle.misc">
+                                                                    <fmt:message key="fallbackImageUrl"
+                                                                        var="fallbackImageUrl" />
+                                                                </fmt:bundle>
                                                                 <img src="/fileServer/images/${hotel.icon}"
-                                                                    onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'"
+                                                                    onerror="this.onerror=null; this.src='${fallbackImageUrl}'"
                                                                     class="media-object img-thumbnail"
                                                                     style="width:10vw" alt="" />
                                                                 <div class="overlay">
@@ -64,11 +68,11 @@
                                                             <ul class="list-group">
                                                                 <li class="list-group-item list-group-item-info">
                                                                     <c:url value="Controller" var="hotelPage">
-                                                                        <c:param name="command"
-                                                                            value="gotohotelpage" />
+                                                                        <c:param name="command" value="gotohotelpage" />
                                                                         <c:param name="hotelid" value="${hotel.id}" />
                                                                     </c:url>
-                                                                    <a href="${hotelPage}" class="btn btn-info" role="button">
+                                                                    <a href="${hotelPage}" class="btn btn-info"
+                                                                        role="button">
                                                                         <fmt:message key="goToHotelPage" />
                                                                     </a>
                                                                 </li>

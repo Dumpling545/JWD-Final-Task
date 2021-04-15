@@ -1,12 +1,11 @@
 package by.tc.task05.dao.impl;
 
-import by.tc.task05.dao.DAOException;
+import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.dao.HotelDAO;
 import by.tc.task05.dao.connectionpool.ConnectionPool;
 import by.tc.task05.dao.connectionpool.ConnectionPoolException;
 import by.tc.task05.entity.Hotel;
 import by.tc.task05.entity.HotelForm;
-import by.tc.task05.entity.RoomShortView;
 import by.tc.task05.entity.User;
 import jakarta.servlet.http.Part;
 
@@ -16,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SQLHotelDAO implements HotelDAO {
     private final static String SQL_BUNDLE = "by.tc.task05.bundle.sql";

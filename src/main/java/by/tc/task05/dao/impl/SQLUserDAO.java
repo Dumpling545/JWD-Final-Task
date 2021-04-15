@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import by.tc.task05.dao.DAOException;
+import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.dao.UserDAO;
 import by.tc.task05.dao.connectionpool.ConnectionPool;
 import by.tc.task05.dao.connectionpool.ConnectionPoolException;

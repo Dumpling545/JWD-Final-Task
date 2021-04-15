@@ -14,6 +14,7 @@ public final class ValidatorProvider {
     private final ImageValidator imageValidator = new ImageValidatorImpl();
     private final HotelValidator hotelValidator = new HotelValidatorImpl();
     private final PageValidator pageValidator = new PageValidatorImpl();
+    private final DateRangeValidator dateRangeValidator = new DateRangeValidatorImpl();
     public static ValidatorProvider getInstance() {
         return instance;
     }
@@ -36,4 +37,5 @@ public final class ValidatorProvider {
     public PageValidator getPageValidator() {
         return pageValidator;
     }
+    public DateRangeValidator getDateRangeValidator() {return dateRangeValidator;}
 }

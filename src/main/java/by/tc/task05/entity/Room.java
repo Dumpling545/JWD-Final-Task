@@ -12,7 +12,6 @@ public class Room implements Serializable {
     private String shortDescription;
     private double cost;
     private String icon;
-
     public Room() {
     }
 

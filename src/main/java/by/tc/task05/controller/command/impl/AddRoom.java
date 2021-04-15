@@ -51,6 +51,6 @@ public class AddRoom extends AuthorizedUserCommand {
         roomService.add(userId, room,
                 request.getParameter(PASSWORD_ATTRIBUTE_KEY));
         UrlHelper.sendRedirectToReturnUrl(request, response,
-                UrlHelper.buildUrl(CommandName.GOTOADMINSPAGE));
+                UrlHelper.buildUrl(CommandName.GOTOHOTELMANAGEMENTPAGE));
     }
 }

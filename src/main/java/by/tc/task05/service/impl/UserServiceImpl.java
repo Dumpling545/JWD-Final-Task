@@ -1,14 +1,9 @@
 package by.tc.task05.service.impl;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import by.tc.task05.dao.DAOException;
+import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.dao.DAOProvider;
 import by.tc.task05.dao.UserDAO;
 import by.tc.task05.entity.User;

@@ -2,33 +2,13 @@ package by.tc.task05.entity;
 
 import java.io.Serializable;
 
-public class RoomShortView implements Serializable {
+public class RoomShortView extends Room {
     private static final long serialVersionUID = 1206903704279892684L;
-
-    private int id;
-    private String name;
     private String address;
-    private double cost;
-    private String icon;
     private double rating;
+    private String hotelName;
 
     public RoomShortView() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getAddress() {
@@ -39,21 +19,6 @@ public class RoomShortView implements Serializable {
         this.address = address;
     }
 
-    public double getCost() {
-        return cost;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
 
     public double getRating() {
         return rating;
@@ -63,45 +28,49 @@ public class RoomShortView implements Serializable {
         this.rating = rating;
     }
 
+    public String getHotelName() {
+        return hotelName;
+    }
+
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
         RoomShortView that = (RoomShortView) o;
 
-        if (id != that.id) return false;
-        if (Double.compare(that.cost, cost) != 0) return false;
         if (Double.compare(that.rating, rating) != 0) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) {
-            return false;
-        }
         if (address != null ? !address.equals(that.address) :
                 that.address != null) {
             return false;
         }
-        return icon != null ? icon.equals(that.icon) : that.icon == null;
+        return hotelName != null ? hotelName.equals(that.hotelName) :
+                that.hotelName == null;
     }
 
     @Override
     public int hashCode() {
-        int result;
+        int result = super.hashCode();
         long temp;
-        result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
-        temp = Double.doubleToLongBits(cost);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (icon != null ? icon.hashCode() : 0);
         temp = Double.doubleToLongBits(rating);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (hotelName != null ? hotelName.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "RoomShortView{" + "id=" + id + ", name='" + name + '\'' +
-                ", address='" + address + '\'' + ", cost=" + cost + ", icon='" +
-                icon + '\'' + ", rating=" + rating + '}';
+        StringBuilder sb = new StringBuilder(super.toString());
+        sb.deleteCharAt(sb.indexOf("}"));
+        sb.append(", address='").append(address).append('\'');
+        sb.append(", rating=").append(rating);
+        sb.append(", hotelName='").append(hotelName).append("'}");
+        return sb.toString();
     }
 }

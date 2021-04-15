@@ -7,6 +7,7 @@ import by.tc.task05.controller.helper.ExceptionMessageMapper;
 import by.tc.task05.controller.helper.UrlHelper;
 import by.tc.task05.controller.command.Command;
 import by.tc.task05.controller.command.CommandName;
+import by.tc.task05.entity.PageInformation;
 import by.tc.task05.entity.RoomShortView;
 import by.tc.task05.entity.filter.RoomSearchServiceFilter;
 import by.tc.task05.service.RoomService;
@@ -31,6 +32,7 @@ public class GoToSearchPage implements Command {
     private static final String TO_RATING_PARAMETER_KEY = "torating";
     private static final String ROOMS_PER_PAGE_PARAMETER_KEY = "roomsperpage";
     private static final String PAGE_PARAMETER_KEY = "page";
+    private static final String ERROR_MESSAGE_ATTRIBUTE_KEY = "errorMessage";
 
     @Override
     public void execute(HttpServletRequest request,
@@ -38,68 +40,76 @@ public class GoToSearchPage implements Command {
             throws ServletException, IOException {
         ServiceProvider provider = ServiceProvider.getInstance();
         RoomService roomService = provider.getRoomService();
-        RoomSearchServiceFilter filter = extractFilter(request);
+        RoomSearchServiceFilter filter = new RoomSearchServiceFilter();
+        PageInformation pageInformation = new PageInformation();
+        extractFilters(request, filter, pageInformation);
         try {
-            ListPart<RoomShortView> rooms = roomService.getRoomListPage(filter);
+            ListPart<RoomShortView> rooms =
+                    roomService.getViewsByFilter(filter, pageInformation);
             request.setAttribute(ROOMS_ATTRIBUTE_KEY, rooms);
             RequestDispatcher requestDispatcher =
                     request.getRequestDispatcher(MAIN_JSP_LOCATION);
             requestDispatcher.forward(request, response);
 
         } catch (ServiceException e) {
-            response.sendRedirect(UrlHelper
+            /*response.sendRedirect(UrlHelper
                     .buildUrl(CommandName.GOTOSTARTERPAGE,
-                            ExceptionMessageMapper.getKey(this, e)));
+                            ExceptionMessageMapper.getKey(this, e)));*/
+            RequestDispatcher requestDispatcher =
+                    request.getRequestDispatcher(MAIN_JSP_LOCATION);
+            request.setAttribute(ERROR_MESSAGE_ATTRIBUTE_KEY,
+                    ExceptionMessageMapper.getKey(this, e));
+            requestDispatcher.forward(request, response);
             /*UrlBuilder.sendRedirectToLastUrlWithMessage(request,
                     response, ExceptionMessageMapper.getKey(this, e));*/
         }
 
     }
 
-    private RoomSearchServiceFilter extractFilter(HttpServletRequest request) {
-        RoomSearchServiceFilter filter = new RoomSearchServiceFilter();
+    private void extractFilters(HttpServletRequest request,
+                                RoomSearchServiceFilter searchFilter,
+                                PageInformation pageInfo) {
         String checkIn = request.getParameter(CHECK_IN_PARAMETER_KEY);
         if (checkIn != null && !checkIn.isBlank()) {
-            filter.setCheckInDate(LocalDate.parse(checkIn));
+            searchFilter.setCheckInDate(LocalDate.parse(checkIn));
         }
         String checkOut = request.getParameter(CHECK_OUT_PARAMETER_KEY);
         if (checkOut != null && !checkOut.isBlank()) {
-            filter.setCheckOutDate(LocalDate.parse(checkOut));
+            searchFilter.setCheckOutDate(LocalDate.parse(checkOut));
         }
         String fromPrice = request.getParameter(FROM_PRICE_PARAMETER_KEY);
         if (fromPrice != null && !fromPrice.isBlank()) {
-            filter.setCostLowBound(Double.parseDouble(fromPrice));
+            searchFilter.setCostLowBound(Double.parseDouble(fromPrice));
         }
         String toPrice = request.getParameter(TO_PRICE_PARAMETER_KEY);
         if (toPrice != null && !toPrice.isBlank()) {
-            filter.setCostHighBound(Double.parseDouble(toPrice));
+            searchFilter.setCostHighBound(Double.parseDouble(toPrice));
         }
         String location = request.getParameter(LOCATION_PARAMETER_KEY);
         if (location != null && !location.isBlank()) {
-            filter.setLocation(location);
+            searchFilter.setLocation(location);
         }
         String numberOfBeds =
                 request.getParameter(NUMBER_OF_BEDS_PARAMETER_KEY);
         if (numberOfBeds != null && !numberOfBeds.isBlank()) {
-            filter.setNumberOfBeds(Integer.parseInt(numberOfBeds));
+            searchFilter.setNumberOfBeds(Integer.parseInt(numberOfBeds));
         }
         String fromRating = request.getParameter(FROM_RATING_PARAMETER_KEY);
         if (fromRating != null && !fromRating.isBlank()) {
-            filter.setRatingLowBound(Double.parseDouble(fromRating));
+            searchFilter.setRatingLowBound(Double.parseDouble(fromRating));
         }
         String toRating = request.getParameter(TO_RATING_PARAMETER_KEY);
         if (toRating != null && !toRating.isBlank()) {
-            filter.setRatingHighBound(Double.parseDouble(toRating));
+            searchFilter.setRatingHighBound(Double.parseDouble(toRating));
         }
         String roomsPerPage =
                 request.getParameter(ROOMS_PER_PAGE_PARAMETER_KEY);
         if (roomsPerPage != null && !roomsPerPage.isBlank()) {
-            filter.setPageSize(Integer.parseInt(roomsPerPage));
+            pageInfo.setPageSize(Integer.parseInt(roomsPerPage));
         }
         String page = request.getParameter(PAGE_PARAMETER_KEY);
         if (page != null && !page.isBlank()) {
-            filter.setPage(Integer.parseInt(page));
+            pageInfo.setPage(Integer.parseInt(page));
         }
-        return filter;
     }
 }

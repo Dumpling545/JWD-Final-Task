@@ -33,7 +33,9 @@ public class ExceptionMessageMapper {
     private static final String ALREADY_ADMIN_ERROR = "alreadyAdminError";
     private static final String LAST_ADMIN_ERROR = "lastAdminError";
     private static final String SERVER_ERROR = "serverError";
-
+    private static final String OCCUPIED_RANGE_ERROR = "occupiedRangeError";
+    private static final String INVALID_ARCHIVE_REASON_ERROR =
+            "invalidArchiveReasonError";
 
     public static String getKey(Command command, ServiceException ex) {
         Logger logger = Logger.getAnonymousLogger();
@@ -82,6 +84,10 @@ public class ExceptionMessageMapper {
             return LAST_ADMIN_ERROR;
         } else if (ex instanceof NoSuchRoomException) {
             return NO_SUCH_ROOM_ERROR;
+        } else if (ex instanceof OccupiedDateRangeException) {
+            return OCCUPIED_RANGE_ERROR;
+        } else if (ex instanceof InvalidArchivationReasonException) {
+            return INVALID_ARCHIVE_REASON_ERROR;
         } else {
             return SERVER_ERROR;
         }

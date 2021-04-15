@@ -1,20 +1,38 @@
 package by.tc.task05.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Reservation implements Serializable {
     private static final long serialVersionUID = 8682604997339145083L;
     private int id;
     private int userId;
-    private int hotelId;
-    private int mealPlanId;
-    private Date checkInDate;
-    private int numberOfNights;
+    private int roomId;
+    //private int mealPlanId;
+    private LocalDate checkInDate;
+    private LocalDate checkOutDate;
     private String paymentToken;
-    private ReservationStatus status;
+    private int status;
+    private double paymentAmount;
+    public static final int PROCESSING = 0;
+    public static final int ACCEPTED = 1;
+
 
     public Reservation() {
+    }
+
+    public Reservation(int id, int userId, int roomId, LocalDate checkInDate,
+                       LocalDate checkOutDate, String paymentToken, int status,
+                       double paymentAmount) {
+        this.id = id;
+        this.userId = userId;
+        this.roomId = roomId;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.paymentToken = paymentToken;
+        this.status = status;
+        this.paymentAmount = paymentAmount;
     }
 
     public int getId() {
@@ -33,36 +51,28 @@ public class Reservation implements Serializable {
         this.userId = userId;
     }
 
-    public int getHotelId() {
-        return hotelId;
+    public int getRoomId() {
+        return roomId;
     }
 
-    public void setHotelId(int hotelId) {
-        this.hotelId = hotelId;
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
     }
 
-    public int getMealPlanId() {
-        return mealPlanId;
-    }
-
-    public void setMealPlanId(int mealPlanId) {
-        this.mealPlanId = mealPlanId;
-    }
-
-    public Date getCheckInDate() {
+    public LocalDate getCheckInDate() {
         return checkInDate;
     }
 
-    public void setCheckInDate(Date checkInDate) {
+    public void setCheckInDate(LocalDate checkInDate) {
         this.checkInDate = checkInDate;
     }
 
-    public int getNumberOfNights() {
-        return numberOfNights;
+    public LocalDate getCheckOutDate() {
+        return checkOutDate;
     }
 
-    public void setNumberOfNights(int numberOfNights) {
-        this.numberOfNights = numberOfNights;
+    public void setCheckOutDate(LocalDate checkOutDate) {
+        this.checkOutDate = checkOutDate;
     }
 
     public String getPaymentToken() {
@@ -73,12 +83,20 @@ public class Reservation implements Serializable {
         this.paymentToken = paymentToken;
     }
 
-    public ReservationStatus getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(ReservationStatus status) {
+    public void setStatus(int status) {
         this.status = status;
+    }
+
+    public double getPaymentAmount() {
+        return paymentAmount;
+    }
+
+    public void setPaymentAmount(double paymentAmount) {
+        this.paymentAmount = paymentAmount;
     }
 
     @Override
@@ -90,41 +108,48 @@ public class Reservation implements Serializable {
 
         if (id != that.id) return false;
         if (userId != that.userId) return false;
-        if (hotelId != that.hotelId) return false;
-        if (mealPlanId != that.mealPlanId) return false;
-        if (numberOfNights != that.numberOfNights) return false;
+        if (roomId != that.roomId) return false;
+        if (status != that.status) return false;
+        if (Double.compare(that.paymentAmount, paymentAmount) != 0) {
+            return false;
+        }
         if (checkInDate != null ? !checkInDate.equals(that.checkInDate) :
                 that.checkInDate != null) {
             return false;
         }
-        if (paymentToken != null ? !paymentToken.equals(that.paymentToken) :
-                that.paymentToken != null) {
+        if (checkOutDate != null ? !checkOutDate.equals(that.checkOutDate) :
+                that.checkOutDate != null) {
             return false;
         }
-        return status == that.status;
+        return paymentToken != null ? paymentToken.equals(that.paymentToken) :
+                that.paymentToken == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result;
+        long temp;
+        result = id;
         result = 31 * result + userId;
-        result = 31 * result + hotelId;
-        result = 31 * result + mealPlanId;
+        result = 31 * result + roomId;
         result = 31 * result +
                 (checkInDate != null ? checkInDate.hashCode() : 0);
-        result = 31 * result + numberOfNights;
+        result = 31 * result +
+                (checkOutDate != null ? checkOutDate.hashCode() : 0);
         result = 31 * result +
                 (paymentToken != null ? paymentToken.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + status;
+        temp = Double.doubleToLongBits(paymentAmount);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 
     @Override
     public String toString() {
         return "Reservation{" + "id=" + id + ", userId=" + userId +
-                ", hotelId=" + hotelId + ", mealPlanId=" + mealPlanId +
-                ", checkInDate=" + checkInDate + ", numberOfNights=" +
-                numberOfNights + ", paymentToken='" + paymentToken + '\'' +
-                ", status=" + status + '}';
+                ", roomId=" + roomId + ", checkInDate=" + checkInDate +
+                ", checkOutDate=" + checkOutDate + ", paymentToken='" +
+                paymentToken + '\'' + ", status=" + status +
+                ", paymentAmount=" + paymentAmount + '}';
     }
 }

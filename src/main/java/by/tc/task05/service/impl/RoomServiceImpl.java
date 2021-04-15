@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import by.tc.task05.dao.DAOException;
+import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.dao.DAOProvider;
-import by.tc.task05.dao.HotelDAO;
 import by.tc.task05.dao.RoomDAO;
 import by.tc.task05.entity.*;
 import by.tc.task05.entity.filter.RoomSearchDatabaseFilter;
@@ -29,15 +28,19 @@ public class RoomServiceImpl implements RoomService {
     private final double LONGTITUDE_DELTA = 0.1;
 
     @Override
-    public ListPart<RoomShortView> getRoomListPage(
-            RoomSearchServiceFilter filter) throws ServiceException {
+    public ListPart<RoomShortView> getViewsByFilter(
+            RoomSearchServiceFilter filter, PageInformation pageInformation)
+            throws ServiceException {
         DAOProvider provider = DAOProvider.getInstance();
         RoomDAO roomDAO = provider.getRoomDAO();
         RoomSearchDatabaseFilter dbFilter = new RoomSearchDatabaseFilter();
         List<RoomShortView> rooms = new ArrayList<>();
-        RoomValidator validator =
+        RoomValidator roomValidator =
                 ValidatorProvider.getInstance().getRoomValidator();
-        validator.validateFilter(filter);
+        roomValidator.validateFilter(filter);
+         PageValidator pageValidator =
+                ValidatorProvider.getInstance().getPageValidator();
+         pageValidator.validatePage(pageInformation);
         try {
             dbFilter.setCheckInDate(filter.getCheckInDate());
             dbFilter.setCheckOutDate(filter.getCheckOutDate());
@@ -46,9 +49,9 @@ public class RoomServiceImpl implements RoomService {
             dbFilter.setNumberOfBeds(filter.getNumberOfBeds());
             dbFilter.setRatingLowBound(filter.getRatingLowBound());
             dbFilter.setRatingHighBound(filter.getRatingHighBound());
-            int skip = (filter.getPage() - 1) * filter.getPageSize();
+            int skip = (pageInformation.getPage() - 1) * pageInformation.getPageSize();
             dbFilter.setSkipAmount(skip);
-            dbFilter.setTakeAmount(filter.getPageSize() + 1);
+            dbFilter.setTakeAmount(pageInformation.getPageSize() + 1);
             if (!filter.getLocation().isBlank()) {
                 LocationHelper locationHelper =
                         HelperProvider.getInstance().getLocationHelper();
@@ -63,11 +66,11 @@ public class RoomServiceImpl implements RoomService {
                     filter.getLongtitude() - LONGTITUDE_DELTA);
             dbFilter.setLongtitudeHighBound(
                     filter.getLongtitude() + LONGTITUDE_DELTA);
-            rooms.addAll(roomDAO.getMany(dbFilter));
+            rooms.addAll(roomDAO.getViewsByFilter(dbFilter));
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-        boolean last = (rooms.size() <= filter.getPageSize());
+        boolean last = (rooms.size() <= pageInformation.getPageSize());
         if (!last) {
             rooms.remove(rooms.size() - 1);
         }

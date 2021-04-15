@@ -1,4 +1,4 @@
-package by.tc.task05.dao;
+package by.tc.task05.dao.exception;
 
 public class DAOException extends Exception {
     private static final long serialVersionUID = 5579627996438039829L;

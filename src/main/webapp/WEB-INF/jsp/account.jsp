@@ -16,8 +16,12 @@
                     <div class="media">
                         <div class="media-left">
                             <div class="hovereffect">
+                                <fmt:bundle basename="by.tc.task05.bundle.misc">
+                                    <fmt:message key="fallbackImageUrl" var="fallbackImageUrl" />
+                                </fmt:bundle>
                                 <img src="/fileServer/images/${requestScope.user.avatar}"
-                                    onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'" class="media-object img-thumbnail" alt="${avatarAlt}" />
+                                    onerror="this.onerror=null; this.src='${fallbackImageUrl}'"
+                                    class="media-object img-thumbnail" alt="${avatarAlt}" />
                                 <div class="overlay">
                                     <c:url value="Controller" var="setAvatar">
                                         <c:param name="command" value="gotosetavatarpage" />
@@ -97,7 +101,8 @@
                 </div>
                 <c:import url="footer.jsp" />
                 <style>
-                    <c:import url="../css/changeImage.css" />
+                    <c:import url="../css/changeImage.css"/>
                 </style>
             </body>
+
             </html>

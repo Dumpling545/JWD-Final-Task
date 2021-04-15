@@ -9,6 +9,7 @@ import com.google.common.base.Optional;
 
 import javax.annotation.Nullable;
 
+
 public class CommandProvider {
     private Map<CommandName, Command> commands = new HashMap<>();
 
@@ -64,6 +65,14 @@ public class CommandProvider {
         commands.put(CommandName.GOTOSETROOMICONPAGE, new GoToSetRoomIconPage());
         commands.put(CommandName.SETROOMICON, new SetRoomIcon());
         commands.put(CommandName.GOTOROOMPAGE, new GoToRoomPage());
+        commands.put(CommandName.GOTOADDROOMFEATUREPAGE, new GoToAddRoomFeaturePage());
+        commands.put(CommandName.ADDROOMFEATURE, new AddRoomFeature());
+        commands.put(CommandName.GOTOCHANGEROOMFEATUREPAGE, new GoToChangeRoomFeaturePage());
+        commands.put(CommandName.CHANGEROOMFEATURE, new ChangeRoomFeature());
+        commands.put(CommandName.GOTODELETEROOMFEATUREPAGE, new GoToDeleteRoomFeaturePage());
+        commands.put(CommandName.DELETEROOMFEATURE, new DeleteRoomFeature());
+        commands.put(CommandName.GOTOUSERRESERVATIONSPAGE, new GoToUserReservationsPage());
+        commands.put(CommandName.BOOK, new Book());
     }
 
     @Nullable

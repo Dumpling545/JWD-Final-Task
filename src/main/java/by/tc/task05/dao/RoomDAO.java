@@ -3,12 +3,13 @@ package by.tc.task05.dao;
 import java.util.List;
 import java.util.Optional;
 
+import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.entity.*;
 import by.tc.task05.entity.filter.RoomSearchDatabaseFilter;
 import jakarta.servlet.http.Part;
 
 public interface RoomDAO {
-    public List<RoomShortView> getMany(RoomSearchDatabaseFilter filter)
+    public List<RoomShortView> getViewsByFilter(RoomSearchDatabaseFilter filter)
             throws DAOException;
     public boolean isRoomAdministrator(int userId, int roomId)
             throws DAOException;

@@ -1,9 +1,10 @@
 package by.tc.task05.entity.filter;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public class RoomSearchServiceFilter {
+public class RoomSearchServiceFilter implements Serializable {
     private static final long serialVersionUID = -2516914431220579962L;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
@@ -22,12 +23,26 @@ public class RoomSearchServiceFilter {
     private double ratingHighBound;
     private boolean numberOfBedsInitialized = false;
     private int numberOfBeds;
-    private boolean pageInitialized = false;
-    private int page;
-    private boolean pageSizeInitialized = false;
-    private int pageSize;
 
-    public RoomSearchServiceFilter() {}
+
+    public RoomSearchServiceFilter() {
+    }
+
+    public RoomSearchServiceFilter(LocalDate checkInDate, String location,
+                                   double latitude, double longtitude,
+                                   double costLowBound, double costHighBound,
+                                   double ratingLowBound,
+                                   double ratingHighBound, int numberOfBeds) {
+        this.checkInDate = checkInDate;
+        this.location = location;
+        this.latitude = latitude;
+        this.longtitude = longtitude;
+        this.costLowBound = costLowBound;
+        this.costHighBound = costHighBound;
+        this.ratingLowBound = ratingLowBound;
+        this.ratingHighBound = ratingHighBound;
+        this.numberOfBeds = numberOfBeds;
+    }
 
     public LocalDate getCheckInDate() {
         return checkInDate;
@@ -53,67 +68,8 @@ public class RoomSearchServiceFilter {
         this.location = location;
     }
 
-    public double getCostLowBound() {
-        return costLowBound;
-    }
-
-    public void setCostLowBound(double costLowBound) {
-        costHighBoundInitialized = true;
-        this.costLowBound = costLowBound;
-    }
-
-    public double getCostHighBound() {
-        return costHighBound;
-    }
-
-    public void setCostHighBound(double costHighBound) {
-        costHighBoundInitialized = true;
-        this.costHighBound = costHighBound;
-    }
-
-    public double getRatingLowBound() {
-        return ratingLowBound;
-    }
-
-    public void setRatingLowBound(double ratingLowBound) {
-        ratingLowBoundInitialized = true;
-        this.ratingLowBound = ratingLowBound;
-    }
-
-    public double getRatingHighBound() {
-        return ratingHighBound;
-    }
-
-    public void setRatingHighBound(double ratingHighBound) {
-        ratingHighBoundInitialized = true;
-        this.ratingHighBound = ratingHighBound;
-    }
-
-    public int getNumberOfBeds() {
-        return numberOfBeds;
-    }
-
-    public void setNumberOfBeds(int numberOfBeds) {
-        numberOfBedsInitialized = true;
-        this.numberOfBeds = numberOfBeds;
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        pageInitialized = true;
-        this.page = page;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        pageSizeInitialized = true;
-        this.pageSize = pageSize;
+    public boolean isLatitudeInitialized() {
+        return latitudeInitialized;
     }
 
     public double getLatitude() {
@@ -125,6 +81,10 @@ public class RoomSearchServiceFilter {
         this.latitude = latitude;
     }
 
+    public boolean isLongtitudeInitialized() {
+        return longtitudeInitialized;
+    }
+
     public double getLongtitude() {
         return longtitude;
     }
@@ -134,40 +94,69 @@ public class RoomSearchServiceFilter {
         this.longtitude = longtitude;
     }
 
-    public boolean isLatitudeInitialized() {
-        return latitudeInitialized;
-    }
-
-    public boolean isLongtitudeInitialized() {
-        return longtitudeInitialized;
-    }
-
     public boolean isCostLowBoundInitialized() {
         return costLowBoundInitialized;
+    }
+
+    public double getCostLowBound() {
+        return costLowBound;
+    }
+
+    public void setCostLowBound(double costLowBound) {
+        costLowBoundInitialized = true;
+        this.costLowBound = costLowBound;
     }
 
     public boolean isCostHighBoundInitialized() {
         return costHighBoundInitialized;
     }
 
+    public double getCostHighBound() {
+        return costHighBound;
+    }
+
+    public void setCostHighBound(double costHighBound) {
+        costHighBoundInitialized = true;
+        this.costHighBound = costHighBound;
+    }
+
     public boolean isRatingLowBoundInitialized() {
         return ratingLowBoundInitialized;
+    }
+
+    public double getRatingLowBound() {
+        return ratingLowBound;
+    }
+
+    public void setRatingLowBound(double ratingLowBound) {
+        ratingLowBoundInitialized = true;
+        this.ratingLowBound = ratingLowBound;
     }
 
     public boolean isRatingHighBoundInitialized() {
         return ratingHighBoundInitialized;
     }
 
+    public double getRatingHighBound() {
+        return ratingHighBound;
+    }
+
+    public void setRatingHighBound(double ratingHighBound) {
+        ratingHighBoundInitialized = true;
+        this.ratingHighBound = ratingHighBound;
+    }
+
     public boolean isNumberOfBedsInitialized() {
         return numberOfBedsInitialized;
     }
 
-    public boolean isPageInitialized() {
-        return pageInitialized;
+    public int getNumberOfBeds() {
+        return numberOfBeds;
     }
 
-    public boolean isPageSizeInitialized() {
-        return pageSizeInitialized;
+    public void setNumberOfBeds(int numberOfBeds) {
+        numberOfBedsInitialized = true;
+        this.numberOfBeds = numberOfBeds;
     }
 
     @Override
@@ -175,29 +164,50 @@ public class RoomSearchServiceFilter {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        RoomSearchServiceFilter that = (RoomSearchServiceFilter) o;
+        RoomSearchServiceFilter filter = (RoomSearchServiceFilter) o;
 
-        if (latitudeInitialized != that.latitudeInitialized) return false;
-        if (Double.compare(that.latitude, latitude) != 0) return false;
-        if (longtitudeInitialized != that.longtitudeInitialized) return false;
-        if (Double.compare(that.longtitude, longtitude) != 0) return false;
-        if (costLowBoundInitialized != that.costLowBoundInitialized) return false;
-        if (Double.compare(that.costLowBound, costLowBound) != 0) return false;
-        if (costHighBoundInitialized != that.costHighBoundInitialized) return false;
-        if (Double.compare(that.costHighBound, costHighBound) != 0) return false;
-        if (ratingLowBoundInitialized != that.ratingLowBoundInitialized) return false;
-        if (Double.compare(that.ratingLowBound, ratingLowBound) != 0) return false;
-        if (ratingHighBoundInitialized != that.ratingHighBoundInitialized) return false;
-        if (Double.compare(that.ratingHighBound, ratingHighBound) != 0) return false;
-        if (numberOfBedsInitialized != that.numberOfBedsInitialized) return false;
-        if (numberOfBeds != that.numberOfBeds) return false;
-        if (pageInitialized != that.pageInitialized) return false;
-        if (page != that.page) return false;
-        if (pageSizeInitialized != that.pageSizeInitialized) return false;
-        if (pageSize != that.pageSize) return false;
-        if (checkInDate != null ? !checkInDate.equals(that.checkInDate) : that.checkInDate != null) return false;
-        if (checkOutDate != null ? !checkOutDate.equals(that.checkOutDate) : that.checkOutDate != null) return false;
-        return location != null ? location.equals(that.location) : that.location == null;
+        if (latitudeInitialized != filter.latitudeInitialized) return false;
+        if (Double.compare(filter.latitude, latitude) != 0) return false;
+        if (longtitudeInitialized != filter.longtitudeInitialized) return false;
+        if (Double.compare(filter.longtitude, longtitude) != 0) {
+            return false;
+        }
+        if (costLowBoundInitialized != filter.costLowBoundInitialized)
+            return false;
+        if (Double.compare(filter.costLowBound, costLowBound) != 0) {
+            return false;
+        }
+        if (costHighBoundInitialized != filter.costHighBoundInitialized) {
+            return false;
+        }
+        if (Double.compare(filter.costHighBound, costHighBound) != 0) {
+            return false;
+        }
+        if (ratingLowBoundInitialized != filter.ratingLowBoundInitialized) {
+            return false;
+        }
+        if (Double.compare(filter.ratingLowBound, ratingLowBound) != 0) {
+            return false;
+        }
+        if (ratingHighBoundInitialized != filter.ratingHighBoundInitialized) {
+            return false;
+        }
+        if (Double.compare(filter.ratingHighBound, ratingHighBound) != 0) {
+            return false;
+        }
+        if (numberOfBedsInitialized != filter.numberOfBedsInitialized)
+            return false;
+        if (numberOfBeds != filter.numberOfBeds) return false;
+        if (checkInDate != null ? !checkInDate.equals(filter.checkInDate) :
+                filter.checkInDate != null) {
+            return false;
+        }
+        if (checkOutDate != null ? !checkOutDate.equals(filter.checkOutDate) :
+                filter.checkOutDate != null) {
+            return false;
+        }
+        return location != null ? location.equals(filter.location) :
+                filter.location == null;
     }
 
     @Override
@@ -205,7 +215,8 @@ public class RoomSearchServiceFilter {
         int result;
         long temp;
         result = checkInDate != null ? checkInDate.hashCode() : 0;
-        result = 31 * result + (checkOutDate != null ? checkOutDate.hashCode() : 0);
+        result = 31 * result +
+                (checkOutDate != null ? checkOutDate.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
         result = 31 * result + (latitudeInitialized ? 1 : 0);
         temp = Double.doubleToLongBits(latitude);
@@ -227,23 +238,16 @@ public class RoomSearchServiceFilter {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (numberOfBedsInitialized ? 1 : 0);
         result = 31 * result + numberOfBeds;
-        result = 31 * result + (pageInitialized ? 1 : 0);
-        result = 31 * result + page;
-        result = 31 * result + (pageSizeInitialized ? 1 : 0);
-        result = 31 * result + pageSize;
         return result;
     }
 
     @Override
     public String toString() {
-        return "RoomSearchServiceFilter{" +
-                "checkInDate=" + checkInDate +
-                ", checkOutDate=" + checkOutDate +
-                ", location='" + location + '\'' +
-                ", latitudeInitialized=" + latitudeInitialized +
-                ", latitude=" + latitude +
-                ", longtitudeInitialized=" + longtitudeInitialized +
-                ", longtitude=" + longtitude +
+        return "RoomSearchServiceFilter{" + "checkInDate=" + checkInDate +
+                ", checkOutDate=" + checkOutDate + ", location='" + location +
+                '\'' + ", latitudeInitialized=" + latitudeInitialized +
+                ", latitude=" + latitude + ", longtitudeInitialized=" +
+                longtitudeInitialized + ", longtitude=" + longtitude +
                 ", costLowBoundInitialized=" + costLowBoundInitialized +
                 ", costLowBound=" + costLowBound +
                 ", costHighBoundInitialized=" + costHighBoundInitialized +
@@ -253,11 +257,6 @@ public class RoomSearchServiceFilter {
                 ", ratingHighBoundInitialized=" + ratingHighBoundInitialized +
                 ", ratingHighBound=" + ratingHighBound +
                 ", numberOfBedsInitialized=" + numberOfBedsInitialized +
-                ", numberOfBeds=" + numberOfBeds +
-                ", pageInitialized=" + pageInitialized +
-                ", page=" + page +
-                ", pageSizeInitialized=" + pageSizeInitialized +
-                ", pageSize=" + pageSize +
-                '}';
+                ", numberOfBeds=" + numberOfBeds + '}';
     }
 }

@@ -3,7 +3,6 @@ package by.tc.task05.service;
 import java.util.List;
 import java.util.Optional;
 
-import by.tc.task05.dao.DAOException;
 import by.tc.task05.entity.*;
 import by.tc.task05.entity.filter.RoomSearchServiceFilter;
 import by.tc.task05.service.exception.ServiceException;
@@ -11,7 +10,8 @@ import by.tc.task05.utils.ListPart;
 import jakarta.servlet.http.Part;
 
 public interface RoomService {
-    ListPart<RoomShortView> getRoomListPage(RoomSearchServiceFilter filter)
+    ListPart<RoomShortView> getViewsByFilter(RoomSearchServiceFilter filter,
+                                             PageInformation pageInfo)
             throws ServiceException;
 
 

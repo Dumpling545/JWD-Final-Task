@@ -2,6 +2,7 @@ package by.tc.task05.dao;
 
 import java.util.Optional;
 
+import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.entity.User;
 import by.tc.task05.entity.UserInfo;
 import jakarta.servlet.http.Part;

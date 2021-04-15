@@ -25,30 +25,53 @@
                                 <label for="location">
                                     <fmt:message key="location" />:
                                 </label>
-                                <input class="form-control" type="text" id="location" name="location"
-                                    value="${param['location']}">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                    <input class="form-control" type="text" id="location" name="location"
+                                        value="${param['location']}">
+                                </div>
                             </div>
 
-                            <div class="form-group">
+                            <div id="dateRangeFormGroup" class="form-group hidden">
+                                <label for="textdate">
+                                    <fmt:message key="checkIn" /> - <fmt:message key="checkOut" />:
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    <input class="form-control" type="text" id="textdate" name="textdate" value="">
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="checkinFormGroup">
                                 <label for="checkin">
                                     <fmt:message key="checkIn" />:
                                 </label>
-                                <input class="form-control" type="date" id="checkin" name="checkin">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    <input class="form-control" type="date" id="checkin" name="checkin"
+                                        value="${param['checkin']}">
+                                </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" id="checkoutFormGroup">
                                 <label for="checkout">
                                     <fmt:message key="checkOut" />:
                                 </label>
-                                <input class="form-control" type="date" id="checkout" name="checkout">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    <input class="form-control" type="date" id="checkout" name="checkout"
+                                        value="${param['checkout']}">
+                                </div>
                             </div>
-
                             <div class="form-group">
-                                <label for="numberofbeds">
+                                <label for="numberOfBeds">
                                     <fmt:message key="numberOfBeds" />:
                                 </label>
-                                <input class="form-control" type="range" id="numberofbeds" name="numberofbeds" min="0"
-                                    max="20" step="1">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-bed"></i></span>
+                                    <input class="form-control" type="number" min="1" max="20" id="numberofbeds"
+                                        name="numberofbeds" value="${param['numberofbeds']}">
+                                </div>
                             </div>
                             <div class="form-group">
                                 <p class="form-control-static">
@@ -59,46 +82,48 @@
                                 <label for="fromprice">
                                     <fmt:message key="from" />:
                                 </label>
-                                <input class="form-control" type="number" id="fromprice" name="fromprice" min="0">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                                    <input class="form-control" type="number" id="fromprice" name="fromprice" min="0"
+                                        value="${param['fromprice']}">
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="toprice">
                                     <fmt:message key="to" />:
                                 </label>
-                                <input class="form-control" type="number" id="toprice" name="toprice" min="0">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                                    <input class="form-control" type="number" id="toprice" name="toprice" min="0"
+                                        value="${param['toprice']}">
+                                </div>
                             </div>
                             <div class="form-group">
                                 <p class="form-control-static">
                                     <fmt:message key="rating" />:
                                 </p>
-                            </div>   
+                            </div>
                             <div class="form-group">
                                 <label for="fromrating">
                                     <fmt:message key="from" />:
                                 </label>
-                                <input class="form-control" type="number" id="fromrating" name="fromrating" min="0"
-                                    max="10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-star"></i></span>
+                                    <input class="form-control" type="number" id="fromrating" name="fromrating" min="0"
+                                        max="10" value="${param['fromrating']}">
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="torating">
                                     <fmt:message key="to" />:
                                 </label>
-                                <input class="form-control" type="number" id="torating" name="torating" min="0"
-                                    max="10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-star"></i></span>
+                                    <input class="form-control" type="number" id="torating" name="torating" min="1"
+                                        max="10" value="${param['torating']}">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <p class="form-control-static">
-                                    <fmt:message key="numberOfReviews" />:
-                                </p>
-                            </div> 
-                            <div class="form-group">
-                                <label for="atleastreviews">
-                                    <fmt:message key="atLeast" />:
-                                </label>
-                                <input class="form-control" type="number" id="atleastreviews" name="atleastreviews"
-                                    min="0">
-                            </div>
-
+                            <!--
                             <div class="form-group">
                                 <label for="sortby">
                                     <fmt:message key="sortBy" />:
@@ -117,17 +142,7 @@
                                         <fmt:message key="numberOfReviews" />
                                     </option>
                                 </select>
-
-                                <label for="roomsperpage">
-                                    <fmt:message key="roomsPerPage" />:
-                                </label>
-                                <select class="input" id="roomsperpage" name="roomsperpage">
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="40">40</option>
-                                </select>
-                            </div>
+                            </div>-->
                             <div class="form-group">
                                 <button class="form-control btn btn-primary" type="submit">
                                     <span class="glyphicon glyphicon-search"></span>
@@ -140,3 +155,8 @@
                     </div>
                 </div>
             </div>
+            <script>
+                var start = "<c:out value='${param.checkin}'/>";
+                var end="<c:out value='${param.checkout}'/>"
+                <c:import url="../js/mainScript.js" />
+            </script>

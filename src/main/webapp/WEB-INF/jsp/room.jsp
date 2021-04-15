@@ -10,6 +10,9 @@
                 <c:import url="meta.jsp" />
 
                 <body>
+                    <fmt:bundle basename="by.tc.task05.bundle.misc">
+                        <fmt:message key="fallbackImageUrl" var="fallbackImageUrl" />
+                    </fmt:bundle>
                     <c:import url="header.jsp" />
                     <div class="container">
                         <c:import url="messagePanel.jsp" />
@@ -29,7 +32,7 @@
                                                         <c:when test="${requestScope.isAdmin}">
                                                             <div class="hovereffect">
                                                                 <img src="/fileServer/images/${requestScope.room.icon}"
-                                                                    onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'"
+                                                                    onerror="this.onerror=null; this.src='${fallbackImageUrl}'"
                                                                     class="media-object img-thumbnail"
                                                                     style="width:10vw" alt="" />
                                                                 <div class="overlay">
@@ -54,7 +57,7 @@
                                                         </c:when>
                                                         <c:otherwise>
                                                             <img src="/fileServer/images/${requestScope.room.icon}"
-                                                                onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'"
+                                                                onerror="this.onerror=null; this.src='${fallbackImageUrl}'"
                                                                 class="media-object img-thumbnail" style="width:10vw"
                                                                 alt="" />
                                                         </c:otherwise>
@@ -184,24 +187,184 @@
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h3 class="panel-title">
+                                                <fmt:message key="book" />
+                                            </h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <form>
+                                                <div id="dateRangeFormGroup" class="form-group hidden">
+                                                    <label for="textdate">
+                                                        <fmt:message key="checkIn" /> -
+                                                        <fmt:message key="checkOut" />:
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i
+                                                                class="glyphicon glyphicon-calendar"></i></span>
+                                                        <input class="form-control" type="text" id="textdate"
+                                                            name="textdate" value="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" id="checkinFormGroup">
+                                                    <label for="checkin">
+                                                        <fmt:message key="checkIn" />:
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i
+                                                                class="glyphicon glyphicon-calendar"></i></span>
+                                                        <input class="form-control" type="date" id="checkin"
+                                                            name="checkin" value="${param['checkin']}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" id="checkoutFormGroup">
+                                                    <label for="checkout">
+                                                        <fmt:message key="checkOut" />:
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i
+                                                                class="glyphicon glyphicon-calendar"></i></span>
+                                                        <input class="form-control" type="date" id="checkout"
+                                                            name="checkout" value="${param['checkout']}">
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="btn btn-info" data-toggle="modal"
+                                                    data-target="#checkModal">
+                                                    <fmt:message key="book" />
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div id="checkModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close"
+                                                        data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title"><fmt:message key="book" /></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item list-group-item-info">
+                                                            <strong>
+                                                                <fmt:message key="checkIn" />:
+                                                            </strong>
+                                                            <span id="checkinSpan">
+
+                                                            </span>
+                                                        </li>
+                                                        <li class="list-group-item list-group-item-info">
+                                                            <strong>
+                                                                <fmt:message key="checkOut" />:
+                                                            </strong>
+                                                            <span id="checkoutSpan">
+
+                                                            </span>
+                                                        </li>
+                                                        <li class="list-group-item list-group-item-info">
+                                                            <strong>
+                                                                <fmt:message key="duration" />:
+                                                            </strong>
+                                                            <span id="durationSpan">
+
+                                                            </span>
+                                                            <fmt:message key="nights" />
+                                                        </li>
+                                                        <li class="list-group-item list-group-item-info">
+                                                            <strong>
+                                                                <fmt:message key="paymentAmount" />:
+                                                            </strong>
+                                                            <span id="paymentAmountSpan">
+
+                                                            </span>$
+                                                        </li>
+                                                    </ul>
+                                                    <button id="sender" type="button" class="btn btn-info"
+                                                        data-dismiss="modal">
+                                                        <fmt:message key="book" />
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <script>
+                                        var start = "<c:out value='${param.checkin}'/>";
+                                        var end = "<c:out value='${param.checkout}'/>";
+                                        var gRoomPrice = <c:out value='${requestScope.room.cost}'/>;
+                                        var gId = <c:out value='${requestScope.room.id}'/>;
+                                        <c:import url ="../js/mainScript.js" />
+                                        <c:import url ="../js/roomScript.js" />
+                                    </script>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">
                                                 <fmt:message key="roomFeatures" />
                                                 <c:if test="${requestScope.isAdmin}">
-                                                    <c:url value="Controller" var="addRoomFeature">
-                                                        <c:param name="command" value="gotoaddroomfeaturepage" />
-                                                        <c:param name="id" value="${requestScope.room.id}" />
-                                                        <c:param name="hotelname" value="${requestScope.hotel.name}" />
-                                                        <c:param name="returnurl" value="${sessionScope.lastUrl}" />
-                                                    </c:url>
-                                                    <a href="${addRoomFeature}" class="btn btn-success" role="button">
-                                                        <span class="glyphicon glyphicon-plus"></span>
-                                                        <fmt:message key="addRoomFeatures" />
-                                                    </a>
+                                                    <c:choose>
+                                                        <c:when test="${requestScope.roomFeature == null}">
+                                                            <c:url value="Controller" var="addRoomFeature">
+                                                                <c:param name="command"
+                                                                    value="gotoaddroomfeaturepage" />
+                                                                <c:param name="id" value="${requestScope.room.id}" />
+                                                                <c:param name="roomname"
+                                                                    value="${requestScope.room.name}" />
+                                                                <c:param name="hotelname"
+                                                                    value="${requestScope.hotel.name}" />
+                                                                <c:param name="returnurl"
+                                                                    value="${sessionScope.lastUrl}" />
+                                                            </c:url>
+                                                            <a href="${addRoomFeature}" class="btn btn-success"
+                                                                role="button">
+                                                                <span class="glyphicon glyphicon-plus"></span>
+                                                                <fmt:message key="addRoomFeatures" />
+                                                            </a>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:url value="Controller" var="changeRoomFeature">
+                                                                <c:param name="command"
+                                                                    value="gotochangeroomfeaturepage" />
+                                                                <c:param name="id" value="${requestScope.room.id}" />
+                                                                <c:param name="roomname"
+                                                                    value="${requestScope.room.name}" />
+                                                                <c:param name="hotelname"
+                                                                    value="${requestScope.hotel.name}" />
+                                                                <c:param name="returnurl"
+                                                                    value="${sessionScope.lastUrl}" />
+                                                            </c:url>
+                                                            <a href="${changeRoomFeature}" class="btn btn-success"
+                                                                role="button">
+                                                                <span class="glyphicon glyphicon-pencil"></span>
+                                                                <fmt:message key="changeRoomFeatures" />
+                                                            </a>
+                                                            <c:url value="Controller" var="deleteRoomFeature">
+                                                                <c:param name="command"
+                                                                    value="gotodeleteroomfeaturepage" />
+                                                                <c:param name="id" value="${requestScope.room.id}" />
+                                                                <c:param name="name"
+                                                                    value="${requestScope.room.name}" />
+                                                                <c:param name="statickey" value="hotel" />
+                                                                <c:param name="staticvalue"
+                                                                    value="${requestScope.hotel.name}" />
+                                                                <c:param name="returnurl"
+                                                                    value="${sessionScope.lastUrl}" />
+                                                            </c:url>
+                                                            <a href="${deleteRoomFeature}" class="btn btn-danger"
+                                                                role="button">
+                                                                <span class="glyphicon glyphicon-remove"></span>
+                                                                <fmt:message key="deleteRoomFeatures" />
+                                                            </a>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:if>
                                             </h3>
                                         </div>
                                         <div class="panel-body">
                                             <c:choose>
                                                 <c:when test="${requestScope.roomFeature != null}">
+                                                    <h2>
+                                                        <fmt:message key="facilities" />:
+                                                    </h2>
                                                     <ul class="list-group">
                                                         <c:choose>
                                                             <c:when
@@ -223,8 +386,7 @@
                                                             </c:otherwise>
                                                         </c:choose>
                                                         <c:choose>
-                                                            <c:when
-                                                                test="${requestScope.roomFeature.hasHeating}">
+                                                            <c:when test="${requestScope.roomFeature.hasHeating}">
                                                                 <li class="list-group-item list-group-item-default">
                                                                     <p class="text-success">
                                                                         <span class="glyphicon glyphicon-ok"></span>
@@ -242,8 +404,7 @@
                                                             </c:otherwise>
                                                         </c:choose>
                                                         <c:choose>
-                                                            <c:when
-                                                                test="${requestScope.roomFeature.hasBalcony}">
+                                                            <c:when test="${requestScope.roomFeature.hasBalcony}">
                                                                 <li class="list-group-item list-group-item-default">
                                                                     <p class="text-success">
                                                                         <span class="glyphicon glyphicon-ok"></span>
@@ -261,8 +422,7 @@
                                                             </c:otherwise>
                                                         </c:choose>
                                                         <c:choose>
-                                                            <c:when
-                                                                test="${requestScope.roomFeature.hasTV}">
+                                                            <c:when test="${requestScope.roomFeature.hasTV}">
                                                                 <li class="list-group-item list-group-item-default">
                                                                     <p class="text-success">
                                                                         <span class="glyphicon glyphicon-ok"></span>
@@ -280,8 +440,7 @@
                                                             </c:otherwise>
                                                         </c:choose>
                                                         <c:choose>
-                                                            <c:when
-                                                                test="${requestScope.roomFeature.hasRefrigerator}">
+                                                            <c:when test="${requestScope.roomFeature.hasRefrigerator}">
                                                                 <li class="list-group-item list-group-item-default">
                                                                     <p class="text-success">
                                                                         <span class="glyphicon glyphicon-ok"></span>
@@ -299,8 +458,7 @@
                                                             </c:otherwise>
                                                         </c:choose>
                                                         <c:choose>
-                                                            <c:when
-                                                                test="${requestScope.roomFeature.hasKitchen}">
+                                                            <c:when test="${requestScope.roomFeature.hasKitchen}">
                                                                 <li class="list-group-item list-group-item-default">
                                                                     <p class="text-success">
                                                                         <span class="glyphicon glyphicon-ok"></span>
@@ -318,8 +476,7 @@
                                                             </c:otherwise>
                                                         </c:choose>
                                                         <c:choose>
-                                                            <c:when
-                                                                test="${requestScope.roomFeature.hasHairDryer}">
+                                                            <c:when test="${requestScope.roomFeature.hasHairDryer}">
                                                                 <li class="list-group-item list-group-item-default">
                                                                     <p class="text-success">
                                                                         <span class="glyphicon glyphicon-ok"></span>
@@ -337,8 +494,7 @@
                                                             </c:otherwise>
                                                         </c:choose>
                                                         <c:choose>
-                                                            <c:when
-                                                                test="${requestScope.roomFeature.hasToilet}">
+                                                            <c:when test="${requestScope.roomFeature.hasToilet}">
                                                                 <li class="list-group-item list-group-item-default">
                                                                     <p class="text-success">
                                                                         <span class="glyphicon glyphicon-ok"></span>
@@ -356,8 +512,7 @@
                                                             </c:otherwise>
                                                         </c:choose>
                                                         <c:choose>
-                                                            <c:when
-                                                                test="${requestScope.roomFeature.hasShower}">
+                                                            <c:when test="${requestScope.roomFeature.hasShower}">
                                                                 <li class="list-group-item list-group-item-default">
                                                                     <p class="text-success">
                                                                         <span class="glyphicon glyphicon-ok"></span>
@@ -400,7 +555,12 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <c:if test="${requestScope.roomFeature != null}">
-
+                                                <h2>
+                                                    <fmt:message key="description" />:
+                                                </h2>
+                                                <p>
+                                                    <c:out value="${requestScope.roomFeature.description}" />
+                                                </p>
                                             </c:if>
                                         </div>
                                     </div>

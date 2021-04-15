@@ -2,11 +2,10 @@ package by.tc.task05.dao;
 
 import java.util.Optional;
 
+import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.entity.Hotel;
 import by.tc.task05.entity.HotelForm;
-import by.tc.task05.entity.RoomShortView;
 import by.tc.task05.entity.User;
-import by.tc.task05.utils.ListPart;
 import jakarta.servlet.http.Part;
 
 import java.util.List;

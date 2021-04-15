@@ -7,13 +7,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import by.tc.task05.dao.DAOException;
+import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.dao.RoomDAO;
 import by.tc.task05.dao.connectionpool.ConnectionPool;
 import by.tc.task05.dao.connectionpool.ConnectionPoolException;
 import by.tc.task05.entity.*;
 import by.tc.task05.entity.filter.RoomSearchDatabaseFilter;
-import by.tc.task05.utils.ListPart;
 import jakarta.servlet.http.Part;
 
 public class SQLRoomDAO implements RoomDAO {
@@ -71,6 +70,7 @@ public class SQLRoomDAO implements RoomDAO {
     private final static String C_ID = "rooms.id";
     private static final String C_HOTEL_ID = "rooms.hotel_id";
     private static final String C_NAME = "rooms.name";
+    private static final String C_HOTEL_NAME = "hotels.name";
     private static final String C_NUMBER_OF_BEDS = "rooms.number_of_beds";
     private static final String C_SHORT_DESCRIPTION = "rooms.short_description";
     private static final String C_COST = "rooms.cost";
@@ -95,8 +95,7 @@ public class SQLRoomDAO implements RoomDAO {
     private static final String C_PH_ROOM_ID = "room_photos.room_id";
     private static final String C_PH_EXT = "room_photos.extension";
     private static final String C_ADDRESS = "hotels.cached_address";
-    private static final String C_RATING = "`rooms.rating`";
-
+    private static final String C_RATING = "rooms.rating";
 
     static {
         ResourceBundle sb = ResourceBundle.getBundle(SQL_BUNDLE);
@@ -148,7 +147,7 @@ public class SQLRoomDAO implements RoomDAO {
     }
 
     @Override
-    public List<RoomShortView> getMany(RoomSearchDatabaseFilter filter)
+    public List<RoomShortView> getViewsByFilter(RoomSearchDatabaseFilter filter)
             throws DAOException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -166,6 +165,11 @@ public class SQLRoomDAO implements RoomDAO {
                 room.setAddress(resultSet.getString(C_ADDRESS));
                 room.setRating(resultSet.getDouble(C_RATING));
                 room.setIcon(resultSet.getString(C_ICON));
+                room.setCost(resultSet.getDouble(C_COST));
+                room.setNumberOfBeds(resultSet.getInt(C_NUMBER_OF_BEDS));
+                room.setShortDescription(resultSet.getString(C_SHORT_DESCRIPTION));
+                room.setHotelId(resultSet.getInt(C_HOTEL_ID));
+                room.setHotelName(resultSet.getString(C_HOTEL_NAME));
                 rooms.add(room);
             }
         } catch (SQLException e) {

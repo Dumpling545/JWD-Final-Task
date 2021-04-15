@@ -10,6 +10,9 @@
                 <c:import url="meta.jsp" />
 
                 <body>
+                    <fmt:bundle basename="by.tc.task05.bundle.misc">
+                        <fmt:message key="fallbackImageUrl" var="fallbackImageUrl" />
+                    </fmt:bundle>
                     <c:import url="header.jsp" />
                     <div class="container">
                         <c:import url="messagePanel.jsp" />
@@ -28,7 +31,7 @@
                                                     <c:when test="${requestScope.isAdmin}">
                                                         <div class="hovereffect">
                                                             <img src="/fileServer/images/${requestScope.hotel.icon}"
-                                                                onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'"
+                                                                onerror="this.onerror=null; this.src='${fallbackImageUrl}'"
                                                                 class="media-object img-thumbnail" style="width:10vw"
                                                                 alt="" />
                                                             <div class="overlay">
@@ -50,7 +53,7 @@
                                                     </c:when>
                                                     <c:otherwise>
                                                         <img src="/fileServer/images/${requestScope.hotel.icon}"
-                                                            onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'"
+                                                            onerror="this.onerror=null; this.src='${fallbackImageUrl}'"
                                                             class="media-object img-thumbnail" style="width:10vw"
                                                             alt="" />
                                                     </c:otherwise>
@@ -169,7 +172,7 @@
                                                                 <c:when test="${requestScope.isAdmin}">
                                                                     <div class="hovereffect">
                                                                         <img src="/fileServer/images/${room.icon}"
-                                                                            onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'"
+                                                                            onerror="this.onerror=null; this.src='${fallbackImageUrl}'"
                                                                             class="media-object img-thumbnail"
                                                                             style="width:10vw" alt="" />
                                                                         <div class="overlay">
@@ -194,7 +197,7 @@
                                                                 </c:when>
                                                                 <c:otherwise>
                                                                     <img src="/fileServer/images/${room.icon}"
-                                                                        onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'"
+                                                                        onerror="this.onerror=null; this.src='${fallbackImageUrl}'"
                                                                         class="media-object img-thumbnail"
                                                                         style="width:10vw" alt="" />
                                                                 </c:otherwise>
