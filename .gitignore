@@ -41,18 +41,16 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 ### VisualStudioCode ###
-.vscode/*
-!.vscode/tasks.json
-!.vscode/launch.json
+.vscode/
 *.code-workspace
+.settings/
+.idea/
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
 .ionide
 
-### vscode ###
-!.vscode/settings.json
-!.vscode/extensions.json
+
 
 # End of https://www.toptal.com/developers/gitignore/api/java,visualstudiocode,maven,vscode
