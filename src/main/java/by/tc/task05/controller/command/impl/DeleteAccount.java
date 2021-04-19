@@ -17,7 +17,7 @@ public class DeleteAccount extends AuthorizedUserCommand {
     private static final String USER_ID_ATTRIBUTE_KEY = "userId";
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTODELETEACCOUNTPAGE;
     }
 

@@ -17,7 +17,7 @@ public class GoToEditPasswordPage extends AuthorizedUserCommand {
             "/WEB-INF/jsp/editPassword.jsp";
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOSTARTERPAGE;
     }
 

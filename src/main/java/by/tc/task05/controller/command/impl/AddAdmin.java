@@ -19,9 +19,9 @@ public class AddAdmin extends AuthorizedUserCommand {
     private static final String EMAIL_ATTRIBUTE_KEY = "email";
 
     @Override
-    public void redirectOnException(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    ServiceException e) throws IOException {
+    public void onException(HttpServletRequest request,
+                            HttpServletResponse response,
+                            ServiceException e) throws IOException {
         UrlHelper.sendRedirectToLastUrlWithMessage(request, response,
                 ExceptionMessageMapper.getKey(this, e));
     }

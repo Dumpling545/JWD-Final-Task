@@ -29,7 +29,7 @@ public class GoToHotelManagementPage extends AuthorizedUserCommand {
     private static final String RESULTS_PER_PAGE_PARAMETER_KEY = "resultsperpage";
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOHOTELMANAGEMENTPAGE;
     }
 

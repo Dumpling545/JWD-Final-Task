@@ -15,7 +15,7 @@ public class SignOut extends AuthorizedUserCommand {
     private static final String LOGOUT_OK_MSG = "logoutOk";
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOSTARTERPAGE;
     }
 

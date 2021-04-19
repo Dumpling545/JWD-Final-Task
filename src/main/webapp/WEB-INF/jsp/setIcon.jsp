@@ -29,8 +29,12 @@
                                         method="post">
                                         <c:if test="${param['statickey'] != null && param['staticvalue'] != null}">
                                             <div class="form-group">
-                                                <label><fmt:message key="${param['statickey']}" />:</label>
-                                                <p class="form-control-static"><c:out value="${param['staticvalue']}" /></p>
+                                                <label>
+                                                    <fmt:message key="${param['statickey']}" />:
+                                                </label>
+                                                <p class="form-control-static">
+                                                    <c:out value="${param['staticvalue']}" />
+                                                </p>
                                             </div>
                                         </c:if>
                                         <div class="form-group"><label for="avatar">
@@ -41,6 +45,9 @@
                                             </fmt:bundle>
                                             <input class="form-control" type="file" id="${requestScope.image}"
                                                 name="${requestScope.image}" accept="${types}" required>
+                                            <span class="help-block">
+                                                <fmt:message key="imageHelp" />: <c:out value="${types}" />
+                                            </span>
                                         </div>
                                         <c:import url="passwordConfirmationFormGroup.jsp" />
                                         <div class="form-group">

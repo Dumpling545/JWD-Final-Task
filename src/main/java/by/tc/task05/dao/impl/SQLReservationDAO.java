@@ -141,7 +141,7 @@ public class SQLReservationDAO implements ReservationDAO {
             preparedStatement.setDouble(7, reservation.getPaymentAmount());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            if (e.getMessage().equals(DATE_RANGE_OCCUPIED_SQL_MESSAGE)) {
+            if (e.getMessage().contains(DATE_RANGE_OCCUPIED_SQL_MESSAGE)) {
                 throw new OccupiedDateRangeDAOException(e);
             } else {
                 throw new DAOException(e);
@@ -210,8 +210,8 @@ public class SQLReservationDAO implements ReservationDAO {
                 archived.setPaymentToken(rs.getString(C_PAYMENT_TOKEN));
             }
             removeStatement = connection.prepareStatement(SQL_REMOVE);
-            getStatement.setInt(1, reservationId);
-            getStatement.executeUpdate();
+            removeStatement.setInt(1, reservationId);
+            removeStatement.executeUpdate();
             archiveStatement = connection.prepareStatement(SQL_ARCHIVED_ADD);
             archiveStatement.setInt(1, archived.getId());
             archiveStatement.setInt(2, archived.getUserId());
@@ -439,7 +439,7 @@ public class SQLReservationDAO implements ReservationDAO {
         List<ExtendedReservation> reservations = new ArrayList<>();
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(SQL_GET_BY_USER);
+            preparedStatement = connection.prepareStatement(SQL_ARCHIVED_GET_BY_USER);
             preparedStatement.setInt(1, userId);
             preparedStatement.setInt(2, skip);
             preparedStatement.setInt(3, take);
@@ -488,7 +488,7 @@ public class SQLReservationDAO implements ReservationDAO {
         List<ExtendedReservation> reservations = new ArrayList<>();
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(SQL_GET_BY_HOTEL);
+            preparedStatement = connection.prepareStatement(SQL_ARCHIVED_GET_BY_HOTEL);
             preparedStatement.setInt(1, hotelId);
             preparedStatement.setInt(2, skip);
             preparedStatement.setInt(3, take);
@@ -537,7 +537,7 @@ public class SQLReservationDAO implements ReservationDAO {
         List<ExtendedReservation> reservations = new ArrayList<>();
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(SQL_GET_BY_ROOM);
+            preparedStatement = connection.prepareStatement(SQL_ARCHIVED_GET_BY_ROOM);
             preparedStatement.setInt(1, roomId);
             preparedStatement.setInt(2, skip);
             preparedStatement.setInt(3, take);

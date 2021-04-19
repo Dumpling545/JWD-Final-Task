@@ -20,7 +20,7 @@ public class AddHotel extends AuthorizedUserCommand {
     private static final String LONGTITUDE_ADDRESS_ATTRIBUTE_KEY = "longtitude";
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOADDHOTELPAGE;
     }
 

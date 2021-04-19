@@ -4,6 +4,7 @@ import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.dao.DAOProvider;
 import by.tc.task05.dao.HotelDAO;
 import by.tc.task05.dao.UserDAO;
+import by.tc.task05.dao.exception.RoomOrHotelWithActiveReservationsDeletionDAOException;
 import by.tc.task05.entity.Hotel;
 import by.tc.task05.entity.HotelForm;
 import by.tc.task05.entity.PageInformation;
@@ -156,6 +157,8 @@ public class HotelServiceImpl implements HotelService {
             } else {
                 throw new UnauthorizedActionException();
             }
+        } catch (RoomOrHotelWithActiveReservationsDeletionDAOException e) {
+            throw new RoomOrHotelWithActiveReservationsDeletionException(e);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
@@ -204,10 +207,9 @@ public class HotelServiceImpl implements HotelService {
         try {
             if (userService.isPasswordMatched(userId, password) &&
                     hotelDAO.isHotelAdministrator(userId, hotelId)) {
-                List<User> admins =
-                        hotelDAO.getAdministratorsByHotel(hotelId,
-                                AT_LEAST_TWO_TEST_SKIP, AT_LEAST_TWO_TEST_TAKE);
-                if(admins.size() == AT_LEAST_TWO_TEST_TAKE){
+                List<User> admins = hotelDAO.getAdministratorsByHotel(hotelId,
+                        AT_LEAST_TWO_TEST_SKIP, AT_LEAST_TWO_TEST_TAKE);
+                if (admins.size() == AT_LEAST_TWO_TEST_TAKE) {
                     hotelDAO.removeAdministrator(adminId, hotelId);
                 } else {
                     throw new LastAdministratorRemovalException();

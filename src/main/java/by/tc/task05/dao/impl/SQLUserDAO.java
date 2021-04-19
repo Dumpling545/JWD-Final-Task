@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import by.tc.task05.dao.exception.AdministratorAccountDeletionDAOException;
 import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.dao.UserDAO;
 import by.tc.task05.dao.connectionpool.ConnectionPool;
@@ -42,6 +43,8 @@ public class SQLUserDAO implements UserDAO {
 
     private final static String REMOVE = "users.remove";
     private final static String SQL_REMOVE;
+
+    private final static String ADMINISTRATORS_FOREIGN_KEY = "fk_m2m_administrator_hotel_users";
 
     private final static String RELATIVE_USER_IMAGE_PATH = "users/avatars/";
 
@@ -208,7 +211,11 @@ public class SQLUserDAO implements UserDAO {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException(e);
+            if(e.getMessage().contains(ADMINISTRATORS_FOREIGN_KEY)){
+                throw new AdministratorAccountDeletionDAOException(e);
+            } else {
+                throw new DAOException(e);
+            }
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();

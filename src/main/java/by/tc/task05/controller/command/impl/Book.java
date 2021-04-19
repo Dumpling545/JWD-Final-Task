@@ -3,10 +3,12 @@ package by.tc.task05.controller.command.impl;
 import by.tc.task05.entity.Reservation;
 import by.tc.task05.service.ReservationService;
 import by.tc.task05.service.ServiceProvider;
+import by.tc.task05.service.exception.OccupiedDateRangeException;
 import by.tc.task05.service.exception.ServiceException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,12 +21,27 @@ public class Book extends AuthorizedUserCommand {
     private static final String ROOM_ID_PARAMETER_KEY = "roomId";
     private static final String CHECK_IN_PARAMETER_KEY = "checkin";
     private static final String CHECK_OUT_PARAMETER_KEY = "checkout";
+    private static final String CHECK_IN_JSON_KEY = "checkin";
+    private static final String CHECK_OUT_JSON_KEY = "checkout";
+    private static final String PAYMENT_JSON_KEY = "payment";
+    private static final String TOKEN_JSON_KEY = "token";
 
     @Override
-    public void redirectOnException(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    ServiceException e) throws IOException {
+    public void onUnauthorizedUser(HttpServletRequest request,
+                                   HttpServletResponse response)
+            throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+    }
 
+    @Override
+    public void onException(HttpServletRequest request,
+                            HttpServletResponse response,
+                            ServiceException e) throws IOException {
+        if(e instanceof OccupiedDateRangeException){
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+        } else {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -48,10 +65,16 @@ public class Book extends AuthorizedUserCommand {
         ReservationService reservationService =
                 provider.getReservationService();
         reservationService.add(reservation);
-        /* temporary code */
-        response.setContentType("text/html;charset=UTF-8");
+        response.setStatus(HttpServletResponse.SC_ACCEPTED);
         PrintWriter out = response.getWriter();
-        out.append("Booked sussessfully!");
-        out.close();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(CHECK_IN_JSON_KEY, reservation.getCheckInDate().toString());
+        jsonObject.put(CHECK_OUT_JSON_KEY, reservation.getCheckOutDate().toString());
+        jsonObject.put(PAYMENT_JSON_KEY, reservation.getPaymentAmount());
+        jsonObject.put(TOKEN_JSON_KEY, reservation.getPaymentToken());
+        out.print(jsonObject.toString());
+        out.flush();
     }
 }

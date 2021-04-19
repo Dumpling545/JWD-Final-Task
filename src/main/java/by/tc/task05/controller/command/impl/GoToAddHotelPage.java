@@ -14,7 +14,7 @@ public class GoToAddHotelPage extends AuthorizedUserCommand {
             "/WEB-INF/jsp/addChangeHotel.jsp";
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOHOTELMANAGEMENTPAGE;
     }
 

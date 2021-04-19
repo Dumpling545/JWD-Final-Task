@@ -9,6 +9,9 @@
             <c:import url="meta.jsp" />
 
             <body>
+                <fmt:bundle basename="by.tc.task05.bundle.misc">
+                    <fmt:message key="fallbackImageUrl" var="fallbackImageUrl" />
+                </fmt:bundle>
                 <c:import url="header.jsp" />
                 <div class="container">
                     <c:import url="messagePanel.jsp" />
@@ -41,7 +44,7 @@
                                                                 <c:param name="checkin" value="${param.checkin}" />
                                                                 <c:param name="checkout" value="${param.checkout}" />
                                                             </c:url>
-                                                            <a href="${roomPage}">
+                                                            <a target="_blank" href="${roomPage}">
                                                                 <c:out value="${room.name}" />
                                                             </a>
                                                         </h4>
@@ -54,8 +57,8 @@
                                                                     <c:param name="command" value="gotohotelpage" />
                                                                     <c:param name="hotelid" value="${room.hotelId}" />
                                                                 </c:url>
-                                                                <a href="${hotelPage}" class="btn btn-info"
-                                                                    role="button">
+                                                                <a target="_blank" href="${hotelPage}"
+                                                                    class="btn btn-info" role="button">
                                                                     <c:out value="${room.hotelName}" />
                                                                 </a>
                                                             </li>

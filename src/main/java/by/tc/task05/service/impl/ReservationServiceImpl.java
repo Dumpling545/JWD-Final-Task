@@ -10,7 +10,7 @@ import by.tc.task05.entity.*;
 import by.tc.task05.service.*;
 import by.tc.task05.service.exception.*;
 import by.tc.task05.service.helper.HelperProvider;
-import by.tc.task05.service.helper.impl.PaymentHelper;
+import by.tc.task05.service.helper.PaymentHelper;
 import by.tc.task05.service.validator.DateRangeValidator;
 import by.tc.task05.service.validator.PageValidator;
 import by.tc.task05.service.validator.ValidatorProvider;
@@ -90,32 +90,33 @@ public class ReservationServiceImpl implements ReservationService {
         RoomService roomService = serviceProvider.getRoomService();
         UserService userService = serviceProvider.getUserService();
         try {
-            if (userService.isPasswordMatched(userId, password)) {
-                Optional<Reservation> reservation =
-                        reservationDAO.get(reservationId);
-                if (reservation.isPresent()) {
-                    if (archivationReason == ExtendedReservation.CANCELLED) {
-                        reservationDAO.archiveReservation(reservationId,
-                                archivationReason);
-                    } else if (
-                            archivationReason == ExtendedReservation.REJECTED ||
-                                    archivationReason ==
-                                            ExtendedReservation.ENDED_SUCCESSFULLY) {
-                        if (roomService.isRoomAdministrator(userId,
-                                reservation.get().getRoomId())) {
-                            reservationDAO.archiveReservation(reservationId,
-                                    archivationReason);
-                        } else {
-                            throw new UnauthorizedActionException();
-                        }
-                    } else {
-                        throw new InvalidArchivationReasonException();
-                    }
-                } else {
-                    throw new NoSuchReservationException();
-                }
-            } else {
+            if (!userService.isPasswordMatched(userId, password)) {
                 throw new UnauthorizedActionException();
+            }
+            Optional<Reservation> reservation =
+                    reservationDAO.get(reservationId);
+            if (reservation.isEmpty()) {
+                throw new NoSuchReservationException();
+            }
+            switch (archivationReason) {
+                case ExtendedReservation.CANCELLED:
+                    if (reservation.get().getUserId() != userId) {
+                        throw new UnauthorizedActionException();
+                    }
+                    reservationDAO.archiveReservation(reservationId,
+                            archivationReason);
+                    break;
+                case ExtendedReservation.REJECTED:
+                case ExtendedReservation.ENDED_SUCCESSFULLY:
+                    if (!roomService.isRoomAdministrator(userId,
+                            reservation.get().getRoomId())) {
+                        throw new UnauthorizedActionException();
+                    }
+                    reservationDAO.archiveReservation(reservationId,
+                            archivationReason);
+                    break;
+                default:
+                    throw new InvalidArchivationReasonException();
             }
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -156,7 +157,8 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ListPart<ExtendedReservation> getByHotel(int userId, int hotelId,
-                                                    PageInformation page, boolean archived)
+                                                    PageInformation page,
+                                                    boolean archived)
             throws ServiceException {
         PageValidator pageValidator =
                 ValidatorProvider.getInstance().getPageValidator();
@@ -191,7 +193,8 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ListPart<ExtendedReservation> getByRoom(int userId, int roomId,
-                                           PageInformation page, boolean archived)
+                                                   PageInformation page,
+                                                   boolean archived)
             throws ServiceException {
         PageValidator pageValidator =
                 ValidatorProvider.getInstance().getPageValidator();

@@ -20,7 +20,7 @@ public class GoToSetAvatarPage extends AuthorizedUserCommand {
     private static final String COMMAND_VALUE = CommandName.SETAVATAR.name();
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOSTARTERPAGE;
     }
 

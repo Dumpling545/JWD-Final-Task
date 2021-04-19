@@ -18,7 +18,7 @@ public class EditPassword extends AuthorizedUserCommand {
     private static final String OLD_PASSWORD_ATTRIBUTE_KEY = "oldPassword";
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOEDITPASSWORDPAGE;
     }
 

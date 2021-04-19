@@ -49,6 +49,9 @@
                                             </label>
                                             <input id="pw" class="form-control" type="password" id="password"
                                                 name="password" pattern="${passwordRegex}" required>
+                                            <span class="help-block">
+                                                <fmt:message key="passwordHelp" />
+                                            </span>
                                         </div>
                                         <div class="form-group"><label for="repeatPassword">
                                                 <fmt:message key="repeatPassword" />:

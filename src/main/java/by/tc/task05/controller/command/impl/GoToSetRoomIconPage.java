@@ -22,7 +22,7 @@ public class GoToSetRoomIconPage extends AuthorizedUserCommand {
     private static final boolean PASS_CONFIRM_VALUE = true;
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOHOTELMANAGEMENTPAGE;
     }
 

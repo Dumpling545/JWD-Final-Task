@@ -16,7 +16,7 @@ public class EditEmail extends AuthorizedUserCommand {
     private static final String PASSWORD_ATTRIBUTE_KEY = "password";
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOEDITEMAILPAGE;
     }
 

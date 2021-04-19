@@ -71,7 +71,7 @@
                                                                         <c:param name="command" value="gotohotelpage" />
                                                                         <c:param name="hotelid" value="${hotel.id}" />
                                                                     </c:url>
-                                                                    <a href="${hotelPage}" class="btn btn-info"
+                                                                    <a target="_blank"  href="${hotelPage}" class="btn btn-info"
                                                                         role="button">
                                                                         <fmt:message key="goToHotelPage" />
                                                                     </a>

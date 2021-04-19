@@ -17,7 +17,7 @@ public class SetAvatar extends AuthorizedUserCommand {
 
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOSETAVATARPAGE;
     }
 

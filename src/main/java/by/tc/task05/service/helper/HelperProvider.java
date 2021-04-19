@@ -1,7 +1,6 @@
 package by.tc.task05.service.helper;
 
 import by.tc.task05.service.helper.impl.LocationHelperImpl;
-import by.tc.task05.service.helper.impl.PaymentHelper;
 import by.tc.task05.service.helper.impl.PaymentHelperStub;
 
 public class HelperProvider {

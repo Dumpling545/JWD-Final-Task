@@ -17,7 +17,7 @@ public class EditUserInfo extends AuthorizedUserCommand {
     private static final String LAST_NAME_ATTRIBUTE_KEY = "lastName";
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOEDITUSERINFOPAGE;
     }
 

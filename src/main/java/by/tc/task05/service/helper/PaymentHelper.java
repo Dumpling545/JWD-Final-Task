@@ -1,4 +1,4 @@
-package by.tc.task05.service.helper.impl;
+package by.tc.task05.service.helper;
 
 import by.tc.task05.service.exception.ServiceException;
 

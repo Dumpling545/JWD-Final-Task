@@ -11,6 +11,7 @@ import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.dao.RoomDAO;
 import by.tc.task05.dao.connectionpool.ConnectionPool;
 import by.tc.task05.dao.connectionpool.ConnectionPoolException;
+import by.tc.task05.dao.exception.RoomOrHotelWithActiveReservationsDeletionDAOException;
 import by.tc.task05.entity.*;
 import by.tc.task05.entity.filter.RoomSearchDatabaseFilter;
 import jakarta.servlet.http.Part;
@@ -96,6 +97,9 @@ public class SQLRoomDAO implements RoomDAO {
     private static final String C_PH_EXT = "room_photos.extension";
     private static final String C_ADDRESS = "hotels.cached_address";
     private static final String C_RATING = "rooms.rating";
+
+    private static final String RESERVATIONS_FOREIGN_KEY =
+            "fk_reservations_rooms1";
 
     static {
         ResourceBundle sb = ResourceBundle.getBundle(SQL_BUNDLE);
@@ -379,7 +383,12 @@ public class SQLRoomDAO implements RoomDAO {
             preparedStatement.setInt(1, roomId);
             preparedStatement.executeUpdate();
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException(e);
+            if (e.getMessage().contains(RESERVATIONS_FOREIGN_KEY)) {
+                throw new RoomOrHotelWithActiveReservationsDeletionDAOException(
+                        e);
+            } else {
+                throw new DAOException(e);
+            }
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();

@@ -19,9 +19,9 @@ public class SetHotelIcon extends AuthorizedUserCommand {
     private static final String ID_KEY = "id";
 
     @Override
-    public void redirectOnException(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    ServiceException e) throws IOException {
+    public void onException(HttpServletRequest request,
+                            HttpServletResponse response,
+                            ServiceException e) throws IOException {
         UrlHelper.sendRedirectToLastUrlWithMessage(request, response,
                 ExceptionMessageMapper.getKey(this, e));
     }

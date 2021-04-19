@@ -27,7 +27,7 @@ public class GoToUserReservationsPage extends AuthorizedUserCommand {
     private static final String ARCHIVED_PARAMETER_KEY = "archived";
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOHOTELMANAGEMENTPAGE;
     }
 

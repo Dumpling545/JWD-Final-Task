@@ -18,7 +18,7 @@ public class GoToEditEmailPage extends AuthorizedUserCommand {
     private static final String EMAIL_ATTRIBUTE_KEY = "email";
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOSTARTERPAGE;
     }
 

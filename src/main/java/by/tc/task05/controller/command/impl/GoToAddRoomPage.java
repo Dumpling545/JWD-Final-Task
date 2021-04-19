@@ -16,7 +16,7 @@ public class GoToAddRoomPage extends AuthorizedUserCommand {
     private static final boolean PASS_CONFIRM_VALUE = true;
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOHOTELMANAGEMENTPAGE;
     }
     @Override

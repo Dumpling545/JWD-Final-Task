@@ -28,30 +28,32 @@ public abstract class AuthorizedUserCommand implements Command {
                 try {
                     executeAuthorized(id, request, response);
                 } catch (ServiceException e) {
-                    redirectOnException(request, response, e);
+                    onException(request, response, e);
                 }
             } else {
-                response.sendRedirect(UrlHelper
-                        .buildUrl(CommandName.GOTOSTARTERPAGE,
-                                UNAUTHORIZED_MESSAGE));
+                onUnauthorizedUser(request, response);
             }
         } else {
-            response.sendRedirect(UrlHelper
-                    .buildUrl(CommandName.GOTOSTARTERPAGE,
-                            UNAUTHORIZED_MESSAGE));
+            onUnauthorizedUser(request, response);
         }
     }
-    public void redirectOnException(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    ServiceException e) throws IOException {
+    public void onUnauthorizedUser(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        response.sendRedirect(UrlHelper
+                .buildUrl(CommandName.GOTOSTARTERPAGE,
+                        UNAUTHORIZED_MESSAGE));
+    }
+    public void onException(HttpServletRequest request,
+                            HttpServletResponse response,
+                            ServiceException e) throws IOException {
         response.sendRedirect(getExceptionRedirectUrl(e));
     }
 
     public String getExceptionRedirectUrl(ServiceException e) {
         return UrlHelper
-                .buildUrl(getExceptionRedirectPolicy(), ExceptionMessageMapper.getKey(this, e));
+                .buildUrl(getExceptionRedirectCommand(), ExceptionMessageMapper.getKey(this, e));
     }
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOSTARTERPAGE;
     }
 

@@ -3,17 +3,15 @@ package by.tc.task05.service.impl;
 import java.util.Optional;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import by.tc.task05.dao.exception.AdministratorAccountDeletionDAOException;
 import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.dao.DAOProvider;
 import by.tc.task05.dao.UserDAO;
 import by.tc.task05.entity.User;
 import by.tc.task05.entity.UserInfo;
 import by.tc.task05.entity.UserRegistrationForm;
-import by.tc.task05.service.exception.InvalidPasswordRepeatingException;
-import by.tc.task05.service.exception.InvalidUserException;
-import by.tc.task05.service.exception.ServiceException;
+import by.tc.task05.service.exception.*;
 import by.tc.task05.service.UserService;
-import by.tc.task05.service.exception.UnauthorizedActionException;
 import by.tc.task05.service.validator.ImageValidator;
 import by.tc.task05.service.validator.UserValidator;
 import by.tc.task05.service.validator.ValidatorProvider;
@@ -39,6 +37,7 @@ public class UserServiceImpl implements UserService {
         }
         return isPasswordMatched(result.get(), rawPassword);
     }
+
     private boolean isPasswordMatched(User user, String rawPassword) {
         return BCrypt.verifyer().verify(rawPassword.toCharArray(),
                 user.getPasswordHash()).verified;
@@ -187,6 +186,8 @@ public class UserServiceImpl implements UserService {
         if (user.isPresent() && isPasswordMatched(user.get(), password)) {
             try {
                 userDAO.remove(id);
+            } catch (AdministratorAccountDeletionDAOException e) {
+                throw new AdministratorAccountDeletionException(e);
             } catch (DAOException e) {
                 throw new ServiceException(e);
             }

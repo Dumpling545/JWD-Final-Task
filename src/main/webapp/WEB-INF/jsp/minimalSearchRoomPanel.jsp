@@ -15,16 +15,16 @@
                                 <label for="location">
                                     <fmt:message key="location" />:
                                 </label>
-                                <input class="form-control" type="text" id="location" name="location"
-                                    value="${param['location']}">
-                            </div>
-                            <div class="form-group">
-                                <button class="form-control btn btn-primary" type="submit">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                                <button class="form-control btn btn-danger" type="reset">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                    <input class="form-control" type="text" id="location" name="location"
+                                        value="${param['location']}">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>

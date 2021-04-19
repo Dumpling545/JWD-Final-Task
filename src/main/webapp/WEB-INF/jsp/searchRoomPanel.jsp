@@ -6,21 +6,13 @@
             <div class="col-sm-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <fmt:message key="searchFilter" />:
+                        <h3>
+                            <fmt:message key="searchFilter" />:
+                        </h3>
                     </div>
                     <div class="panel-body">
                         <form action="Controller" method="get">
                             <input type="hidden" name="command" value="gotosearchpage">
-
-                            <div class="form-group">
-                                <button class="form-control btn btn-primary" type="submit">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                                <button class="form-control btn btn-danger" type="reset">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
-                            </div>
-
                             <div class="form-group">
                                 <label for="location">
                                     <fmt:message key="location" />:
@@ -29,12 +21,17 @@
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
                                     <input class="form-control" type="text" id="location" name="location"
                                         value="${param['location']}">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-
                             <div id="dateRangeFormGroup" class="form-group hidden">
                                 <label for="textdate">
-                                    <fmt:message key="checkIn" /> - <fmt:message key="checkOut" />:
+                                    <fmt:message key="checkIn" /> -
+                                    <fmt:message key="checkOut" />:
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -74,9 +71,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <p class="form-control-static">
+                                <h4 class="form-control-static">
                                     <fmt:message key="pricePerNight" />:
-                                </p>
+                                </h4>
                             </div>
                             <div class="form-group">
                                 <label for="fromprice">
@@ -99,9 +96,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <p class="form-control-static">
+                                <h4 class="form-control-static">
                                     <fmt:message key="rating" />:
-                                </p>
+                                </h4>
                             </div>
                             <div class="form-group">
                                 <label for="fromrating">
@@ -143,20 +140,12 @@
                                     </option>
                                 </select>
                             </div>-->
-                            <div class="form-group">
-                                <button class="form-control btn btn-primary" type="submit">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                                <button class="form-control btn btn-danger" type="reset">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
-                            </div>
                         </form>
                     </div>
                 </div>
             </div>
             <script>
                 var start = "<c:out value='${param.checkin}'/>";
-                var end="<c:out value='${param.checkout}'/>"
-                <c:import url="../js/mainScript.js" />
+                var end = "<c:out value='${param.checkout}'/>"
+                    < c:import url ="../js/mainScript.js" />
             </script>

@@ -31,6 +31,8 @@ $(function () {
     });
 
     $('input[name="textdate"]').on('cancel.daterangepicker', function (ev, picker) {
+        $("#checkin").val("");
+        $("#checkout").val("");
         $(this).val('');
     });
 });

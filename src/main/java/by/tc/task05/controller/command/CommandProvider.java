@@ -73,6 +73,8 @@ public class CommandProvider {
         commands.put(CommandName.DELETEROOMFEATURE, new DeleteRoomFeature());
         commands.put(CommandName.GOTOUSERRESERVATIONSPAGE, new GoToUserReservationsPage());
         commands.put(CommandName.BOOK, new Book());
+        commands.put(CommandName.ARCHIVERESERVATION, new ArchiveReservation());
+        commands.put(CommandName.GOTOCANCELRESERVATIONPAGE, new GoToCancelReservationPage());
     }
 
     @Nullable

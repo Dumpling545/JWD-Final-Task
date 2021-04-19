@@ -96,7 +96,8 @@
                                                                 <c:param name="hotelid"
                                                                     value="${requestScope.hotel.id}" />
                                                             </c:url>
-                                                            <a href="${hotelPage}" class="btn btn-info" role="button">
+                                                            <a target="_blank" href="${hotelPage}" class="btn btn-info"
+                                                                role="button">
                                                                 <c:out value="${requestScope.hotel.name}" />
                                                             </a>
                                                         </li>
@@ -184,64 +185,68 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">
-                                                <fmt:message key="book" />
-                                            </h3>
-                                        </div>
-                                        <div class="panel-body">
-                                            <form>
-                                                <div id="dateRangeFormGroup" class="form-group hidden">
-                                                    <label for="textdate">
-                                                        <fmt:message key="checkIn" /> -
-                                                        <fmt:message key="checkOut" />:
-                                                    </label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i
-                                                                class="glyphicon glyphicon-calendar"></i></span>
-                                                        <input class="form-control" type="text" id="textdate"
-                                                            name="textdate" value="">
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group" id="checkinFormGroup">
-                                                    <label for="checkin">
-                                                        <fmt:message key="checkIn" />:
-                                                    </label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i
-                                                                class="glyphicon glyphicon-calendar"></i></span>
-                                                        <input class="form-control" type="date" id="checkin"
-                                                            name="checkin" value="${param['checkin']}">
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group" id="checkoutFormGroup">
-                                                    <label for="checkout">
-                                                        <fmt:message key="checkOut" />:
-                                                    </label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i
-                                                                class="glyphicon glyphicon-calendar"></i></span>
-                                                        <input class="form-control" type="date" id="checkout"
-                                                            name="checkout" value="${param['checkout']}">
-                                                    </div>
-                                                </div>
-                                                <button type="button" class="btn btn-info" data-toggle="modal"
-                                                    data-target="#checkModal">
+                                    <c:if test="${sessionScope.userId!= null}">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">
                                                     <fmt:message key="book" />
-                                                </button>
-                                            </form>
+                                                </h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <form>
+                                                    <div id="dateRangeFormGroup" class="form-group hidden">
+                                                        <label for="textdate">
+                                                            <fmt:message key="checkIn" /> -
+                                                            <fmt:message key="checkOut" />:
+                                                        </label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i
+                                                                    class="glyphicon glyphicon-calendar"></i></span>
+                                                            <input class="form-control" type="text" id="textdate"
+                                                                name="textdate" value="">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group" id="checkinFormGroup">
+                                                        <label for="checkin">
+                                                            <fmt:message key="checkIn" />:
+                                                        </label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i
+                                                                    class="glyphicon glyphicon-calendar"></i></span>
+                                                            <input class="form-control" type="date" id="checkin"
+                                                                name="checkin" value="${param['checkin']}">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group" id="checkoutFormGroup">
+                                                        <label for="checkout">
+                                                            <fmt:message key="checkOut" />:
+                                                        </label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i
+                                                                    class="glyphicon glyphicon-calendar"></i></span>
+                                                            <input class="form-control" type="date" id="checkout"
+                                                                name="checkout" value="${param['checkout']}">
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" class="btn btn-info" data-toggle="modal"
+                                                        data-target="#checkModal">
+                                                        <fmt:message key="book" />
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </c:if>
                                     <div id="checkModal" class="modal fade" role="dialog">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close"
                                                         data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title"><fmt:message key="book" /></h4>
+                                                    <h4 class="modal-title">
+                                                        <fmt:message key="book" />
+                                                    </h4>
                                                 </div>
                                                 <div class="modal-body">
                                                     <ul class="list-group">
@@ -285,14 +290,95 @@
                                                     </button>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div id="successModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close"
+                                                        data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">
+                                                        <fmt:message key="bookSuccessHeader" />
+                                                    </h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="text-success">
+                                                        <fmt:message key="bookSuccessMessage" />
+                                                    </p>
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item list-group-item-info">
+                                                            <strong>
+                                                                <fmt:message key="checkIn" />:
+                                                            </strong>
+                                                            <span id="successCheckinSpan">
 
+                                                            </span>
+                                                        </li>
+                                                        <li class="list-group-item list-group-item-info">
+                                                            <strong>
+                                                                <fmt:message key="checkOut" />:
+                                                            </strong>
+                                                            <span id="successCheckoutSpan">
+
+                                                            </span>
+                                                        </li>
+                                                        <li class="list-group-item list-group-item-info">
+                                                            <strong>
+                                                                <fmt:message key="paymentAmount" />:
+                                                            </strong>
+                                                            <span id="successPaymentAmountSpan">
+
+                                                            </span>$
+                                                        </li>
+                                                        <li class="list-group-item list-group-item-info">
+                                                            <strong>
+                                                                <fmt:message key="paymentToken" />:
+                                                            </strong>
+                                                            <span id="successPaymenTokenSpan">
+
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                    <button id="sender" type="button" class="btn btn-info"
+                                                        data-dismiss="modal">
+                                                        <fmt:message key="ok" />
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="errorModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close"
+                                                        data-dismiss="modal">&times;</button>
+                                                    <h4 id="errorModalHeader" class="modal-title"></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p id="errorModalMessage" class="text-danger">
+
+                                                    </p>
+                                                    <button id="sender" type="button" class="btn btn-info"
+                                                        data-dismiss="modal">
+                                                        <fmt:message key="ok" />
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <script>
                                         var start = "<c:out value='${param.checkin}'/>";
                                         var end = "<c:out value='${param.checkout}'/>";
-                                        var gRoomPrice = <c:out value='${requestScope.room.cost}'/>;
-                                        var gId = <c:out value='${requestScope.room.id}'/>;
+                                        var gRoomPrice = <c:out value='${requestScope.room.cost}' />;
+                                        var gId = <c:out value='${requestScope.room.id}' />;
+                                        var gBookUnauthorizedHeader = "<fmt:message key='bookUnauthorizedHeader' />";
+                                        var gBookUnauthorizedMessage = "<fmt:message key='bookUnauthorizedMessage' />";
+                                        var gBookDatesOccupiedHeader = "<fmt:message key='bookDatesOccupiedHeader' />";
+                                        var gBookDatesOccupiedMessage = "<fmt:message key='bookDatesOccupiedMessage' />";
+                                        var gServerErrorHeader = "<fmt:message key='serverErrorHeader' />";
+                                        var gServerErrorMessage = "<fmt:message key='serverErrorMessage' />";
                                         <c:import url ="../js/mainScript.js" />
                                         <c:import url ="../js/roomScript.js" />
                                     </script>

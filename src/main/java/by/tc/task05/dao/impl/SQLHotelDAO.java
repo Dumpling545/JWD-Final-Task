@@ -4,6 +4,7 @@ import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.dao.HotelDAO;
 import by.tc.task05.dao.connectionpool.ConnectionPool;
 import by.tc.task05.dao.connectionpool.ConnectionPoolException;
+import by.tc.task05.dao.exception.RoomOrHotelWithActiveReservationsDeletionDAOException;
 import by.tc.task05.entity.Hotel;
 import by.tc.task05.entity.HotelForm;
 import by.tc.task05.entity.User;
@@ -58,6 +59,8 @@ public class SQLHotelDAO implements HotelDAO {
     private static final String C_BANK_ACCOUNT = "hotels.bank_account";
     private static final String C_ICON = "hotels.icon";
 
+    private static final String RESERVATIONS_FOREIGN_KEY =
+            "fk_reservations_rooms1";
     private final static String RELATIVE_HOTEL_IMAGE_PATH = "hotels/icons/";
 
 
@@ -104,7 +107,8 @@ public class SQLHotelDAO implements HotelDAO {
     }
 
     @Override
-    public List<Hotel> getAdministeredBy(int userId, int skip, int take) throws DAOException {
+    public List<Hotel> getAdministeredBy(int userId, int skip, int take)
+            throws DAOException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -292,7 +296,12 @@ public class SQLHotelDAO implements HotelDAO {
             preparedStatement.setInt(1, hotelId);
             preparedStatement.executeUpdate();
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException(e);
+            if (e.getMessage().contains(RESERVATIONS_FOREIGN_KEY)) {
+                throw new RoomOrHotelWithActiveReservationsDeletionDAOException(
+                        e);
+            } else {
+                throw new DAOException(e);
+            }
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();

@@ -7,6 +7,7 @@ import java.util.Optional;
 import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.dao.DAOProvider;
 import by.tc.task05.dao.RoomDAO;
+import by.tc.task05.dao.exception.RoomOrHotelWithActiveReservationsDeletionDAOException;
 import by.tc.task05.entity.*;
 import by.tc.task05.entity.filter.RoomSearchDatabaseFilter;
 import by.tc.task05.entity.filter.RoomSearchServiceFilter;
@@ -15,6 +16,7 @@ import by.tc.task05.service.RoomService;
 import by.tc.task05.service.ServiceProvider;
 import by.tc.task05.service.UserService;
 import by.tc.task05.service.exception.NoSuchRoomException;
+import by.tc.task05.service.exception.RoomOrHotelWithActiveReservationsDeletionException;
 import by.tc.task05.service.exception.ServiceException;
 import by.tc.task05.service.exception.UnauthorizedActionException;
 import by.tc.task05.service.helper.HelperProvider;
@@ -24,8 +26,8 @@ import by.tc.task05.utils.ListPart;
 import jakarta.servlet.http.Part;
 
 public class RoomServiceImpl implements RoomService {
-    private final double LATITUDE_DELTA = 0.1;
-    private final double LONGTITUDE_DELTA = 0.1;
+    private final double LATITUDE_DELTA = 0.2;
+    private final double LONGTITUDE_DELTA = 0.2;
 
     @Override
     public ListPart<RoomShortView> getViewsByFilter(
@@ -38,9 +40,9 @@ public class RoomServiceImpl implements RoomService {
         RoomValidator roomValidator =
                 ValidatorProvider.getInstance().getRoomValidator();
         roomValidator.validateFilter(filter);
-         PageValidator pageValidator =
+        PageValidator pageValidator =
                 ValidatorProvider.getInstance().getPageValidator();
-         pageValidator.validatePage(pageInformation);
+        pageValidator.validatePage(pageInformation);
         try {
             dbFilter.setCheckInDate(filter.getCheckInDate());
             dbFilter.setCheckOutDate(filter.getCheckOutDate());
@@ -49,7 +51,8 @@ public class RoomServiceImpl implements RoomService {
             dbFilter.setNumberOfBeds(filter.getNumberOfBeds());
             dbFilter.setRatingLowBound(filter.getRatingLowBound());
             dbFilter.setRatingHighBound(filter.getRatingHighBound());
-            int skip = (pageInformation.getPage() - 1) * pageInformation.getPageSize();
+            int skip = (pageInformation.getPage() - 1) *
+                    pageInformation.getPageSize();
             dbFilter.setSkipAmount(skip);
             dbFilter.setTakeAmount(pageInformation.getPageSize() + 1);
             if (!filter.getLocation().isBlank()) {
@@ -211,6 +214,8 @@ public class RoomServiceImpl implements RoomService {
             } else {
                 throw new UnauthorizedActionException();
             }
+        } catch (RoomOrHotelWithActiveReservationsDeletionDAOException e) {
+            throw new RoomOrHotelWithActiveReservationsDeletionException(e);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

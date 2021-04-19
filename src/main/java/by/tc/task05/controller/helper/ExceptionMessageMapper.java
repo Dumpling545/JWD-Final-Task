@@ -36,6 +36,10 @@ public class ExceptionMessageMapper {
     private static final String OCCUPIED_RANGE_ERROR = "occupiedRangeError";
     private static final String INVALID_ARCHIVE_REASON_ERROR =
             "invalidArchiveReasonError";
+    private static final String ADMIN_DELETION_ERROR =
+            "administratorDeletionError";
+    private static final String ROOM_HOTEL_DELETION_ERROR =
+            "roomHotelDeletionError";
 
     public static String getKey(Command command, ServiceException ex) {
         Logger logger = Logger.getAnonymousLogger();
@@ -88,6 +92,10 @@ public class ExceptionMessageMapper {
             return OCCUPIED_RANGE_ERROR;
         } else if (ex instanceof InvalidArchivationReasonException) {
             return INVALID_ARCHIVE_REASON_ERROR;
+        } else if (ex instanceof AdministratorAccountDeletionException) {
+            return ADMIN_DELETION_ERROR;
+        } else if (ex instanceof RoomOrHotelWithActiveReservationsDeletionException) {
+            return ROOM_HOTEL_DELETION_ERROR;
         } else {
             return SERVER_ERROR;
         }

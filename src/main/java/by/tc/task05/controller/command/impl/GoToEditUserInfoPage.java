@@ -19,7 +19,7 @@ public class GoToEditUserInfoPage extends AuthorizedUserCommand {
     private static final String USER_INFO_ATTRIBUTE_KEY = "userInfo";
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOSTARTERPAGE;
     }
 

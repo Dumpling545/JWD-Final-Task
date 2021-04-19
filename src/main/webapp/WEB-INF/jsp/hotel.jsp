@@ -109,7 +109,7 @@
                                                                 <c:param name="name"
                                                                     value="${requestScope.hotel.name}" />
                                                             </c:url>
-                                                            <a href="${admins}" class="btn btn-info" role="button">
+                                                            <a target="_blank" href="${admins}" class="btn btn-info" role="button">
                                                                 <span class="glyphicon glyphicon-user"></span>
                                                                 <fmt:message key="admins" />
                                                             </a>
@@ -214,7 +214,7 @@
                                                                         <c:param name="command" value="gotoroompage" />
                                                                         <c:param name="roomid" value="${room.id}" />
                                                                     </c:url>
-                                                                    <a href="${roomPage}" class="btn btn-info"
+                                                                    <a target="_blank"  href="${roomPage}" class="btn btn-info"
                                                                         role="button">
                                                                         <fmt:message key="goToRoomPage" />
                                                                     </a>

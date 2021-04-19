@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class GoToDeleteRoomPage extends AuthorizedUserCommand {
     private static final String DELETE_ROOM_JSP_LOCATION =
-            "/WEB-INF/jsp/delete.jsp";
+            "/WEB-INF/jsp/passwordVerification.jsp";
     private static final String FORM_HEADER_KEY = "header";
     private static final String FORM_HEADER_VALUE = "deleteRoom";
     private static final String COMMAND_KEY = "command";

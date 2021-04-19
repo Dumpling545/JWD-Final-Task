@@ -27,7 +27,7 @@ public class GoToAdminsPage extends AuthorizedUserCommand {
 
 
     @Override
-    public CommandName getExceptionRedirectPolicy() {
+    public CommandName getExceptionRedirectCommand() {
         return CommandName.GOTOHOTELMANAGEMENTPAGE;
     }
 

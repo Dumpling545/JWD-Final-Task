@@ -9,15 +9,26 @@
 
             <body>
                 <c:import url="header.jsp" />
-                <fmt:message key="delete" var="delete" />
+                <c:choose>
+                    <c:when test="${requestScope.buttonTextBundleKey != null}">
+                        <fmt:message key="${requestScope.buttonTextBundleKey}" var="buttonText" />
+                    </c:when>
+                    <c:otherwise>
+                        <fmt:message key="delete" var="buttonText" />
+                    </c:otherwise>
+                </c:choose>
                 <div class="container">
                     <c:import url="messagePanel.jsp" />
                     <fmt:bundle basename="by.tc.task05.bundle.misc">
                         <fmt:message key="passwordRegex" var="passwordRegex" />
                     </fmt:bundle>
-                    <div class="alert alert-danger">
-                        <fmt:message key="deleteWarning" />
-                    </div>
+                    <c:set var="subclass" value="primary" scope="page"/>
+                    <c:if test="${requestScope.dangerous != false}">
+                        <div class="alert alert-danger">
+                            <fmt:message key="dangerousWarning" />
+                        </div>
+                        <c:set var="subclass" value="danger" scope="page"/>
+                    </c:if>
                     <div class="row">
                         <div class="col-sm-6 col-sm-offset-3">
                             <div class="panel panel-default">
@@ -35,13 +46,18 @@
                                         method="post">
                                         <c:if test="${param['statickey'] != null && param['staticvalue'] != null}">
                                             <div class="form-group">
-                                                <label><fmt:message key="${param['statickey']}" />:</label>
-                                                <p class="form-control-static"><c:out value="${param['staticvalue']}" /></p>
+                                                <label>
+                                                    <fmt:message key="${param['statickey']}" />:
+                                                </label>
+                                                <p class="form-control-static">
+                                                    <c:out value="${param['staticvalue']}" />
+                                                </p>
                                             </div>
                                         </c:if>
                                         <c:import url="passwordConfirmationFormGroup.jsp" />
                                         <div class="form-group">
-                                            <input class="form-control btn btn-danger" type="submit" value="${delete}">
+                                            <input class="form-control btn btn-${subclass}" type="submit"
+                                                value="${buttonText}">
                                             <c:import url="returnButton.jsp" />
                                         </div>
                                     </form>
