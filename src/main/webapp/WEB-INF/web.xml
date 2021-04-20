@@ -10,6 +10,9 @@
 	<servlet>
 		<servlet-name>Controller</servlet-name>
 		<servlet-class>by.tc.task05.controller.Controller</servlet-class>
+        <multipart-config>
+            <location>/home/user/fileServer/images</location>
+        </multipart-config>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Controller</servlet-name>

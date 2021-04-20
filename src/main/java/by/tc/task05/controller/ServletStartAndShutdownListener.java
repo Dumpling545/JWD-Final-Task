@@ -4,6 +4,7 @@ import by.tc.task05.dao.connectionpool.ConnectionPool;
 import by.tc.task05.dao.connectionpool.ConnectionPoolException;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
+import jakarta.servlet.ServletRegistration;
 import jakarta.servlet.annotation.WebListener;
 
 @WebListener
