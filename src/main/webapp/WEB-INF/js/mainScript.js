@@ -17,11 +17,12 @@ $(function () {
         "minSpan": {
             "days": 1
         },
+        "drops": "left",
         "minDate": moment().clone().startOf('day'),
         "startDate": startDate,
         "endDate": endDate,
         autoUpdateInput: false
-    }, function (start, end, label) {});
+    }, function (start, end, label) { });
     $('input[name="textdate"]').on('apply.daterangepicker', function (ev, picker) {
         document.getElementById("checkin").valueAsDate = picker.startDate.endOf('day').toDate();
         document.getElementById("checkout").valueAsDate = picker.endDate.toDate();

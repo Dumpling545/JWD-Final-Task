@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SQLReservationDAO implements ReservationDAO {
     private final static String SQL_BUNDLE = "by.tc.task05.bundle.sql";
@@ -364,7 +366,7 @@ public class SQLReservationDAO implements ReservationDAO {
                 r.setPaymentToken(resultSet.getString(C_PAYMENT_TOKEN));
                 r.setPaymentAmount(resultSet.getDouble(C_PAYMENT_AMOUNT));
                 r.setStatus(resultSet.getInt(C_STATUS));
-                r.setHotelId(resultSet.getInt(HOTELS_C_ID));
+                r.setHotelId(hotelId);
                 r.setHotelName(resultSet.getString(HOTELS_C_NAME));
                 r.setUserEmail(resultSet.getString(USERS_C_EMAIL));
                 reservations.add(r);

@@ -159,6 +159,16 @@
                                                                     <span class="glyphicon glyphicon-pencil"></span>
                                                                     <fmt:message key="changeRoom" />
                                                                 </a>
+                                                                <c:url value="Controller" var="reservations">
+                                                                    <c:param name="command"
+                                                                        value="gotoroomreservationspage" />
+                                                                    <c:param name="roomid" value="${requestScope.room.id}" />
+                                                                    <c:param name="name" value="${requestScope.room.name}" />
+                                                                </c:url>
+                                                                <a target="_blank" href="${reservations}" class="btn btn-info"
+                                                                    role="button">
+                                                                    <fmt:message key="reservations" />
+                                                                </a>
                                                                 <c:url value="Controller" var="deleteRoom">
                                                                     <c:param name="command"
                                                                         value="gotodeleteroompage" />

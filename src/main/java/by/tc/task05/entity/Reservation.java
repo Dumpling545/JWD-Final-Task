@@ -19,8 +19,7 @@ public class Reservation implements Serializable {
     public static final int ACCEPTED = 1;
 
 
-    public Reservation() {
-    }
+    public Reservation() {}
 
     public Reservation(int id, int userId, int roomId, LocalDate checkInDate,
                        LocalDate checkOutDate, String paymentToken, int status,

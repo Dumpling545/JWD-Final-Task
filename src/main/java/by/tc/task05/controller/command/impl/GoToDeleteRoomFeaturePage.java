@@ -9,24 +9,20 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-public class GoToDeleteRoomFeaturePage extends AuthorizedUserCommand {
-    private static final String DELETE_ROOM_FEATURE_JSP_LOCATION =
-            "/WEB-INF/jsp/passwordVerification.jsp";
-    private static final String FORM_HEADER_KEY = "header";
+public class GoToDeleteRoomFeaturePage extends GoToSimpleVerificationPage {
     private static final String FORM_HEADER_VALUE = "deleteRoomFeatures";
-    private static final String COMMAND_KEY = "command";
-    private static final String COMMAND_VALUE = CommandName.DELETEROOMFEATURE.name();
-    private static final String PASS_CONFIRM_KEY = "passwordConfirmation";
-    private static final boolean PASS_CONFIRM_VALUE = true;
+    private static final CommandName COMMAND = CommandName.DELETEROOMFEATURE;
     @Override
-    public void executeAuthorized(int userId, HttpServletRequest request,
-                                  HttpServletResponse response)
-            throws ServiceException, ServletException, IOException {
-        RequestDispatcher requestDispatcher =
-                request.getRequestDispatcher(DELETE_ROOM_FEATURE_JSP_LOCATION);
-        request.setAttribute(FORM_HEADER_KEY, FORM_HEADER_VALUE);
-        request.setAttribute(COMMAND_KEY, COMMAND_VALUE);
-        request.setAttribute(PASS_CONFIRM_KEY, PASS_CONFIRM_VALUE);
-        requestDispatcher.forward(request, response);
+    public String getFormHeaderValue() {
+        return FORM_HEADER_VALUE;
+    }
+
+    @Override
+    public CommandName getCommandValue() {
+        return COMMAND;
+    }
+    @Override
+    public CommandName getExceptionRedirectCommand() {
+        return CommandName.GOTOHOTELMANAGEMENTPAGE;
     }
 }

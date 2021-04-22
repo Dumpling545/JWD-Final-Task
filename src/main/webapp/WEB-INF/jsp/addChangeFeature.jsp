@@ -120,7 +120,7 @@
                                             <label for="description">
                                                 <fmt:message key="description" />:
                                                 <textarea class="form-control" type="text" id="description"
-                                                    name="description" maxlength="2000"><c:if test="${param['command'] == 'gotochangeroomfeaturepage'}"><c:out value="${requestScope.feature.description}" /></c:if></textarea>
+                                                    name="description" maxlength="2000" rows="25" cols="80"><c:if test="${param['command'] == 'gotochangeroomfeaturepage'}"><c:out value="${requestScope.feature.description}" /></c:if></textarea>
                                             </label>
                                         </div>
                                         <c:import url="passwordConfirmationFormGroup.jsp" />

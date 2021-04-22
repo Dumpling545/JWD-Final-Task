@@ -71,8 +71,8 @@
                                                                         <c:param name="command" value="gotohotelpage" />
                                                                         <c:param name="hotelid" value="${hotel.id}" />
                                                                     </c:url>
-                                                                    <a target="_blank"  href="${hotelPage}" class="btn btn-info"
-                                                                        role="button">
+                                                                    <a target="_blank" href="${hotelPage}"
+                                                                        class="btn btn-info" role="button">
                                                                         <fmt:message key="goToHotelPage" />
                                                                     </a>
                                                                 </li>
@@ -124,50 +124,31 @@
                                                                         <c:param name="id" value="${hotel.id}" />
                                                                         <c:param name="name" value="${hotel.name}" />
                                                                     </c:url>
-                                                                    <a href="${admins}" class="btn btn-info"
-                                                                        role="button">
+                                                                    <a target="_blank" href="${admins}"
+                                                                        class="btn btn-info" role="button">
                                                                         <span class="glyphicon glyphicon-user"></span>
                                                                         <fmt:message key="admins" />
+                                                                    </a>
+                                                                    <c:url value="Controller" var="reservations">
+                                                                        <c:param name="command"
+                                                                            value="gotohotelreservationspage" />
+                                                                        <c:param name="hotelid" value="${hotel.id}" />
+                                                                        <c:param name="name" value="${hotel.name}" />
+                                                                    </c:url>
+                                                                    <a target="_blank" href="${reservations}"
+                                                                        class="btn btn-info" role="button">
+                                                                        <fmt:message key="reservations" />
                                                                     </a>
                                                                     <c:url value="Controller" var="deleteHotel">
                                                                         <c:param name="command"
                                                                             value="gotodeletehotelpage" />
                                                                         <c:param name="id" value="${hotel.id}" />
                                                                         <c:param name="name" value="${hotel.name}" />
-                                                                        <c:choose>
-                                                                            <c:when
-                                                                                test="${param['page'] != null && param['page'] > 1 && fn:length(requestScope.hotels) == 1}">
-                                                                                <c:param name="cancelurl"
-                                                                                    value="${sessionScope.lastUrl}" />
-                                                                                <c:url value="Controller"
-                                                                                    var="previousPageLink">
-                                                                                    <c:forEach var="entry"
-                                                                                        items="${param}">
-                                                                                        <c:choose>
-                                                                                            <c:when
-                                                                                                test="${entry.key=='page'}">
-                                                                                                <c:param
-                                                                                                    name="${entry.key}"
-                                                                                                    value="${entry.value - 1}" />
-                                                                                            </c:when>
-                                                                                            <c:otherwise>
-                                                                                                <c:param
-                                                                                                    name="${entry.key}"
-                                                                                                    value="${entry.value}" />
-                                                                                            </c:otherwise>
-                                                                                        </c:choose>
-                                                                                    </c:forEach>
-                                                                                </c:url>
-                                                                                <c:param name="returnurl"
-                                                                                    value="${previousPageLink}" />
-                                                                            </c:when>
-                                                                            <c:otherwise>
-                                                                                <c:param name="returnurl"
-                                                                                    value="${sessionScope.lastUrl}" />
-                                                                            </c:otherwise>
-                                                                        </c:choose>
+                                                                        <c:param name="returnurl"
+                                                                            value="${sessionScope.lastUrl}" />
                                                                     </c:url>
-                                                                    <a href="${deleteHotel}" class="btn btn-danger"
+                                                                    <a href="${deleteHotel}"
+                                                                        class="btn btn-danger url-adjustment-object-1 url-adjustment-target-1"
                                                                         role="button">
                                                                         <span class="glyphicon glyphicon-remove"></span>
                                                                         <fmt:message key="deleteHotel" />
@@ -183,6 +164,9 @@
                                     <div class="panel-footer">
                                         <c:import url="pagination.jsp" />
                                     </div>
+                                    <script>
+                                        <c:import url="../js/adjustUrlsForDeletionLinksOnList.js" />
+                                    </script>
                                 </div>
                             </div>
                         </div>

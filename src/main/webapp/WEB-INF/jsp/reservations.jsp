@@ -19,6 +19,28 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h2>
+                                            <c:if test="${param['command'] == 'gotohotelreservationspage'}">
+                                                <c:url value="Controller" var="mainHotelPage">
+                                                    <c:param name="command" value="gotohotelpage" />
+                                                    <c:param name="hotelid" value="${param['hotelid']}" />
+                                                </c:url>
+                                                <td>
+                                                    <a target="_blank" href="${mainHotelPage}">
+                                                        <c:out value="${param['name']}" />
+                                                    </a>,
+                                                </td>
+                                            </c:if>
+                                            <c:if test="${param['command'] == 'gotoroomreservationspage'}">
+                                                <c:url value="Controller" var="mainRoomPage">
+                                                    <c:param name="command" value="gotoroompage" />
+                                                    <c:param name="roomid" value="${param['roomid']}" />
+                                                </c:url>
+                                                <td>
+                                                    <a target="_blank" href="${mainRoomPage}">
+                                                        <c:out value="${param['name']}" />
+                                                    </a>,
+                                                </td>
+                                            </c:if>
                                             <fmt:message key="reservations" />:
                                         </h2>
                                         <ul class="nav nav-pills">
@@ -31,9 +53,6 @@
                                                     <fmt:message key="archived" />
                                                 </a></li>
                                         </ul>
-                                        <script>
-                                            <c:import url="../js/addLinksToPills.js" />
-                                        </script>
                                         <c:import url="pageResizer.jsp" />
                                     </div>
                                     <div class="panel-body">
@@ -106,7 +125,7 @@
                                                                 </a>
                                                             </td>
                                                         </c:if>
-                                                        <td>
+                                                        <td class="url-adjustment-object-1">
                                                             <c:out value="${reservation.checkInDate}" />
                                                         </td>
                                                         <td>
@@ -152,71 +171,75 @@
                                                             </c:choose>
                                                         </td>
                                                         <td>
-                                                            <c:if
-                                                                test="${param['command'] == 'gotouserreservationspage' && param['archived'] != true}">
-                                                                <c:url value="Controller" var="deleteReservation">
-                                                                    <c:param name="command"
-                                                                        value="gotocancelreservationpage" />
-                                                                    <c:param name="id" value="${reservation.id}" />
-                                                                    <c:param name="id2" value="2" />
-                                                                    <c:param name="name"
-                                                                        value="${reservation.hotelName}" />
-                                                                    <c:param name="statickey" value="reservation" />
-                                                                    <c:param name="staticvalue"
-                                                                        value="${reservation.checkInDate} - ${reservation.checkOutDate},  ${reservation.roomName}" />
-                                                                    <c:choose>
-                                                                        <c:when
-                                                                            test="${param['page'] != null && param['page'] > 1 && fn:length(requestScope.reservations) == 1}">
-                                                                            <c:param name="cancelurl"
-                                                                                value="${sessionScope.lastUrl}" />
-                                                                            <c:url value="Controller"
-                                                                                var="previousPageLink">
-                                                                                <c:forEach var="entry" items="${param}">
-                                                                                    <c:choose>
-                                                                                        <c:when
-                                                                                            test="${entry.key=='page'}">
-                                                                                            <c:param name="${entry.key}"
-                                                                                                value="${entry.value - 1}" />
-                                                                                        </c:when>
-                                                                                        <c:otherwise>
-                                                                                            <c:param name="${entry.key}"
-                                                                                                value="${entry.value}" />
-                                                                                        </c:otherwise>
-                                                                                    </c:choose>
-                                                                                </c:forEach>
-                                                                            </c:url>
-                                                                            <c:param name="returnurl"
-                                                                                value="${previousPageLink}" />
-                                                                        </c:when>
-                                                                        <c:otherwise>
-                                                                            <c:param name="returnurl"
-                                                                                value="${sessionScope.lastUrl}" />
-                                                                        </c:otherwise>
-                                                                    </c:choose>
-                                                                </c:url>
-                                                                <a href="${deleteReservation}" class="btn btn-danger"
-                                                                    role="button">
-                                                                    <span
-                                                                        class="glyphicon glyphicon-remove-sign"></span>
-                                                                    <fmt:message key="cancel" />
-                                                                </a>
-                                                                <div class="modal fade" id="cancelModal" role="dialog">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <button type="button" class="close"
-                                                                                    data-dismiss="modal">&times;</button>
-                                                                                <h4 class="modal-title">
-                                                                                    <fmt:message key="location" />
-                                                                                </h4>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <div id='map'></div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </c:if>
+                                                            <div class="btn-group-vertical">
+                                                                <c:if
+                                                                    test="${param['command'] == 'gotouserreservationspage' && param['archived'] != true}">
+                                                                    <c:url value="Controller" var="cancelReservation">
+                                                                        <c:param name="command"
+                                                                            value="gotocancelreservationpage" />
+                                                                        <c:param name="id" value="${reservation.id}" />
+                                                                        <c:param name="id2" value="2" />
+                                                                        <c:param name="name"
+                                                                            value="${reservation.hotelName}" />
+                                                                        <c:param name="statickey" value="reservation" />
+                                                                        <c:param name="staticvalue"
+                                                                            value="${reservation.checkInDate} - ${reservation.checkOutDate},  ${reservation.roomName}" />
+                                                                        <c:param name="returnurl"
+                                                                            value="${sessionScope.lastUrl}" />
+
+                                                                    </c:url>
+                                                                    <a href="${cancelReservation}"
+                                                                        class="btn btn-danger url-adjustment-target-1"
+                                                                        role="button">
+                                                                        <span
+                                                                            class="glyphicon glyphicon-remove-sign"></span>
+                                                                        <fmt:message key="cancel" />
+                                                                    </a>
+                                                                </c:if>
+                                                                <c:if
+                                                                    test="${(param['command'] == 'gotohotelreservationspage' || param['command'] == 'gotoroomreservationspage') && param['archived'] != true && reservation.status == 0}">
+                                                                    <c:url value="Controller" var="acceptReservation">
+                                                                        <c:param name="command"
+                                                                            value="gotoacceptreservationpage" />
+                                                                        <c:param name="id" value="${reservation.id}" />
+                                                                        <c:param name="name"
+                                                                            value="${reservation.hotelName}" />
+                                                                        <c:param name="statickey" value="reservation" />
+                                                                        <c:param name="staticvalue"
+                                                                            value="${reservation.checkInDate} - ${reservation.checkOutDate},  ${reservation.roomName}" />
+                                                                        <c:param name="returnurl"
+                                                                            value="${sessionScope.lastUrl}" />
+                                                                    </c:url>
+                                                                    <a href="${acceptReservation}"
+                                                                        class="btn btn-success" role="button">
+                                                                        <span class="glyphicon glyphicon-ok"></span>
+                                                                        <fmt:message key="accept" />
+                                                                    </a>
+                                                                </c:if>
+                                                                <c:if
+                                                                    test="${(param['command'] == 'gotohotelreservationspage' || param['command'] == 'gotoroomreservationspage') && param['archived'] != true}">
+                                                                    <c:url value="Controller" var="rejectReservation">
+                                                                        <c:param name="command"
+                                                                            value="gotorejectreservationpage" />
+                                                                        <c:param name="id" value="${reservation.id}" />
+                                                                        <c:param name="id2" value="0" />
+                                                                        <c:param name="name"
+                                                                            value="${reservation.hotelName}" />
+                                                                        <c:param name="statickey" value="reservation" />
+                                                                        <c:param name="staticvalue"
+                                                                            value="${reservation.checkInDate} - ${reservation.checkOutDate},  ${reservation.roomName}" />
+                                                                        <c:param name="returnurl"
+                                                                            value="${sessionScope.lastUrl}" />
+                                                                    </c:url>
+                                                                    <a href="${rejectReservation}"
+                                                                        class="btn btn-danger url-adjustment-target-1"
+                                                                        role="button">
+                                                                        <span
+                                                                            class="glyphicon glyphicon-remove-sign"></span>
+                                                                        <fmt:message key="reject" />
+                                                                    </a>
+                                                                </c:if>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
@@ -226,6 +249,10 @@
                                     <div class="panel-footer">
                                         <c:import url="pagination.jsp" />
                                     </div>
+                                    <script>
+                                        <c:import url="../js/adjustUrlsForDeletionLinksOnList.js" />
+                                        <c:import url="../js/addLinksToPills.js" />
+                                    </script>
                                 </div>
                             </div>
                         </div>

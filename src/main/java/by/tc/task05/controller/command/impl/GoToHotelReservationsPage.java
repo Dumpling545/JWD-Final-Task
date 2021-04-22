@@ -2,9 +2,7 @@ package by.tc.task05.controller.command.impl;
 
 import by.tc.task05.controller.command.CommandName;
 import by.tc.task05.entity.ExtendedReservation;
-import by.tc.task05.entity.Hotel;
 import by.tc.task05.entity.PageInformation;
-import by.tc.task05.service.HotelService;
 import by.tc.task05.service.ReservationService;
 import by.tc.task05.service.ServiceProvider;
 import by.tc.task05.service.exception.ServiceException;
@@ -16,10 +14,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-public class GoToUserReservationsPage extends GoToReservationsPage {
+public class GoToHotelReservationsPage extends GoToReservationsPage {
+	private static final String HOTEL_ID_KEY = "hotelid";
+
 	@Override
 	public CommandName getExceptionRedirectCommand() {
-		return CommandName.ACCOUNT;
+		return CommandName.GOTOHOTELMANAGEMENTPAGE;
 	}
 
 	@Override
@@ -32,7 +32,9 @@ public class GoToUserReservationsPage extends GoToReservationsPage {
 		ServiceProvider provider = ServiceProvider.getInstance();
 		ReservationService reservationService =
 				provider.getReservationService();
-		return reservationService.getByUser(userId, pageInfo, archived);
+		int hotelId =
+				Integer.parseInt(request.getParameter(HOTEL_ID_KEY));
+		return reservationService
+				.getByHotel(userId, hotelId, pageInfo, archived);
 	}
-
 }

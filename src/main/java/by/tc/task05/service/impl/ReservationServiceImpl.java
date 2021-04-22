@@ -21,6 +21,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ReservationServiceImpl implements ReservationService {
     @Override
@@ -214,8 +216,6 @@ public class ReservationServiceImpl implements ReservationService {
                     reservations.addAll(reservationDAO
                             .getByRoom(roomId, skip, take + 1));
                 }
-                reservations.addAll(reservationDAO
-                        .getByRoom(roomId, skip, take + 1));
             } else {
                 throw new UnauthorizedActionException();
             }

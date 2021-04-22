@@ -90,40 +90,11 @@
                                                                         <c:param name="statickey" value="adminEmail" />
                                                                         <c:param name="staticvalue"
                                                                             value="${admin.email}" />
-                                                                        <c:choose>
-                                                                            <c:when
-                                                                                test="${param['page'] != null && param['page'] > 1 && fn:length(requestScope.admins) == 1}">
-                                                                                <c:param name="cancelurl"
-                                                                                    value="${sessionScope.lastUrl}" />
-                                                                                <c:url value="Controller"
-                                                                                    var="previousPageLink">
-                                                                                    <c:forEach var="entry"
-                                                                                        items="${param}">
-                                                                                        <c:choose>
-                                                                                            <c:when
-                                                                                                test="${entry.key=='page'}">
-                                                                                                <c:param
-                                                                                                    name="${entry.key}"
-                                                                                                    value="${entry.value - 1}" />
-                                                                                            </c:when>
-                                                                                            <c:otherwise>
-                                                                                                <c:param
-                                                                                                    name="${entry.key}"
-                                                                                                    value="${entry.value}" />
-                                                                                            </c:otherwise>
-                                                                                        </c:choose>
-                                                                                    </c:forEach>
-                                                                                </c:url>
-                                                                                <c:param name="returnurl"
-                                                                                    value="${previousPageLink}" />
-                                                                            </c:when>
-                                                                            <c:otherwise>
-                                                                                <c:param name="returnurl"
-                                                                                    value="${sessionScope.lastUrl}" />
-                                                                            </c:otherwise>
-                                                                        </c:choose>
+                                                                        <c:param name="returnurl"
+                                                                            value="${sessionScope.lastUrl}" />
+
                                                                     </c:url>
-                                                                    <a href="${deleteAdmin}" class="btn btn-danger"
+                                                                    <a href="${deleteAdmin}" class="btn btn-danger url-adjustment-object-1 url-adjustment-target-1"
                                                                         role="button">
                                                                         <span class="glyphicon glyphicon-remove"></span>
                                                                         <fmt:message key="deleteAdmin" />
@@ -139,6 +110,9 @@
                                     <div class="panel-footer">
                                         <c:import url="pagination.jsp" />
                                     </div>
+                                    <script>
+                                        <c:import url="../js/adjustUrlsForDeletionLinksOnList.js" />
+                                    </script>
                                 </div>
                             </div>
                         </div>
