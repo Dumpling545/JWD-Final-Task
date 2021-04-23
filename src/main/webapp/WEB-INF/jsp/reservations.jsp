@@ -217,6 +217,27 @@
                                                                     </a>
                                                                 </c:if>
                                                                 <c:if
+                                                                    test="${(param['command'] == 'gotohotelreservationspage' || param['command'] == 'gotoroomreservationspage') && param['archived'] != true && reservation.status == 1}">
+                                                                    <c:url value="Controller" var="archiveReservation">
+                                                                        <c:param name="command"
+                                                                            value="gotoarchivereservationpage" />
+                                                                        <c:param name="id" value="${reservation.id}" />
+                                                                        <c:param name="id2" value="1" />
+                                                                        <c:param name="name"
+                                                                            value="${reservation.hotelName}" />
+                                                                        <c:param name="statickey" value="reservation" />
+                                                                        <c:param name="staticvalue"
+                                                                            value="${reservation.checkInDate} - ${reservation.checkOutDate},  ${reservation.roomName}" />
+                                                                        <c:param name="returnurl"
+                                                                            value="${sessionScope.lastUrl}" />
+                                                                    </c:url>
+                                                                    <a href="${archiveReservation}"
+                                                                        class="btn btn-success url-adjustment-target-1" role="button">
+                                                                        <span class="glyphicon glyphicon-compressed"></span>
+                                                                        <fmt:message key="archive" />
+                                                                    </a>
+                                                                </c:if>
+                                                                <c:if
                                                                     test="${(param['command'] == 'gotohotelreservationspage' || param['command'] == 'gotoroomreservationspage') && param['archived'] != true}">
                                                                     <c:url value="Controller" var="rejectReservation">
                                                                         <c:param name="command"

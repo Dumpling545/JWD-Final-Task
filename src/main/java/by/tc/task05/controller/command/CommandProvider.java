@@ -10,7 +10,6 @@ import com.google.common.base.Optional;
 import javax.annotation.Nullable;
 
 
-
 public class CommandProvider {
 	private Map<CommandName, Command> commands = new HashMap<>();
 
@@ -89,7 +88,10 @@ public class CommandProvider {
 		commands.put(CommandName.GOTOACCEPTRESERVATIONPAGE,
 				new GoToAcceptReservationPage());
 		commands.put(CommandName.ACCEPTRESERVATION, new AcceptReservation());
-		commands.put(CommandName.GOTOREJECTRESERVATIONPAGE, new GoToRejectReservationPage());
+		commands.put(CommandName.GOTOREJECTRESERVATIONPAGE,
+				new GoToRejectReservationPage());
+		commands.put(CommandName.GOTOARCHIVERESERVATIONPAGE,
+				new GoToArchiveReservationPage());
 	}
 
 	@Nullable
