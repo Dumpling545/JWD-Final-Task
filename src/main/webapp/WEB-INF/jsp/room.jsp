@@ -109,6 +109,34 @@
                                                         </li>
                                                         <li class="list-group-item list-group-item-info">
                                                             <strong>
+                                                                <fmt:message key="rating" />:
+                                                            </strong>
+                                                            <c:choose>
+                                                                <c:when test="${requestScope.ratingInfo.rating >= 1}">
+                                                                    <c:out
+                                                                        value="${requestScope.ratingInfo.rating}/10" />
+                                                                    <span class="glyphicon glyphicon-star"></span>,
+                                                                    <c:url value="Controller" var="reviewsPage">
+                                                                        <c:param name="command"
+                                                                            value="gotoreviewspage" />
+                                                                        <c:param name="roomid"
+                                                                            value="${requestScope.room.id}" />
+                                                                        <c:param name="roomname"
+                                                                            value="${requestScope.room.name}" />
+                                                                    </c:url>
+                                                                    <a target="_blank" href="${reviewsPage}">
+                                                                        <c:out
+                                                                            value=" ${requestScope.ratingInfo.numberOfReviews} " />
+                                                                        <fmt:message key="reviews" />
+                                                                    </a>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <fmt:message key="noReviews" />
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </li>
+                                                        <li class="list-group-item list-group-item-info">
+                                                            <strong>
                                                                 <fmt:message key="locationOnMap" />:
                                                             </strong>
                                                             <button class="btn btn-info" data-toggle="modal"
@@ -162,11 +190,13 @@
                                                                 <c:url value="Controller" var="reservations">
                                                                     <c:param name="command"
                                                                         value="gotoroomreservationspage" />
-                                                                    <c:param name="roomid" value="${requestScope.room.id}" />
-                                                                    <c:param name="name" value="${requestScope.room.name}" />
+                                                                    <c:param name="roomid"
+                                                                        value="${requestScope.room.id}" />
+                                                                    <c:param name="name"
+                                                                        value="${requestScope.room.name}" />
                                                                 </c:url>
-                                                                <a target="_blank" href="${reservations}" class="btn btn-info"
-                                                                    role="button">
+                                                                <a target="_blank" href="${reservations}"
+                                                                    class="btn btn-info" role="button">
                                                                     <fmt:message key="reservations" />
                                                                 </a>
                                                                 <c:url value="Controller" var="deleteRoom">

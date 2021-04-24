@@ -151,19 +151,19 @@ public class SQLRoomDAO implements RoomDAO {
     }
 
     @Override
-    public List<RoomShortView> getViewsByFilter(RoomSearchDatabaseFilter filter)
+    public List<ExtendedRoom> getViewsByFilter(RoomSearchDatabaseFilter filter)
             throws DAOException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        List<RoomShortView> rooms = new ArrayList<>();
+        List<ExtendedRoom> rooms = new ArrayList<>();
         try {
             connection = ConnectionPool.getInstance().takeConnection();
             preparedStatement = connection.prepareStatement(SQL_GET_MANY);
             setParametersForGetManyStatement(preparedStatement, filter);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                RoomShortView room = new RoomShortView();
+                ExtendedRoom room = new ExtendedRoom();
                 room.setId(resultSet.getInt(C_ID));
                 room.setName(resultSet.getString(C_NAME));
                 room.setAddress(resultSet.getString(C_ADDRESS));

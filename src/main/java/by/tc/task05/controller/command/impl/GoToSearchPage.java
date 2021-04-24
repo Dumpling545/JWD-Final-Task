@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import by.tc.task05.controller.helper.ExceptionMessageMapper;
-import by.tc.task05.controller.helper.UrlHelper;
 import by.tc.task05.controller.command.Command;
-import by.tc.task05.controller.command.CommandName;
 import by.tc.task05.entity.PageInformation;
-import by.tc.task05.entity.RoomShortView;
+import by.tc.task05.entity.ExtendedRoom;
 import by.tc.task05.entity.filter.RoomSearchServiceFilter;
 import by.tc.task05.service.RoomService;
 import by.tc.task05.service.ServiceProvider;
@@ -44,7 +42,7 @@ public class GoToSearchPage implements Command {
         PageInformation pageInformation = new PageInformation();
         extractFilters(request, filter, pageInformation);
         try {
-            ListPart<RoomShortView> rooms =
+            ListPart<ExtendedRoom> rooms =
                     roomService.getViewsByFilter(filter, pageInformation);
             request.setAttribute(ROOMS_ATTRIBUTE_KEY, rooms);
             RequestDispatcher requestDispatcher =

@@ -9,7 +9,7 @@ import by.tc.task05.entity.filter.RoomSearchDatabaseFilter;
 import jakarta.servlet.http.Part;
 
 public interface RoomDAO {
-    public List<RoomShortView> getViewsByFilter(RoomSearchDatabaseFilter filter)
+    public List<ExtendedRoom> getViewsByFilter(RoomSearchDatabaseFilter filter)
             throws DAOException;
     public boolean isRoomAdministrator(int userId, int roomId)
             throws DAOException;

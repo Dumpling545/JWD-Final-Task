@@ -30,13 +30,13 @@ public class RoomServiceImpl implements RoomService {
     private final double LONGTITUDE_DELTA = 0.2;
 
     @Override
-    public ListPart<RoomShortView> getViewsByFilter(
+    public ListPart<ExtendedRoom> getViewsByFilter(
             RoomSearchServiceFilter filter, PageInformation pageInformation)
             throws ServiceException {
         DAOProvider provider = DAOProvider.getInstance();
         RoomDAO roomDAO = provider.getRoomDAO();
         RoomSearchDatabaseFilter dbFilter = new RoomSearchDatabaseFilter();
-        List<RoomShortView> rooms = new ArrayList<>();
+        List<ExtendedRoom> rooms = new ArrayList<>();
         RoomValidator roomValidator =
                 ValidatorProvider.getInstance().getRoomValidator();
         roomValidator.validateFilter(filter);
@@ -77,7 +77,7 @@ public class RoomServiceImpl implements RoomService {
         if (!last) {
             rooms.remove(rooms.size() - 1);
         }
-        return new ListPart<RoomShortView>(rooms, last);
+        return new ListPart<ExtendedRoom>(rooms, last);
     }
 
     @Override

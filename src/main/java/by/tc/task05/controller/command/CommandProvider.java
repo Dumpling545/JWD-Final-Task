@@ -92,6 +92,8 @@ public class CommandProvider {
 				new GoToRejectReservationPage());
 		commands.put(CommandName.GOTOARCHIVERESERVATIONPAGE,
 				new GoToArchiveReservationPage());
+		commands.put(CommandName.GOTOREVIEWSPAGE, new GoToReviewsPage());
+		commands.put(CommandName.CREATEREVIEW, new CreateReview());
 	}
 
 	@Nullable

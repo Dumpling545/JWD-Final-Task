@@ -1,14 +1,12 @@
 package by.tc.task05.entity;
 
-import java.io.Serializable;
-
-public class RoomShortView extends Room {
+public class ExtendedRoom extends Room {
     private static final long serialVersionUID = 1206903704279892684L;
     private String address;
     private double rating;
     private String hotelName;
 
-    public RoomShortView() {
+    public ExtendedRoom() {
     }
 
     public String getAddress() {
@@ -42,7 +40,7 @@ public class RoomShortView extends Room {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        RoomShortView that = (RoomShortView) o;
+        ExtendedRoom that = (ExtendedRoom) o;
 
         if (Double.compare(that.rating, rating) != 0) return false;
         if (address != null ? !address.equals(that.address) :

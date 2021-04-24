@@ -106,7 +106,7 @@
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-star"></i></span>
-                                    <input class="form-control" type="number" id="fromrating" name="fromrating" min="0"
+                                    <input class="form-control" type="number" id="fromrating" name="fromrating" min="1"
                                         max="10" value="${param['fromrating']}">
                                 </div>
                             </div>

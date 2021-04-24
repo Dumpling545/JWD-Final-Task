@@ -10,8 +10,8 @@ import by.tc.task05.utils.ListPart;
 import jakarta.servlet.http.Part;
 
 public interface RoomService {
-    ListPart<RoomShortView> getViewsByFilter(RoomSearchServiceFilter filter,
-                                             PageInformation pageInfo)
+    ListPart<ExtendedRoom> getViewsByFilter(RoomSearchServiceFilter filter,
+                                            PageInformation pageInfo)
             throws ServiceException;
 
 

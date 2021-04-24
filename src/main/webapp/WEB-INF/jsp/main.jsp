@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"
-    import="java.util.List, by.tc.task05.entity.Room" %>
+    import="java.util.List, by.tc.task05.entity.ExtendedRoom" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <fmt:setLocale value="${cookie['lang'].value}" scope="session" />
@@ -85,8 +85,15 @@
                                                                 <strong>
                                                                     <fmt:message key="rating" />:
                                                                 </strong>
-                                                                <c:out value="${room.rating}" />
-                                                                <span class="glyphicon glyphicon-star"></span>
+                                                                <c:choose>
+                                                                    <c:when test="${room.rating >= 1}">
+                                                                        <c:out value="${room.rating}" />
+                                                                        <span class="glyphicon glyphicon-star"></span>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <fmt:message key="noReviews" />
+                                                                    </c:otherwise>
+                                                                </c:choose> 
                                                             </li>
                                                         </ul>
                                                     </div>

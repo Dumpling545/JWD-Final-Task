@@ -232,8 +232,10 @@
                                                                             value="${sessionScope.lastUrl}" />
                                                                     </c:url>
                                                                     <a href="${archiveReservation}"
-                                                                        class="btn btn-success url-adjustment-target-1" role="button">
-                                                                        <span class="glyphicon glyphicon-compressed"></span>
+                                                                        class="btn btn-success url-adjustment-target-1"
+                                                                        role="button">
+                                                                        <span
+                                                                            class="glyphicon glyphicon-compressed"></span>
                                                                         <fmt:message key="archive" />
                                                                     </a>
                                                                 </c:if>
@@ -259,6 +261,111 @@
                                                                             class="glyphicon glyphicon-remove-sign"></span>
                                                                         <fmt:message key="reject" />
                                                                     </a>
+                                                                </c:if>
+                                                                <c:if
+                                                                    test="${param['command'] == 'gotouserreservationspage' && param['archived'] == true && reservation.status == 1}">
+                                                                    <button type="button" class="btn btn-default"
+                                                                        data-toggle="modal"
+                                                                        data-target="#reviewModal${reservation.id}">
+                                                                        <fmt:message key="writeReview" />
+                                                                    </button>
+                                                                    <div id="reviewModal${reservation.id}"
+                                                                        class="modal fade" role="dialog">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close"
+                                                                                        data-dismiss="modal">&times;</button>
+                                                                                    <h4 class="modal-title">
+                                                                                        <fmt:message
+                                                                                            key="writeReview" />
+                                                                                    </h4>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form action="Controller" method="POST"
+                                                                                        class="addReviewForm"
+                                                                                        role="form">
+                                                                                        <input type="hidden"
+                                                                                            name="command"
+                                                                                            value="createreview">
+                                                                                        <input type="hidden"
+                                                                                            name="reservationId"
+                                                                                            value="${reservation.id}">
+                                                                                        <div class="form-group">
+                                                                                            <label>
+                                                                                                <fmt:message
+                                                                                                    key="reservation" />
+                                                                                                :
+                                                                                            </label>
+                                                                                            <p
+                                                                                                class="form-control-static">
+                                                                                                <fmt:message
+                                                                                                    key="room" />:
+                                                                                                <c:out
+                                                                                                    value=" ${reservation.roomName}, " />
+                                                                                                <fmt:message
+                                                                                                    key="hotel" />:
+                                                                                                <c:out
+                                                                                                    value=" ${reservation.hotelName}, " />
+                                                                                                <fmt:message
+                                                                                                    key="reservationDates" />
+                                                                                                :
+                                                                                                <c:out
+                                                                                                    value=" ${reservation.checkInDate} - ${reservation.checkOutDate}" />
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="title">
+                                                                                                <fmt:message
+                                                                                                    key="title" />:
+                                                                                            </label>
+                                                                                            <input class="form-control"
+                                                                                                type="text" name="title"
+                                                                                                required>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="text">
+                                                                                                <fmt:message
+                                                                                                    key="text" />:
+                                                                                                <textarea
+                                                                                                    class="form-control"
+                                                                                                    type="text"
+                                                                                                    name="text"
+                                                                                                    maxlength="2000"
+                                                                                                    rows="25"
+                                                                                                    cols="80"></textarea>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="rating">
+                                                                                                <fmt:message
+                                                                                                    key="rating" />:
+                                                                                            </label>
+                                                                                            <div class="input-group">
+                                                                                                <span
+                                                                                                    class="input-group-addon"><i
+                                                                                                        class="glyphicon glyphicon-star"></i></span>
+                                                                                                <input
+                                                                                                    class="form-control"
+                                                                                                    type="number"
+                                                                                                    name="rating"
+                                                                                                    min="1" max="10"
+                                                                                                    required>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <button type="submit"
+                                                                                                class="btn btn-info">
+                                                                                                <fmt:message
+                                                                                                    key="send" />
+                                                                                            </button>
+                                                                                        </div>
+
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </c:if>
                                                             </div>
                                                         </td>

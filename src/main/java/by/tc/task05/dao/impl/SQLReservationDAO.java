@@ -152,7 +152,9 @@ public class SQLReservationDAO implements ReservationDAO {
             throw new DAOException(e);
         } finally {
             try {
-                if (preparedStatement != null) preparedStatement.close();
+                if (preparedStatement != null){
+                    preparedStatement.close();
+                }
                 ConnectionPool.getInstance().releaseConnection(connection);
             } catch (SQLException e) {
                 throw new DAOException(e);

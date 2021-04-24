@@ -25,6 +25,8 @@ public class Book extends AuthorizedUserCommand {
     private static final String CHECK_OUT_JSON_KEY = "checkout";
     private static final String PAYMENT_JSON_KEY = "payment";
     private static final String TOKEN_JSON_KEY = "token";
+    private static final String RESPONSE_CONTENT_TYPE = "application/json";
+    private static final String RESPONSE_ENCODING = "UTF-8";
 
     @Override
     public void onUnauthorizedUser(HttpServletRequest request,
@@ -67,8 +69,8 @@ public class Book extends AuthorizedUserCommand {
         reservationService.add(reservation);
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
         PrintWriter out = response.getWriter();
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
+        response.setContentType(RESPONSE_CONTENT_TYPE);
+        response.setCharacterEncoding(RESPONSE_ENCODING);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(CHECK_IN_JSON_KEY, reservation.getCheckInDate().toString());
         jsonObject.put(CHECK_OUT_JSON_KEY, reservation.getCheckOutDate().toString());

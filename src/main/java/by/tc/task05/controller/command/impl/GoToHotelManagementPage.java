@@ -3,10 +3,7 @@ package by.tc.task05.controller.command.impl;
 import by.tc.task05.controller.command.CommandName;
 import by.tc.task05.entity.Hotel;
 import by.tc.task05.entity.PageInformation;
-import by.tc.task05.entity.RoomShortView;
-import by.tc.task05.entity.filter.RoomSearchServiceFilter;
 import by.tc.task05.service.HotelService;
-import by.tc.task05.service.RoomService;
 import by.tc.task05.service.ServiceProvider;
 import by.tc.task05.service.exception.ServiceException;
 import by.tc.task05.utils.ListPart;
@@ -16,9 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class GoToHotelManagementPage extends AuthorizedUserCommand {
     private static final String HOTELS_ATTRIBUTE_KEY = "hotels";

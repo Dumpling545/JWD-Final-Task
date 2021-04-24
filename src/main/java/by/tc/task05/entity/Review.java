@@ -1,93 +1,113 @@
 package by.tc.task05.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Review implements Serializable {
 
-    private static final long serialVersionUID = 5704141413366695697L;
-    private int reservationId;
-    private String title;
-    private String text;
-    private int rating;
-    private Date date;
+	private static final long serialVersionUID = 5704141413366695697L;
+	private int reservationId;
+	private String title;
+	private String text;
+	private int rating;
+	private LocalDate date;
 
-    public Review() {
-    }
+	public Review() {
+	}
 
-    public int getReservationId() {
-        return reservationId;
-    }
+	public Review(int reservationId, String title, String text, int rating,
+	              LocalDate date)
+	{
+		this.reservationId = reservationId;
+		this.title = title;
+		this.text = text;
+		this.rating = rating;
+		this.date = date;
+	}
 
-    public void setReservationId(int reservationId) {
-        this.reservationId = reservationId;
-    }
+	public int getReservationId() {
+		return reservationId;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public void setReservationId(int reservationId) {
+		this.reservationId = reservationId;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public String getText() {
-        return text;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setText(String text) {
-        this.text = text;
-    }
+	public String getText() {
+		return text;
+	}
 
-    public int getRating() {
-        return rating;
-    }
+	public void setText(String text) {
+		this.text = text;
+	}
 
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
+	public int getRating() {
+		return rating;
+	}
 
-    public Date getDate() {
-        return date;
-    }
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+	public LocalDate getDate() {
+		return date;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
 
-        Review review = (Review) o;
-
-        if (reservationId != review.reservationId) return false;
-        if (rating != review.rating) return false;
-        if (title != null ? !title.equals(review.title) :
-                review.title != null) {
+	@Override
+	public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (text != null ? !text.equals(review.text) : review.text != null) {
+
+		Review review = (Review) o;
+
+        if (reservationId != review.reservationId) {
             return false;
         }
-        return date != null ? date.equals(review.date) : review.date == null;
-    }
+        if (rating != review.rating) {
+            return false;
+        }
+		if (title != null ? !title.equals(review.title) :
+				review.title != null)
+		{
+			return false;
+		}
+		if (text != null ? !text.equals(review.text) : review.text != null) {
+			return false;
+		}
+		return date != null ? date.equals(review.date) : review.date == null;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = reservationId;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (text != null ? text.hashCode() : 0);
-        result = 31 * result + rating;
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		int result = reservationId;
+		result = 31 * result + (title != null ? title.hashCode() : 0);
+		result = 31 * result + (text != null ? text.hashCode() : 0);
+		result = 31 * result + rating;
+		result = 31 * result + (date != null ? date.hashCode() : 0);
+		return result;
+	}
 
-    @Override
-    public String toString() {
-        return "Review{" + "reservationId=" + reservationId + ", title='" +
-                title + '\'' + ", text='" + text + '\'' + ", rating=" + rating +
-                ", date=" + date + '}';
-    }
+	@Override
+	public String toString() {
+		return "Review{" + "reservationId=" + reservationId + ", title='" +
+				title + '\'' + ", text='" + text + '\'' + ", rating=" + rating +
+				", date=" + date + '}';
+	}
 }
