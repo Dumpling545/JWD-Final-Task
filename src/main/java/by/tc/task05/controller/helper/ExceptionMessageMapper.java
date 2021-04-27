@@ -46,6 +46,8 @@ public class ExceptionMessageMapper {
 			"ratingError";
 	private static final String TITLE_ERROR =
 			"titleError";
+	private static final String EXISTING_EMAIL_ERROR =
+			"existingEmailError";
 
 	public static String getKey(Command command, ServiceException ex) {
 		Logger logger = Logger.getAnonymousLogger();
@@ -108,7 +110,9 @@ public class ExceptionMessageMapper {
 			return INVALID_RATING_ERROR;
 		} else if (ex instanceof EmptyTitleException) {
 			return TITLE_ERROR;
-		} else {
+		} else if (ex instanceof EmailAlreadyRegisteredException) {
+			return EXISTING_EMAIL_ERROR;
+		}else {
 			return SERVER_ERROR;
 		}
 	}

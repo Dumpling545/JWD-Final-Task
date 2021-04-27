@@ -11,26 +11,28 @@ import jakarta.servlet.http.Part;
 import java.util.List;
 
 public interface HotelDAO {
-    public boolean isHotelAdministrator(int userId, int hotelId)
-            throws DAOException;
+	public boolean isHotelAdministrator(int userId, int hotelId)
+			throws DAOException;
 
-    public List<Hotel> getAdministeredBy(int userId, int skip, int take) throws DAOException;
+	public List<Hotel> getAdministeredBy(int userId, int skip, int take)
+			throws DAOException;
 
-    public Optional<Hotel> getById(int hotelId) throws DAOException;
+	public Optional<Hotel> getById(int hotelId) throws DAOException;
 
-    public void addWithAdministrator(int userId, HotelForm hotelForm)
-            throws DAOException;
+	public void addWithAdministrator(int userId, HotelForm hotelForm)
+			throws DAOException;
 
-    public void change(HotelForm hotelForm) throws DAOException;
+	public void change(HotelForm hotelForm) throws DAOException;
 
-    public void setIcon(int hotelId, Part icon) throws DAOException;
+	public void setIcon(int hotelId, Part icon) throws DAOException;
 
-    public void remove(int hotelId) throws DAOException;
+	public void remove(int hotelId) throws DAOException;
 
-    public void addAdministrator(int userId, int hotelId) throws DAOException;
+	public void addAdministrator(int userId, int hotelId) throws DAOException;
 
-    public void removeAdministrator(int userId, int hotelId)
-            throws DAOException;
+	public void removeAdministrator(int userId, int hotelId)
+			throws DAOException;
 
-    public List<User> getAdministratorsByHotel(int hotelId, int skip, int take) throws DAOException;
+	public List<User> getAdministratorsByHotel(int hotelId, int skip, int take)
+			throws DAOException;
 }

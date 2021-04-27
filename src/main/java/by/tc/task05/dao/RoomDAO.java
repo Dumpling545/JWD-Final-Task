@@ -23,7 +23,4 @@ public interface RoomDAO {
     public void addFeature(RoomFeature feature) throws DAOException;
     public void changeFeature(RoomFeature feature) throws DAOException;
     public void removeFeature(int roomId) throws DAOException;
-    public List<RoomPhoto> getPhotosByRoom(int roomId) throws DAOException;
-    public void addPhotos(int roomId, List<Part> photos) throws DAOException;
-    public void removePhotos(int roomId, List<Integer> photoIds) throws DAOException;
 }

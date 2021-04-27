@@ -9,9 +9,10 @@ import jakarta.servlet.annotation.WebListener;
 
 @WebListener
 public class ServletStartAndShutdownListener implements ServletContextListener {
+    private static final String DB_BUNDLE = "by.tc.task05.bundle.db";
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        ConnectionPool.getInstance();
+        ConnectionPool.getInstance().init(DB_BUNDLE);
     }
 
     @Override

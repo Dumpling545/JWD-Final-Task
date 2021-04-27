@@ -1,21 +1,7 @@
-
-# Created by https://www.toptal.com/developers/gitignore/api/java,visualstudiocode,maven,vscode
-# Edit at https://www.toptal.com/developers/gitignore?templates=java,visualstudiocode,maven,vscode
-
-### Java ###
-# Compiled class file
 *.class
-
-# Log file
 *.log
-
-# BlueJ files
 *.ctxt
-
-# Mobile Tools for Java (J2ME)
 .mtj.tmp/
-
-# Package Files #
 *.jar
 *.war
 *.nar
@@ -23,11 +9,7 @@
 *.zip
 *.tar.gz
 *.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-
-### Maven ###
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -37,20 +19,12 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-# https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
-
-### VisualStudioCode ###
 .vscode/
 *.code-workspace
 .settings/
 .idea/
-
-### VisualStudioCode Patch ###
-# Ignore all local history of files
+.run/
 .history
 .ionide
-
-
-
-# End of https://www.toptal.com/developers/gitignore/api/java,visualstudiocode,maven,vscode
+*.iml

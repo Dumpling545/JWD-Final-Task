@@ -6,6 +6,7 @@ import by.tc.task05.dao.connectionpool.ConnectionPoolException;
 import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.dao.exception.OccupiedDateRangeDAOException;
 import by.tc.task05.entity.*;
+import by.tc.task05.utils.DatabaseHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -70,14 +71,8 @@ public class SQLReviewDAO implements ReviewDAO {
 		} catch (SQLException | ConnectionPoolException e) {
 			throw new DAOException(e);
 		} finally {
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				ConnectionPool.getInstance().releaseConnection(connection);
-			} catch (SQLException e) {
-				throw new DAOException(e);
-			}
+			DatabaseHelper
+					.closeResources(preparedStatement, connection);
 		}
 	}
 
@@ -110,17 +105,8 @@ public class SQLReviewDAO implements ReviewDAO {
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				ConnectionPool.getInstance().releaseConnection(connection);
-			} catch (ConnectionPoolException | SQLException e) {
-				throw new DAOException(e);
-			}
+			DatabaseHelper
+					.closeResources(resultSet, preparedStatement, connection);
 		}
 		return reviews;
 	}
@@ -147,17 +133,8 @@ public class SQLReviewDAO implements ReviewDAO {
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				ConnectionPool.getInstance().releaseConnection(connection);
-			} catch (SQLException e) {
-				throw new DAOException(e);
-			}
+			DatabaseHelper
+					.closeResources(resultSet, preparedStatement, connection);
 		}
 		return roomRatingInformation;
 	}
@@ -182,17 +159,8 @@ public class SQLReviewDAO implements ReviewDAO {
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				ConnectionPool.getInstance().releaseConnection(connection);
-			} catch (SQLException e) {
-				throw new DAOException(e);
-			}
+			DatabaseHelper
+					.closeResources(resultSet, preparedStatement, connection);
 		}
 		return canCreate;
 	}

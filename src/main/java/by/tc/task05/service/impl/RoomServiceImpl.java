@@ -292,47 +292,4 @@ public class RoomServiceImpl implements RoomService {
         }
     }
 
-    @Override
-    public List<RoomPhoto> getPhotosByRoom(int roomId) throws ServiceException {
-        DAOProvider provider = DAOProvider.getInstance();
-        RoomDAO roomDAO = provider.getRoomDAO();
-        List<RoomPhoto> roomPhotos = new ArrayList<>();
-        try {
-            roomPhotos.addAll(roomDAO.getPhotosByRoom(roomId));
-        } catch (DAOException e) {
-            throw new ServiceException(e);
-        }
-        return roomPhotos;
-    }
-
-    @Override
-    public void addPhotos(int userId, int roomId, List<Part> photos,
-                          String password) throws ServiceException {
-        DAOProvider provider = DAOProvider.getInstance();
-        ServiceProvider serviceProvider = ServiceProvider.getInstance();
-        UserService userService = serviceProvider.getUserService();
-        RoomDAO roomDAO = provider.getRoomDAO();
-        ImageValidator validator =
-                ValidatorProvider.getInstance().getImageValidator();
-        for (Part photo : photos) {
-            validator.validateImage(photo);
-        }
-        try {
-            if (userService.isPasswordMatched(userId, password) &&
-                    roomDAO.isRoomAdministrator(userId, roomId)) {
-                roomDAO.addPhotos(roomId, photos);
-            } else {
-                throw new UnauthorizedActionException();
-            }
-        } catch (DAOException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    public void removePhotos(int userId, int roomId, List<Integer> photoIds,
-                             String password) throws ServiceException {
-        //TODO ...
-    }
-
 }

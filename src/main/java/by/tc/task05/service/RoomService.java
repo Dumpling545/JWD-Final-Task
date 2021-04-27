@@ -46,12 +46,4 @@ public interface RoomService {
 
     public void removeFeature(int userId, int roomId, String password)
             throws ServiceException;
-
-    public List<RoomPhoto> getPhotosByRoom(int roomId) throws ServiceException;
-
-    public void addPhotos(int userId, int roomId, List<Part> photos,
-                          String password) throws ServiceException;
-
-    public void removePhotos(int userId, int roomId, List<Integer> photoIds,
-                             String password) throws ServiceException;
 }
