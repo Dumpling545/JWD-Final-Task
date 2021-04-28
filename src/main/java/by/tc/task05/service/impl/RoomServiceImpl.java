@@ -27,7 +27,7 @@ import jakarta.servlet.http.Part;
 
 public class RoomServiceImpl implements RoomService {
     private final double LATITUDE_DELTA = 0.2;
-    private final double LONGTITUDE_DELTA = 0.2;
+    private final double LONGITUDE_DELTA = 0.2;
 
     @Override
     public ListPart<ExtendedRoom> getViewsByFilter(
@@ -60,15 +60,15 @@ public class RoomServiceImpl implements RoomService {
                         HelperProvider.getInstance().getLocationHelper();
                 Location location = locationHelper.locate(filter.getLocation());
                 filter.setLatitude(location.getLatitude());
-                filter.setLongtitude(location.getLongtitude());
+                filter.setLongitude(location.getLongitude());
             }
             dbFilter.setLatitudeLowBound(filter.getLatitude() - LATITUDE_DELTA);
             dbFilter.setLatitudeHighBound(
                     filter.getLatitude() + LATITUDE_DELTA);
-            dbFilter.setLongtitudeLowBound(
-                    filter.getLongtitude() - LONGTITUDE_DELTA);
-            dbFilter.setLongtitudeHighBound(
-                    filter.getLongtitude() + LONGTITUDE_DELTA);
+            dbFilter.setLongitudeLowBound(
+                    filter.getLongitude() - LONGITUDE_DELTA);
+            dbFilter.setLongitudeHighBound(
+                    filter.getLongitude() + LONGITUDE_DELTA);
             rooms.addAll(roomDAO.getViewsByFilter(dbFilter));
         } catch (DAOException e) {
             throw new ServiceException(e);

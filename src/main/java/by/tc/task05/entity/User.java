@@ -2,6 +2,9 @@ package by.tc.task05.entity;
 
 import java.io.Serializable;
 
+/**
+ * User entity that matches database structure
+ */
 public class User implements Serializable {
     private static final long serialVersionUID = -3634818008132749930L;
 

@@ -39,13 +39,13 @@
                                         <c:choose>
                                             <c:when test="${param['command'] == 'gotoaddhotelpage'}">
                                                 <input id="lat" type="hidden" name="latitude" value="17.4206485">
-                                                <input id="lng" type="hidden" name="longtitude" value="78.4008997">
+                                                <input id="lng" type="hidden" name="longitude" value="78.4008997">
                                             </c:when>
                                             <c:when test="${param['command'] == 'gotochangehotelpage'}">
                                                 <input id="lat" type="hidden" name="latitude"
                                                     value="${requestScope.hotel.latitudeAddress}">
-                                                <input id="lng" type="hidden" name="longtitude"
-                                                    value="${requestScope.hotel.longtitudeAddress}">
+                                                <input id="lng" type="hidden" name="longitude"
+                                                    value="${requestScope.hotel.longitudeAddress}">
                                             </c:when>
                                         </c:choose>
                                         <div class="form-group"><label for="hotelName">

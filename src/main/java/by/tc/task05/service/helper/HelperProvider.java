@@ -3,6 +3,9 @@ package by.tc.task05.service.helper;
 import by.tc.task05.service.helper.impl.LocationHelperImpl;
 import by.tc.task05.service.helper.impl.PaymentHelperStub;
 
+/**
+ * Singleton that provides instances of all service helpers
+ */
 public class HelperProvider {
     private static final HelperProvider instance = new HelperProvider();
 

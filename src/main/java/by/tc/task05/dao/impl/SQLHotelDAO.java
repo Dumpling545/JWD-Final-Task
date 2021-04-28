@@ -58,7 +58,7 @@ public class SQLHotelDAO implements HotelDAO {
 	private final static String C_ID = "hotels.id";
 	private final static String C_NAME = "hotels.name";
 	private final static String C_CACHED_ADDRESS = "hotels.cached_address";
-	private static final String C_LONGTITUDE = "hotels.longtitude_address";
+	private static final String C_LONGITUDE = "hotels.longitude_address";
 	private static final String C_LATITUDE = "hotels.latitude_address";
 	private static final String C_BANK_ACCOUNT = "hotels.bank_account";
 	private static final String C_ICON = "hotels.icon";
@@ -128,7 +128,7 @@ public class SQLHotelDAO implements HotelDAO {
 				hotel.setId(resultSet.getInt(C_ID));
 				hotel.setName(resultSet.getString(C_NAME));
 				hotel.setCachedAddress(resultSet.getString(C_CACHED_ADDRESS));
-				hotel.setLongtitudeAddress(resultSet.getDouble(C_LONGTITUDE));
+				hotel.setLongitudeAddress(resultSet.getDouble(C_LONGITUDE));
 				hotel.setLatitudeAddress(resultSet.getDouble(C_LATITUDE));
 				hotel.setBankAccount(resultSet.getString(C_BANK_ACCOUNT));
 				hotel.setIcon(resultSet.getString(C_ICON));
@@ -160,7 +160,7 @@ public class SQLHotelDAO implements HotelDAO {
 				h.setId(resultSet.getInt(C_ID));
 				h.setName(resultSet.getString(C_NAME));
 				h.setCachedAddress(resultSet.getString(C_CACHED_ADDRESS));
-				h.setLongtitudeAddress(resultSet.getDouble(C_LONGTITUDE));
+				h.setLongitudeAddress(resultSet.getDouble(C_LONGITUDE));
 				h.setLatitudeAddress(resultSet.getDouble(C_LATITUDE));
 				h.setBankAccount(resultSet.getString(C_BANK_ACCOUNT));
 				h.setIcon(resultSet.getString(C_ICON));
@@ -191,7 +191,7 @@ public class SQLHotelDAO implements HotelDAO {
 					.prepareStatement(SQL_ADD, Statement.RETURN_GENERATED_KEYS);
 			addHotelStatement.setString(1, hotelForm.getName());
 			addHotelStatement.setString(2, hotelForm.getCachedAddress());
-			addHotelStatement.setDouble(3, hotelForm.getLongtitudeAddress());
+			addHotelStatement.setDouble(3, hotelForm.getLongitudeAddress());
 			addHotelStatement.setDouble(4, hotelForm.getLatitudeAddress());
 			addHotelStatement.setString(5, hotelForm.getBankAccount());
 			addHotelStatement.executeUpdate();
@@ -231,7 +231,7 @@ public class SQLHotelDAO implements HotelDAO {
 			preparedStatement = connection.prepareStatement(SQL_CHANGE);
 			preparedStatement.setString(1, hotelForm.getName());
 			preparedStatement.setString(2, hotelForm.getCachedAddress());
-			preparedStatement.setDouble(3, hotelForm.getLongtitudeAddress());
+			preparedStatement.setDouble(3, hotelForm.getLongitudeAddress());
 			preparedStatement.setDouble(4, hotelForm.getLatitudeAddress());
 			preparedStatement.setString(5, hotelForm.getBankAccount());
 			preparedStatement.setInt(6, hotelForm.getId());

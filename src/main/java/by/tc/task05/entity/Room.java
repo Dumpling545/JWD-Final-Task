@@ -1,7 +1,9 @@
 package by.tc.task05.entity;
 
 import java.io.Serializable;
-
+/**
+ * Room entity that matches database structure
+ */
 public class Room implements Serializable {
     private static final long serialVersionUID = -1694724994354286800L;
 

@@ -4,8 +4,9 @@ import by.tc.task05.controller.command.Command;
 import by.tc.task05.service.exception.*;
 
 
-
-
+/**
+ * Class that maps exceptions to bundle keys
+ */
 public class ExceptionMessageMapper {
 	private static final String CREDENTIALS_ERROR = "credentialsError";
 	private static final String EMPTY_LOCATION_ERROR = "emptyLocationError";
@@ -49,6 +50,19 @@ public class ExceptionMessageMapper {
 	private static final String EXISTING_EMAIL_ERROR =
 			"existingEmailError";
 
+	/**
+	 * Maps {@link ServiceException} and its subclasses to corresponding message
+	 * keys in 'WebsiteTextBundle.properties' resource bundle which contains
+	 * localized error messages show to end user
+	 *
+	 * @param command
+	 * 		command where exception has been caused. Not used at moment, but
+	 * 		potentially error messages might vary depending on command
+	 * @param ex
+	 *        {@link ServiceException} to be mapped to corresponding message key
+	 * @return key of localized message in 'WebsiteTextBundle.properties'
+	 * resource bundle
+	 */
 	public static String getKey(Command command, ServiceException ex) {
 		if (ex instanceof CredentialValidationException) {
 			return CREDENTIALS_ERROR;
@@ -110,7 +124,7 @@ public class ExceptionMessageMapper {
 			return TITLE_ERROR;
 		} else if (ex instanceof EmailAlreadyRegisteredException) {
 			return EXISTING_EMAIL_ERROR;
-		}else {
+		} else {
 			return SERVER_ERROR;
 		}
 	}

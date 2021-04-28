@@ -1,5 +1,8 @@
 package by.tc.task05.entity;
 
+/**
+ * {@link Room} entity that extended with hotel info and rating
+ */
 public class ExtendedRoom extends Room {
     private static final long serialVersionUID = 1206903704279892684L;
     private String address;

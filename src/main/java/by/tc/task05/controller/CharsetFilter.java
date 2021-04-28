@@ -6,6 +6,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
+/**
+ * Filter responsible for setting http request and response encoding to
+ * initParameter provided in web.xml configuration file.
+ */
 public class CharsetFilter implements Filter {
 	private String encoding;
 	private static Logger logger = LogManager.getLogger();

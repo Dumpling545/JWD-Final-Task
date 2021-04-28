@@ -2,6 +2,9 @@ package by.tc.task05.service.validator;
 
 import by.tc.task05.service.validator.impl.*;
 
+/**
+ * Singleton that provides instances of all validators
+ */
 public final class ValidatorProvider {
 	private static final ValidatorProvider instance = new ValidatorProvider();
 

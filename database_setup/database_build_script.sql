@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `hotel_system_database`.`hotels` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `cached_address` VARCHAR(250) NULL DEFAULT NULL,
-  `longtitude_address` DECIMAL(9,6) NOT NULL,
+  `longitude_address` DECIMAL(9,6) NOT NULL,
   `latitude_address` DECIMAL(8,6) NOT NULL,
   `bank_account` VARCHAR(80) NOT NULL,
   `icon` VARCHAR(100) NULL DEFAULT NULL,

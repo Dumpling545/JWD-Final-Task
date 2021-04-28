@@ -2,6 +2,10 @@ package by.tc.task05.entity;
 
 import java.io.Serializable;
 
+/**
+ * Entity that provides aggregate information about reviews at the particular
+ * room: average rating and number of reviews
+ */
 public class RoomRatingInformation implements Serializable {
 	private static final long serialVersionUID = -3092021102901187569L;
 	private double rating;

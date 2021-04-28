@@ -3,19 +3,26 @@ package by.tc.task05.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
-
+/**
+ * (Active) Reservation entity that matches database structure
+ */
 public class Reservation implements Serializable {
     private static final long serialVersionUID = 8682604997339145083L;
     private int id;
     private int userId;
     private int roomId;
-    //private int mealPlanId;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private String paymentToken;
     private int status;
     private double paymentAmount;
+    /**
+     * Status of active reservation which means that hotel owner does not accepted it
+     */
     public static final int PROCESSING = 0;
+    /**
+     * Status of active reservation which means that hotel owner has already accepted it
+     */
     public static final int ACCEPTED = 1;
 
 

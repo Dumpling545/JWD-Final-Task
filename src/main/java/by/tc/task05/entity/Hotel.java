@@ -2,6 +2,9 @@ package by.tc.task05.entity;
 
 import java.io.Serializable;
 
+/**
+ * Hotel entity that matches database structure
+ */
 public class Hotel implements Serializable {
 
     private static final long serialVersionUID = -4513059396813774587L;
@@ -9,7 +12,7 @@ public class Hotel implements Serializable {
     private int id;
     private String name;
     private String cachedAddress;
-    private double longtitudeAddress;
+    private double longitudeAddress;
     private double latitudeAddress;
     private String bankAccount;
     private String icon;
@@ -41,12 +44,12 @@ public class Hotel implements Serializable {
         this.cachedAddress = cachedAddress;
     }
 
-    public double getLongtitudeAddress() {
-        return longtitudeAddress;
+    public double getLongitudeAddress() {
+        return longitudeAddress;
     }
 
-    public void setLongtitudeAddress(double longtitudeAddress) {
-        this.longtitudeAddress = longtitudeAddress;
+    public void setLongitudeAddress(double longitudeAddress) {
+        this.longitudeAddress = longitudeAddress;
     }
 
     public double getLatitudeAddress() {
@@ -81,7 +84,7 @@ public class Hotel implements Serializable {
         Hotel hotel = (Hotel) o;
 
         if (id != hotel.id) return false;
-        if (Double.compare(hotel.longtitudeAddress, longtitudeAddress) != 0) {
+        if (Double.compare(hotel.longitudeAddress, longitudeAddress) != 0) {
             return false;
         }
         if (Double.compare(hotel.latitudeAddress, latitudeAddress) != 0) {
@@ -109,7 +112,7 @@ public class Hotel implements Serializable {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result +
                 (cachedAddress != null ? cachedAddress.hashCode() : 0);
-        temp = Double.doubleToLongBits(longtitudeAddress);
+        temp = Double.doubleToLongBits(longitudeAddress);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(latitudeAddress);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
@@ -123,7 +126,7 @@ public class Hotel implements Serializable {
     public String toString() {
         return "Hotel{" + "id=" + id + ", name='" + name + '\'' +
                 ", cachedAddress='" + cachedAddress + '\'' +
-                ", longtitudeAddress=" + longtitudeAddress +
+                ", longitudeAddress=" + longitudeAddress +
                 ", latitudeAddress=" + latitudeAddress + ", bankAccount='" +
                 bankAccount + '\'' + ", icon='" + icon + '\'' + '}';
     }

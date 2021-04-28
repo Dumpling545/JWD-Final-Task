@@ -5,6 +5,10 @@ import jakarta.servlet.http.Part;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Entity needed to register new user. Unlike {@link User}, does not contain user id,
+ * avatar image path, but contains password repetition verification
+ */
 public class UserRegistrationForm implements Serializable {
     private static final long serialVersionUID = 4136281669111828719L;
     private String email;

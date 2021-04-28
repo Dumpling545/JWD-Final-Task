@@ -9,10 +9,17 @@ import com.google.common.base.Optional;
 
 import javax.annotation.Nullable;
 
-
+/**
+ * {@link by.tc.task05.controller.command.CommandProvider} is responsible for
+ * assigning requests to Command non-abstract implementations.
+ */
 public class CommandProvider {
 	private Map<CommandName, Command> commands = new HashMap<>();
 
+	/**
+	 * Registration of new {@link Command} implementations using {@link
+	 * CommandName} constants.
+	 */
 	public CommandProvider() {
 		commands.put(CommandName.GOTOSIGNIN, new GoToSignInPage());
 		commands.put(CommandName.GOTOREGISTRATION, new GoToRegistrationPage());
@@ -96,6 +103,14 @@ public class CommandProvider {
 		commands.put(CommandName.CREATEREVIEW, new CreateReview());
 	}
 
+	/**
+	 * Provides implementation of {@link Command} by associated String
+	 * representation of {@link CommandName} enum
+	 *
+	 * @param name
+	 * 		Name of command
+	 * @return Command implementation registered by specified name
+	 */
 	@Nullable
 	public Command takeCommand(String name) {
 		Optional<CommandName> commandName;

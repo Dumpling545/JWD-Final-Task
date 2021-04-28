@@ -2,6 +2,9 @@ package by.tc.task05.service;
 
 import by.tc.task05.service.impl.*;
 
+/**
+ * Singleton that provides instances of all services
+ */
 public final class ServiceProvider {
 
 	private static final ServiceProvider instance = new ServiceProvider();

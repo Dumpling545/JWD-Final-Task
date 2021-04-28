@@ -167,7 +167,7 @@
                                                             src='https://tiles.locationiq.com/v3/js/liq-styles-ctrl-leaflet.js?v=0.1.8'></script>
                                                         <script type="text/javascript">
                                                             var latitude = <c:out value="${requestScope.hotel.latitudeAddress}" />;
-                                                            var longtitude = <c:out value="${requestScope.hotel.longtitudeAddress}" />;
+                                                            var longitude = <c:out value="${requestScope.hotel.longitudeAddress}" />;
                                                             <c:import url="../js/roomMap.js" />
                                                         </script>
                                                         <c:if test="${requestScope.isAdmin}">

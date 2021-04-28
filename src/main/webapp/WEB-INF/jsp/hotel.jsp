@@ -87,7 +87,7 @@
                                                         </button>
                                                         <div id="map${requestScope.hotel.id}" class="collapse">
                                                             <img
-                                                                src='https://maps.locationiq.com/v3/staticmap?key=pk.c46d63a472dc505f81781cfbd989a154&center=${requestScope.hotel.latitudeAddress},${requestScope.hotel.longtitudeAddress}&zoom=12&size=280x280&markers=icon:large-blue-cutout|${requestScope.hotel.latitudeAddress},${requestScope.hotel.longtitudeAddress}'>
+                                                                src='https://maps.locationiq.com/v3/staticmap?key=pk.c46d63a472dc505f81781cfbd989a154&center=${requestScope.hotel.latitudeAddress},${requestScope.hotel.longitudeAddress}&zoom=12&size=280x280&markers=icon:large-blue-cutout|${requestScope.hotel.latitudeAddress},${requestScope.hotel.longitudeAddress}'>
                                                         </div>
                                                     </li>
                                                     <c:if test="${requestScope.isAdmin}">

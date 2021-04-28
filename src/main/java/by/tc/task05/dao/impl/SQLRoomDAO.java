@@ -123,9 +123,9 @@ public class SQLRoomDAO implements RoomDAO {
 		preparedStatement
 				.setObject(6, filter.getLatitudeHighBound(), Types.DECIMAL, 6);
 		preparedStatement
-				.setObject(7, filter.getLongtitudeLowBound(), Types.DECIMAL, 6);
+				.setObject(7, filter.getLongitudeLowBound(), Types.DECIMAL, 6);
 		preparedStatement
-				.setObject(8, filter.getLongtitudeHighBound(), Types.DECIMAL,
+				.setObject(8, filter.getLongitudeHighBound(), Types.DECIMAL,
 						6);
 		preparedStatement.setObject(9, filter.getCostLowBound(), Types.DECIMAL);
 		preparedStatement

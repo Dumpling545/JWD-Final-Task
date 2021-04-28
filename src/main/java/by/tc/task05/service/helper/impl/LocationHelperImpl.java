@@ -35,7 +35,7 @@ public class LocationHelperImpl implements LocationHelper {
             "%1$s?%2$s=%3$s&%4$s=%5$s&%6$s=%7$s";
 
     private final static String LATITUDE_KEY = "lat";
-    private final static String LONGTITUDE_KEY = "lon";
+    private final static String LONGITUDE_KEY = "lon";
     private final static int LOCATION_NOT_FOUND_CODE = 404;
     private final static int LOCATION_API_SERVER_ERROR_CODE = 500;
 
@@ -60,7 +60,7 @@ public class LocationHelperImpl implements LocationHelper {
             JSONArray responseJSON = new JSONArray(response.body());
             JSONObject firstResult = responseJSON.getJSONObject(0);
             location = new Location(firstResult.getDouble(LATITUDE_KEY),
-                    firstResult.getDouble(LONGTITUDE_KEY));
+                    firstResult.getDouble(LONGITUDE_KEY));
         } catch (URISyntaxException | IOException | InterruptedException e) {
             throw new ServiceException(e);
         }

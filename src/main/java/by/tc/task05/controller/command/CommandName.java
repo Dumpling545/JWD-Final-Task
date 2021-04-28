@@ -1,7 +1,13 @@
 package by.tc.task05.controller.command;
 
 import jakarta.servlet.annotation.WebInitParam;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * Enum used to register {@link Command} implementations on {@link
+ * CommandProvider} initialization.
+ */
 public enum CommandName {
 	GOTOSIGNIN, GOTOREGISTRATION, SAVENEWUSER, GOTOSEARCHPAGE, SIGNIN, SIGNOUT,
 	CHANGELANGUAGE, GOTOSTARTERPAGE, ACCOUNT, GOTOEDITUSERINFOPAGE,

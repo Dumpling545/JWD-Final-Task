@@ -1,11 +1,14 @@
 package by.tc.task05.service.validator;
 
-import by.tc.task05.entity.filter.RoomSearchServiceFilter;
 import by.tc.task05.service.exception.ServiceException;
 
 import java.time.LocalDate;
 
+/**
+ * Interface that contains methods validating input associated with actions with
+ * date ranges
+ */
 public interface DateRangeValidator {
-    public void validateRange(LocalDate start, LocalDate end, boolean throwOnBothNull)
-            throws ServiceException;
+	void validateRange(LocalDate start, LocalDate end, boolean throwOnBothNull)
+			throws ServiceException;
 }

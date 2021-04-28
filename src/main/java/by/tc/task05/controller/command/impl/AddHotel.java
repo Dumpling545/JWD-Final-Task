@@ -17,7 +17,7 @@ public class AddHotel extends AuthorizedUserCommand {
     private static final String BANK_ACCOUNT_ATTRIBUTE_KEY = "bankAccount";
     private static final String CACHED_ADDRESS_ATTRIBUTE_KEY = "cachedAddress";
     private static final String LATITUDE_ADDRESS_ATTRIBUTE_KEY = "latitude";
-    private static final String LONGTITUDE_ADDRESS_ATTRIBUTE_KEY = "longtitude";
+    private static final String LONGITUDE_ADDRESS_ATTRIBUTE_KEY = "longitude";
 
     @Override
     public CommandName getExceptionRedirectCommand() {
@@ -39,8 +39,8 @@ public class AddHotel extends AuthorizedUserCommand {
                 request.getParameter(LATITUDE_ADDRESS_ATTRIBUTE_KEY));
         form.setLatitudeAddress(lat);
         double lon = Double.parseDouble(
-                request.getParameter(LONGTITUDE_ADDRESS_ATTRIBUTE_KEY));
-        form.setLongtitudeAddress(lon);
+                request.getParameter(LONGITUDE_ADDRESS_ATTRIBUTE_KEY));
+        form.setLongitudeAddress(lon);
         hotelService.addWithAdministrator(userId, form);
         UrlHelper.sendRedirectToReturnUrl(request, response,
                 UrlHelper.buildUrl(CommandName.GOTOHOTELMANAGEMENTPAGE));

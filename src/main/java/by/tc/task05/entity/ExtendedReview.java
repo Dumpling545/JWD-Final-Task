@@ -3,7 +3,9 @@ package by.tc.task05.entity;
 import by.tc.task05.entity.Review;
 
 import java.time.LocalDate;
-
+/**
+ * {@link Review} entity that extended with information about author
+ */
 public class ExtendedReview extends Review {
 	private static final long serialVersionUID = 7441936224698712730L;
 	private String userAvatar;

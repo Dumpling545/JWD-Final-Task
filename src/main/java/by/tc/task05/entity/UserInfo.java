@@ -2,6 +2,9 @@ package by.tc.task05.entity;
 
 import java.io.Serializable;
 
+/**
+ * Entity that needed to be used to change 'unimportant' information about user
+ */
 public class UserInfo implements Serializable {
     private static final long serialVersionUID = 3624190281383855689L;
     private int id;

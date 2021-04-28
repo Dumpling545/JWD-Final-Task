@@ -100,7 +100,7 @@
                                                                     </button>
                                                                     <div id="map${hotel.id}" class="collapse">
                                                                         <img
-                                                                            src='https://maps.locationiq.com/v3/staticmap?key=pk.c46d63a472dc505f81781cfbd989a154&center=${hotel.latitudeAddress},${hotel.longtitudeAddress}&zoom=12&size=280x280&markers=icon:large-blue-cutout|${hotel.latitudeAddress},${hotel.longtitudeAddress}'>
+                                                                            src='https://maps.locationiq.com/v3/staticmap?key=pk.c46d63a472dc505f81781cfbd989a154&center=${hotel.latitudeAddress},${hotel.longitudeAddress}&zoom=12&size=280x280&markers=icon:large-blue-cutout|${hotel.latitudeAddress},${hotel.longitudeAddress}'>
                                                                     </div>
                                                                 </li>
                                                                 <li class="list-group-item list-group-item-info">
