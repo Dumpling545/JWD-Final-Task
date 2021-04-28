@@ -16,8 +16,11 @@ import by.tc.task05.entity.*;
 import by.tc.task05.entity.filter.RoomSearchDatabaseFilter;
 import by.tc.task05.utils.DatabaseHelper;
 import jakarta.servlet.http.Part;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SQLRoomDAO implements RoomDAO {
+	private static Logger logger = LogManager.getLogger();
 	private final static String SQL_BUNDLE = "by.tc.task05.bundle.sql";
 
 	private final static String GET_MANY = "rooms.getMany";
@@ -166,6 +169,7 @@ public class SQLRoomDAO implements RoomDAO {
 				rooms.add(room);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -190,6 +194,7 @@ public class SQLRoomDAO implements RoomDAO {
 			resultSet = preparedStatement.executeQuery();
 			result = resultSet.next();
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -221,6 +226,7 @@ public class SQLRoomDAO implements RoomDAO {
 				room = Optional.of(r);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -256,6 +262,7 @@ public class SQLRoomDAO implements RoomDAO {
 				rooms.add(r);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -278,6 +285,7 @@ public class SQLRoomDAO implements RoomDAO {
 			preparedStatement.setDouble(5, room.getCost());
 			preparedStatement.executeUpdate();
 		} catch (SQLException | ConnectionPoolException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(preparedStatement, connection);
@@ -299,6 +307,7 @@ public class SQLRoomDAO implements RoomDAO {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(preparedStatement, connection);
@@ -323,6 +332,7 @@ public class SQLRoomDAO implements RoomDAO {
 			preparedStatement.setInt(2, roomId);
 			preparedStatement.executeUpdate();
 		} catch (IOException | SQLException | ConnectionPoolException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(preparedStatement, connection);
@@ -340,9 +350,11 @@ public class SQLRoomDAO implements RoomDAO {
 			preparedStatement.executeUpdate();
 		} catch (SQLException | ConnectionPoolException e) {
 			if (e.getMessage().contains(RESERVATIONS_FOREIGN_KEY)) {
+				logger.warn("Room cannot be removed while active reservations exist", e);
 				throw new RoomOrHotelWithActiveReservationsDeletionDAOException(
 						e);
 			} else {
+				logger.error("Database exception", e);
 				throw new DAOException(e);
 			}
 		} finally {
@@ -383,6 +395,7 @@ public class SQLRoomDAO implements RoomDAO {
 				feature = Optional.of(f);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -412,6 +425,7 @@ public class SQLRoomDAO implements RoomDAO {
 			preparedStatement.setString(12, feature.getDescription());
 			preparedStatement.executeUpdate();
 		} catch (SQLException | ConnectionPoolException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(preparedStatement, connection);
@@ -440,6 +454,7 @@ public class SQLRoomDAO implements RoomDAO {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(preparedStatement, connection);
@@ -456,6 +471,7 @@ public class SQLRoomDAO implements RoomDAO {
 			preparedStatement.setInt(1, roomId);
 			preparedStatement.executeUpdate();
 		} catch (SQLException | ConnectionPoolException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(preparedStatement, connection);

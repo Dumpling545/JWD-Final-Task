@@ -13,8 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+
 
 public class ArchiveReservation extends AuthorizedUserCommand {
 	private static final String ID_KEY = "id";

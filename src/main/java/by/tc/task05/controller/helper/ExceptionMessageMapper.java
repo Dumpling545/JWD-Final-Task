@@ -3,8 +3,8 @@ package by.tc.task05.controller.helper;
 import by.tc.task05.controller.command.Command;
 import by.tc.task05.service.exception.*;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+
 
 public class ExceptionMessageMapper {
 	private static final String CREDENTIALS_ERROR = "credentialsError";
@@ -50,8 +50,6 @@ public class ExceptionMessageMapper {
 			"existingEmailError";
 
 	public static String getKey(Command command, ServiceException ex) {
-		Logger logger = Logger.getAnonymousLogger();
-		logger.log(Level.SEVERE, "Something wrong", ex);
 		if (ex instanceof CredentialValidationException) {
 			return CREDENTIALS_ERROR;
 		} else if (ex instanceof EmptyLocationException) {

@@ -2,17 +2,20 @@ package by.tc.task05.utils;
 
 import by.tc.task05.dao.connectionpool.ConnectionPool;
 import by.tc.task05.dao.connectionpool.ConnectionPoolException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.Closeable;
 import java.sql.*;
 
 public class DatabaseHelper {
+	private static Logger logger = LogManager.getLogger();
 	public static void closeResource(AutoCloseable resource) {
 		if (resource != null) {
 			try {
 				resource.close();
 			} catch (Exception exception) {
-				//TODO logging
+				logger.error("Error on closing resource", exception);
 			}
 		}
 	}
@@ -24,12 +27,12 @@ public class DatabaseHelper {
 					connection.setAutoCommit(true);
 				}
 			} catch (SQLException exception) {
-				//TODO logging
+				logger.error("Error on closing resource: enabling auto-commit", exception);
 			}
 			try {
 				ConnectionPool.getInstance().releaseConnection(connection);
 			} catch (ConnectionPoolException exception) {
-				//TODO logging
+				logger.error("Error on closing resource: take connection", exception);
 			}
 		}
 	}

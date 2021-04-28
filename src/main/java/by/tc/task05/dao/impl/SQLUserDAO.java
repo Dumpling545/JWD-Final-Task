@@ -18,8 +18,12 @@ import by.tc.task05.entity.User;
 import by.tc.task05.entity.UserInfo;
 import by.tc.task05.utils.DatabaseHelper;
 import jakarta.servlet.http.Part;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SQLUserDAO implements UserDAO {
+	private static Logger logger = LogManager.getLogger();
+
 	private final static String SQL_BUNDLE = "by.tc.task05.bundle.sql";
 
 	private final static String GET_BY_ID = "users.getById";
@@ -99,8 +103,10 @@ public class SQLUserDAO implements UserDAO {
 			preparedStatement.executeUpdate();
 		} catch (SQLException | ConnectionPoolException e) {
 			if (e.getMessage().contains(UNIQUE_EMAIL_CONSTRAINT)) {
+				logger.warn("Email is not unique", e);
 				throw new EmailAlreadyRegisteredDAOException(e);
 			} else {
+				logger.error("Database exception", e);
 				throw new DAOException(e);
 			}
 		} finally {
@@ -120,6 +126,7 @@ public class SQLUserDAO implements UserDAO {
 			preparedStatement.setInt(3, userInfo.getId());
 			preparedStatement.executeUpdate();
 		} catch (SQLException | ConnectionPoolException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(preparedStatement, connection);
@@ -140,6 +147,7 @@ public class SQLUserDAO implements UserDAO {
 			preparedStatement.setInt(2, id);
 			preparedStatement.executeUpdate();
 		} catch (SQLException | ConnectionPoolException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(preparedStatement, connection);
@@ -158,8 +166,10 @@ public class SQLUserDAO implements UserDAO {
 			preparedStatement.executeUpdate();
 		} catch (SQLException | ConnectionPoolException e) {
 			if (e.getMessage().contains(UNIQUE_EMAIL_CONSTRAINT)) {
+				logger.warn("Email is not unique", e);
 				throw new EmailAlreadyRegisteredDAOException(e);
 			} else {
+				logger.error("Database exception", e);
 				throw new DAOException(e);
 			}
 		} finally {
@@ -185,6 +195,7 @@ public class SQLUserDAO implements UserDAO {
 			preparedStatement.setInt(2, id);
 			preparedStatement.executeUpdate();
 		} catch (IOException | SQLException | ConnectionPoolException e) {
+			logger.error("Database or IO exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(preparedStatement, connection);
@@ -202,8 +213,10 @@ public class SQLUserDAO implements UserDAO {
 			preparedStatement.executeUpdate();
 		} catch (SQLException | ConnectionPoolException e) {
 			if (e.getMessage().contains(ADMINISTRATORS_FOREIGN_KEY)) {
+				logger.warn("Last administrator cannot be removed", e);
 				throw new AdministratorAccountDeletionDAOException(e);
 			} else {
+				logger.error("Database error", e);
 				throw new DAOException(e);
 			}
 		} finally {
@@ -240,6 +253,7 @@ public class SQLUserDAO implements UserDAO {
 				user = Optional.of(u);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(resultSet, preparedStatement, connection);

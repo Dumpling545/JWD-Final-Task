@@ -7,8 +7,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -77,8 +77,6 @@ public class UrlHelper {
             Object attr = session.getAttribute(LAST_URL_ATTRIBUTE_KEY);
             if (attr != null) {
                 String lastUrl = (String) attr;
-                Logger logger = Logger.getAnonymousLogger();
-                logger.log(Level.SEVERE, lastUrl);
                 Matcher matcher =
                         Pattern.compile(MESSAGE_REGEX).matcher(lastUrl);
                 String newUrl;
@@ -87,7 +85,6 @@ public class UrlHelper {
                 } else {
                     newUrl = buildUrl(lastUrl, message);
                 }
-                logger.log(Level.SEVERE, newUrl);
                 response.sendRedirect(newUrl);
             } else {
                 response.sendRedirect(

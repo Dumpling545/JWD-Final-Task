@@ -1,8 +1,8 @@
 package by.tc.task05.controller;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+
 
 import by.tc.task05.controller.command.Command;
 import by.tc.task05.controller.command.CommandName;
@@ -45,19 +45,15 @@ public class Controller extends HttpServlet {
         String name;
         Command command;
         name = request.getParameter(COMMAND_PARAMETER);
-        Logger logger = Logger.getAnonymousLogger();
-        logger.log(Level.WARNING, name);
         if (name != null) {
             command = provider.takeCommand(name);
             if (command != null) {
                 command.execute(request, response);
             } else {
-                logger.log(Level.WARNING, "command == null");
                 response.sendRedirect(UrlHelper
                         .buildUrl(CommandName.GOTOSTARTERPAGE, NO_COMMAND_MSG));
             }
         } else {
-            logger.log(Level.WARNING, "name == null");
             response.sendRedirect(UrlHelper
                     .buildUrl(CommandName.GOTOSTARTERPAGE, NO_COMMAND_MSG));
         }

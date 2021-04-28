@@ -10,6 +10,8 @@ import by.tc.task05.entity.HotelForm;
 import by.tc.task05.entity.User;
 import by.tc.task05.utils.DatabaseHelper;
 import jakarta.servlet.http.Part;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.*;
@@ -19,6 +21,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SQLHotelDAO implements HotelDAO {
+	private static Logger logger = LogManager.getLogger();
 	private final static String SQL_BUNDLE = "by.tc.task05.bundle.sql";
 
 	private final static String IS_ADMIN = "hotels.isAdmin";
@@ -95,6 +98,7 @@ public class SQLHotelDAO implements HotelDAO {
 			resultSet = preparedStatement.executeQuery();
 			result = resultSet.next();
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -131,6 +135,7 @@ public class SQLHotelDAO implements HotelDAO {
 				hotels.add(hotel);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -162,6 +167,7 @@ public class SQLHotelDAO implements HotelDAO {
 				hotel = Optional.of(h);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -200,9 +206,11 @@ public class SQLHotelDAO implements HotelDAO {
 			addAdminStatement.executeUpdate();
 			connection.commit();
 		} catch (SQLException | ConnectionPoolException e) {
+			logger.error("Database exception", e);
 			try {
 				connection.rollback();
 			} catch (SQLException innerE) {
+				logger.error("Database exception: rollback", innerE);
 				throw new DAOException(innerE);
 			}
 			throw new DAOException(e);
@@ -230,6 +238,7 @@ public class SQLHotelDAO implements HotelDAO {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(preparedStatement, connection);
@@ -254,6 +263,7 @@ public class SQLHotelDAO implements HotelDAO {
 			preparedStatement.setInt(2, hotelId);
 			preparedStatement.executeUpdate();
 		} catch (IOException | SQLException | ConnectionPoolException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(preparedStatement, connection);
@@ -271,9 +281,11 @@ public class SQLHotelDAO implements HotelDAO {
 			preparedStatement.executeUpdate();
 		} catch (SQLException | ConnectionPoolException e) {
 			if (e.getMessage().contains(RESERVATIONS_FOREIGN_KEY)) {
+				logger.warn("Hotel cannot be removed while active reservations exist", e);
 				throw new RoomOrHotelWithActiveReservationsDeletionDAOException(
 						e);
 			} else {
+				logger.error("Database exception", e);
 				throw new DAOException(e);
 			}
 		} finally {
@@ -292,6 +304,7 @@ public class SQLHotelDAO implements HotelDAO {
 			preparedStatement.setInt(2, hotelId);
 			preparedStatement.executeUpdate();
 		} catch (SQLException | ConnectionPoolException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(preparedStatement, connection);
@@ -311,6 +324,7 @@ public class SQLHotelDAO implements HotelDAO {
 			preparedStatement.setInt(2, hotelId);
 			preparedStatement.executeUpdate();
 		} catch (SQLException | ConnectionPoolException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(preparedStatement, connection);
@@ -344,6 +358,7 @@ public class SQLHotelDAO implements HotelDAO {
 				admins.add(user);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(resultSet, preparedStatement, connection);

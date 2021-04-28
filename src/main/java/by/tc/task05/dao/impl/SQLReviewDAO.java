@@ -7,16 +7,19 @@ import by.tc.task05.dao.exception.DAOException;
 import by.tc.task05.dao.exception.OccupiedDateRangeDAOException;
 import by.tc.task05.entity.*;
 import by.tc.task05.utils.DatabaseHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+
 
 public class SQLReviewDAO implements ReviewDAO {
+	private static Logger logger = LogManager.getLogger();
 	private final static String SQL_BUNDLE = "by.tc.task05.bundle.sql";
 
 	private final static String ADD = "reviews.add";
@@ -69,6 +72,7 @@ public class SQLReviewDAO implements ReviewDAO {
 			preparedStatement.setDate(5, Date.valueOf(review.getDate()));
 			preparedStatement.executeUpdate();
 		} catch (SQLException | ConnectionPoolException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -103,6 +107,7 @@ public class SQLReviewDAO implements ReviewDAO {
 				reviews.add(r);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -131,6 +136,7 @@ public class SQLReviewDAO implements ReviewDAO {
 						resultSet.getInt(C_NUMBER_OF_REVIEWS));
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -157,6 +163,7 @@ public class SQLReviewDAO implements ReviewDAO {
 			resultSet = preparedStatement.executeQuery();
 			canCreate = !resultSet.next();
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper

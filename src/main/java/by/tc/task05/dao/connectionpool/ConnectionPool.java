@@ -1,5 +1,8 @@
 package by.tc.task05.dao.connectionpool;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -29,7 +32,7 @@ public class ConnectionPool {
 	private final AtomicBoolean updateStarted = new AtomicBoolean();
 	private final CountDownLatch updateFinished = new CountDownLatch(1);
 	private static final ConnectionPool connectionPool = new ConnectionPool();
-
+	private static Logger logger = LogManager.getLogger();
 	private ConnectionPool() {
 	}
 
@@ -46,6 +49,7 @@ public class ConnectionPool {
 						Integer.parseInt(
 								dbResourceBundle.getString(DB_POOL_SIZE));
 			} catch (NumberFormatException e) {
+				logger.error("Cannot parse pool size", e);
 				poolSize = DEFAULT_POOL_SIZE;
 			}
 			Locale.setDefault(Locale.ENGLISH);
@@ -60,17 +64,21 @@ public class ConnectionPool {
 					connectionQueue.add(connection);
 				}
 			} catch (SQLException e) {
+				logger.error("SQLException on Connection Pool initialization", e);
 				throw new ConnectionPoolException(
 						"SQLException in ConnectionPool", e);
 			} catch (ClassNotFoundException e) {
+				logger.error("ClassNotFoundException on Connection Pool initialization", e);
 				throw new ConnectionPoolException(
 						"Can't find database driver class", e);
 			}
 			updateFinished.countDown();
+			logger.info("Connection Pool initialized");
 		} else {
 			try {
 				updateFinished.await();
 			} catch (InterruptedException e) {
+				logger.error("InterruptedException on Connection Pool initialization", e);
 				throw new ConnectionPoolException(
 						"ConnectionPool initialization error", e);
 			}
@@ -87,6 +95,7 @@ public class ConnectionPool {
 			connection = connectionQueue.take();
 			givenAwayConQueue.add(connection);
 		} catch (InterruptedException e) {
+			logger.error("InterruptedException on taking connection from Connection Pool", e);
 			throw new ConnectionPoolException(
 					"Error connecting to the data source.", e);
 		}
@@ -102,6 +111,7 @@ public class ConnectionPool {
 		if (givenAwayConQueue.remove(connection)) {
 			connectionQueue.add(connection);
 		} else {
+			logger.error("Connection is not taken");
 			throw new ConnectionPoolException("Connection isn't taken");
 		}
 	}
@@ -113,6 +123,7 @@ public class ConnectionPool {
 				connection = givenAwayConQueue.take();
 				connection.close();
 			} catch (InterruptedException | SQLException e) {
+				logger.error("Exception on taking closing connections in Connection Pool", e);
 				throw new ConnectionPoolException(e);
 			}
 		}
@@ -121,8 +132,10 @@ public class ConnectionPool {
 				connection = connectionQueue.take();
 				connection.close();
 			} catch (InterruptedException | SQLException e) {
+				logger.error("Exception on taking closing connections in Connection Pool", e);
 				throw new ConnectionPoolException(e);
 			}
 		}
+		logger.info("Connection Pool closed");
 	}
 }

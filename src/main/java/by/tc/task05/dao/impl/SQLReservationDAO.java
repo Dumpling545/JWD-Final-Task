@@ -9,6 +9,8 @@ import by.tc.task05.entity.ExtendedReservation;
 import by.tc.task05.entity.Reservation;
 import by.tc.task05.entity.Room;
 import by.tc.task05.utils.DatabaseHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -16,10 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+
 
 public class SQLReservationDAO implements ReservationDAO {
+	private static Logger logger = LogManager.getLogger();
 	private final static String SQL_BUNDLE = "by.tc.task05.bundle.sql";
 
 	private final static String GET = "reservations.get";
@@ -145,11 +148,14 @@ public class SQLReservationDAO implements ReservationDAO {
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			if (e.getMessage().contains(DATE_RANGE_OCCUPIED_SQL_MESSAGE)) {
+				logger.warn("Reservation dates cannot intersect", e);
 				throw new OccupiedDateRangeDAOException(e);
 			} else {
+				logger.error("Database exception", e);
 				throw new DAOException(e);
 			}
 		} catch (ConnectionPoolException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -167,6 +173,7 @@ public class SQLReservationDAO implements ReservationDAO {
 			preparedStatement.setInt(1, reservationId);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper.closeResources(preparedStatement, connection);
@@ -225,9 +232,11 @@ public class SQLReservationDAO implements ReservationDAO {
 			archiveStatement.executeUpdate();
 			connection.commit();
 		} catch (SQLException | ConnectionPoolException e) {
+			logger.error("Database exception", e);
 			try {
 				connection.rollback();
 			} catch (SQLException innerE) {
+				logger.error("Database exception: rollback", innerE);
 				throw new DAOException(innerE);
 			}
 			throw new DAOException(e);
@@ -268,6 +277,7 @@ public class SQLReservationDAO implements ReservationDAO {
 				reservation = Optional.of(r);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -310,6 +320,7 @@ public class SQLReservationDAO implements ReservationDAO {
 				reservations.add(r);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -352,6 +363,7 @@ public class SQLReservationDAO implements ReservationDAO {
 				reservations.add(r);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -394,6 +406,7 @@ public class SQLReservationDAO implements ReservationDAO {
 				reservations.add(r);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -440,6 +453,7 @@ public class SQLReservationDAO implements ReservationDAO {
 				reservations.add(archived);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -486,6 +500,7 @@ public class SQLReservationDAO implements ReservationDAO {
 				reservations.add(archived);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -532,6 +547,7 @@ public class SQLReservationDAO implements ReservationDAO {
 				reservations.add(archived);
 			}
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
@@ -561,6 +577,7 @@ public class SQLReservationDAO implements ReservationDAO {
 			resultSet = preparedStatement.executeQuery();
 			result = resultSet.next();
 		} catch (SQLException e) {
+			logger.error("Database exception", e);
 			throw new DAOException(e);
 		} finally {
 			DatabaseHelper
