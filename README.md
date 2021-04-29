@@ -1,13 +1,13 @@
 # Hotel booking system
 > Note: This project is educational and not intended for commercial use
 
-Hotel booking system is a system that allows to search 
+Hotel booking system is a system that allows searching
 hotel rooms available for booking all around the world, book them
 and write review about your booking experience after check out. 
 Hotel owners can create hotel and room profiles, manage reservations.
 ## Features
 * Unregistered user can do:
-  * Search for available rooms using follwing filters:
+  * Search for available rooms using following filters:
     * Hotel location
     * Booking dates
     * Minimal number of beds
