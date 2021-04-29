@@ -1,5 +1,6 @@
 # Hotel booking system
 > Note: This project is educational and not intended for commercial use
+
 Hotel booking system is a system that allows to search 
 hotel rooms available for booking all around the world, book them
 and write review about your booking experience after check out. 
