@@ -11,9 +11,7 @@ import by.tc.task05.service.validator.ValidatorProvider;
 
 public class RoomValidatorImpl implements RoomValidator {
 
-	private final static int DEFAULT_PAGE = 1;
-	private final static int DEFAULT_PAGE_SIZE = 10;
-	private final static int MAX_PRICE = 1000000;
+	private final static double MAX_PRICE = 9999999999d;
 	private final static LocalDate MAXIMUM_DATE = LocalDate.parse("9999-12-31");
 
 
@@ -54,7 +52,6 @@ public class RoomValidatorImpl implements RoomValidator {
 			throw new InvalidPriceRangeException(NEGATIVE_PRICE_MSG);
 		}
 		if (!filter.isCostHighBoundInitialized()) {
-			//TODO write something better
 			filter.setCostHighBound(MAX_PRICE);
 		}
 		if (filter.getCostLowBound() > filter.getCostHighBound()) {

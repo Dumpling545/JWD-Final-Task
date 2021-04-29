@@ -26,4 +26,3 @@
                     document.getElementById("lang-form").submit();
                 }
             </script>
-            <!--<a href="https://icons8.com/">Cool icons by Icons8</a>-->
